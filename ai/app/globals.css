@@ -1,0 +1,415 @@
+@import 'tailwindcss';
+
+@plugin "tailwindcss-animate";
+
+/* 
+ * @file globals.css
+ * @description TribeAI global styles with dark-first theme
+ * and purple/blue gradients matching the WWW design system.
+ */
+
+/* --- 1. THEME CONFIGURATION --- */
+
+@theme {
+  --font-sans: var(--font-inter);
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+/* --- 2. BASE STYLES --- */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 217 91% 60%;
+    /* Blue */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    --chart-1: 262 83% 58%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 173 58% 39%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 240 10% 4%;
+    /* Near black */
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 217 91% 60%;
+    /* Blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 12%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 15%;
+    --input: 240 10% 15%;
+    --ring: 217 91% 60%;
+
+    --chart-1: 217 91% 60%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+}
+
+/* --- 3. UTILITIES --- */
+
+@layer utilities {
+  /* Scrollbar Utilities */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Glass Effects */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-white/5;
+  }
+
+  /* Accent Text */
+  .gradient-text {
+    @apply text-blue-400 font-semibold;
+  }
+
+  /* Purple Glow (kept name for compat, updated color) */
+  .glow-purple {
+    box-shadow: 0 0 60px -15px rgba(59, 130, 246, 0.5);
+  }
+
+  /* Blue Glow */
+  .glow-blue {
+    box-shadow: 0 0 60px -15px rgba(59, 130, 246, 0.5);
+  }
+
+  /* Subtle Grid Background */
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  }
+
+  /* Dot Pattern */
+  .bg-dots {
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px
+    );
+    background-size: 16px 16px;
+  }
+}
+
+/* --- 4. ANIMATIONS --- */
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  .animate-gradient {
+    animation: gradient-shift 8s ease infinite;
+    background-size: 200% 200%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 30px -10px rgba(59, 130, 246, 0.4);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 50px -10px rgba(59, 130, 246, 0.6);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* --- 5. CUSTOM SCROLLBAR --- */
+
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* --- 6. MARKDOWN PROSE STYLES FOR AI RESPONSES --- */
+
+.markdown-content {
+  @apply text-[15px] leading-[1.75];
+}
+
+/* Paragraphs */
+.markdown-content p {
+  @apply mb-4;
+}
+
+/* Links */
+.markdown-content a {
+  @apply text-purple-400 hover:text-purple-300 font-medium no-underline hover:underline underline-offset-4 transition-colors;
+}
+
+/* Bold text */
+.markdown-content strong {
+  @apply font-semibold text-white;
+}
+
+/* Italic/emphasis */
+.markdown-content em {
+  @apply text-zinc-300 italic;
+}
+
+/* Headings */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  @apply font-bold text-white mt-6 mb-3;
+}
+
+.markdown-content h1 {
+  @apply text-xl;
+}
+
+.markdown-content h2 {
+  @apply text-lg;
+}
+
+.markdown-content h3 {
+  @apply text-base;
+}
+
+/* Blockquotes */
+.markdown-content blockquote {
+  @apply border-l-4 border-purple-500 bg-purple-500/10 px-4 py-3 my-4 rounded-r-lg;
+}
+
+.markdown-content blockquote p {
+  @apply mb-0 text-zinc-200 italic;
+}
+
+/* Inline code */
+.markdown-content code {
+  @apply bg-purple-500/15 text-purple-300 px-1.5 py-0.5 rounded text-[13px] font-mono;
+}
+
+/* Code blocks */
+.markdown-content pre {
+  @apply bg-zinc-900 border border-white/5 p-4 rounded-xl overflow-x-auto my-4;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent p-0 text-zinc-300;
+}
+
+/* Unordered lists */
+.markdown-content ul {
+  @apply my-4 pl-0 list-none space-y-2;
+}
+
+.markdown-content ul li {
+  @apply relative pl-6 text-zinc-200;
+}
+
+.markdown-content ul li::before {
+  content: '';
+  @apply absolute left-0 top-[0.6em] w-1.5 h-1.5 bg-purple-400 rounded-full;
+}
+
+/* Ordered lists */
+.markdown-content ol {
+  @apply my-4 pl-0 list-none space-y-2;
+  counter-reset: list-counter;
+}
+
+.markdown-content ol li {
+  @apply relative pl-8 text-zinc-200;
+  counter-increment: list-counter;
+}
+
+.markdown-content ol li::before {
+  content: counter(list-counter) '.';
+  @apply absolute left-0 text-purple-400 font-semibold;
+}
+
+/* Horizontal rules */
+.markdown-content hr {
+  @apply my-6 border-0 h-px bg-white/10;
+}
+
+/* Tables */
+.markdown-content table {
+  @apply w-full my-4 border-collapse;
+}
+
+.markdown-content th {
+  @apply text-left font-semibold text-white bg-white/5 px-4 py-2 border-b border-white/10;
+}
+
+.markdown-content td {
+  @apply px-4 py-2 border-b border-white/5 text-zinc-300;
+}
+
+/* Quote-style for titles in parentheses or quotes */
+
+/* Headings H4-H6 */
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  @apply font-semibold text-white mt-4 mb-2 text-sm;
+}
+
+/* Definition lists (dl, dt, dd) */
+.markdown-content dl {
+  @apply my-4;
+}
+
+.markdown-content dt {
+  @apply font-semibold text-white mt-2;
+}
+
+.markdown-content dd {
+  @apply ml-4 text-zinc-300 mb-2;
+}

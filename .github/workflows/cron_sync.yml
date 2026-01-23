@@ -1,0 +1,16 @@
+name: Cron Sync Embeddings
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Sync Endpoint
+        run: |
+          curl -X POST "${{ secrets.AI_SERVICE_URL }}/api/sync" \
+          -H "x-api-key: ${{ secrets.SYNC_API_KEY }}" \
+          -H "Content-Type: application/json"

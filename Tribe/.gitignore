@@ -1,0 +1,13 @@
+# Ignore IDE And OS Files.
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Ignore Local Environment Files.
+.env
+.env.local
+
+# Ignore Composer Cache.
+vendor/
+docker-compose.yml

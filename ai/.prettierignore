@@ -1,0 +1,20 @@
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Dependencies
+node_modules/
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated files
+coverage/
+*.tsbuildinfo
+
+# Prisma generated
+prisma/generated/

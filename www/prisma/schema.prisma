@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("admin_users")
+}
+
+model FeaturedUniversity {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("featured_universities")
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  isSubscribed Boolean  @default(true)
+  source       String   @default("footer")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("newsletter_subscribers")
+}
+
+model PartnershipInquiry {
+  id             String   @id @default(uuid())
+  name           String
+  email          String
+  companyWebsite String?
+  role           String?
+  budgetRange    String?
+  message        String?
+  status         String   @default("pending")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("partnership_inquiries")
+}
+
+model UniversityRequest {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  school    String
+  classYear String?
+  phone     String?
+  instagram String?
+  message   String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("university_requests")
+}
+
+model post_embeddings {
+  id           String   @id
+  flarumPostId Int      @unique
+  discussionId Int
+  postNumber   Int
+  title        String
+  slug         String
+  content      String
+  username     String
+  isPrivate    Boolean  @default(false)
+  groupIds     Int[]    @default([])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+
+  @@index([createdAt])
+  @@index([discussionId])
+  @@index([isPrivate])
+}
+
+model search_cache {
+  id        String   @id
+  queryHash String   @unique
+  query     String
+  results   Json
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
+
+model sync_state {
+  id           String   @id @default("flarum_posts")
+  lastSyncedAt DateTime @default(now())
+  lastPostId   Int      @default(0)
+  postsIndexed Int      @default(0)
+  updatedAt    DateTime
+}
+
+model users {
+  id        String   @id
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}

@@ -1,0 +1,249 @@
+'use client'
+
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import {
+  Loader2,
+  Sparkles,
+  Building2,
+  Mail,
+  User,
+  Briefcase,
+  DollarSign,
+  MessageSquare,
+} from 'lucide-react'
+
+interface PartnershipFormProps {
+  onSuccess?: () => void
+}
+
+const ROLES = [
+  'Marketing Lead',
+  'Founder / CEO',
+  'Agency Partner',
+  'Brand Manager',
+  'Other',
+]
+
+const BUDGETS = [
+  'Under $5,000',
+  '$5,000 - $10,000',
+  '$10,000 - $25,000',
+  '$25,000 - $50,000',
+  '$50,000+',
+]
+
+/**
+ * Partnership inquiry form for brands/advertisers.
+ */
+export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    companyWebsite: '',
+    role: '',
+    budgetRange: '',
+    message: '',
+  })
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    setError(null)
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/partnerships', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || 'Something went wrong')
+      }
+
+      setIsSuccess(true)
+      onSuccess?.()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  if (isSuccess) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="text-center py-8"
+      >
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-purple-500/15 flex items-center justify-center">
+          <Sparkles className="w-8 h-8 text-purple-400" />
+        </div>
+        <h3 className="text-2xl font-bold text-white mb-2">
+          You&apos;re on the list!
+        </h3>
+        <p className="text-zinc-400">
+          We&apos;ll reach out soon to discuss how we can help your brand
+          connect with Gen Z.
+        </p>
+      </motion.div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Name */}
+      <div>
+        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+          <User className="w-4 h-4" />
+          Your Name <span className="text-pink-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="name"
+          required
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Jane Doe"
+          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+        />
+      </div>
+
+      {/* Email */}
+      <div>
+        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+          <Mail className="w-4 h-4" />
+          Work Email <span className="text-pink-500">*</span>
+        </label>
+        <input
+          type="email"
+          name="email"
+          required
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="jane@company.com"
+          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+        />
+      </div>
+
+      {/* Company Website */}
+      <div>
+        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+          <Building2 className="w-4 h-4" />
+          Company Website <span className="text-pink-500">*</span>
+        </label>
+        <input
+          type="url"
+          name="companyWebsite"
+          required
+          value={formData.companyWebsite}
+          onChange={handleChange}
+          placeholder="https://yourcompany.com"
+          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+        />
+      </div>
+
+      {/* Role */}
+      <div>
+        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+          <Briefcase className="w-4 h-4" />
+          Your Role <span className="text-pink-500">*</span>
+        </label>
+        <select
+          name="role"
+          required
+          value={formData.role}
+          onChange={handleChange}
+          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all appearance-none cursor-pointer"
+        >
+          <option value="">Select your role</option>
+          {ROLES.map((role) => (
+            <option key={role} value={role}>
+              {role}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Budget */}
+      <div>
+        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+          <DollarSign className="w-4 h-4" />
+          Campaign Budget <span className="text-pink-500">*</span>
+        </label>
+        <select
+          name="budgetRange"
+          required
+          value={formData.budgetRange}
+          onChange={handleChange}
+          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all appearance-none cursor-pointer"
+        >
+          <option value="">Select budget range</option>
+          {BUDGETS.map((budget) => (
+            <option key={budget} value={budget}>
+              {budget}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Message */}
+      <div>
+        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+          <MessageSquare className="w-4 h-4" />
+          How can we help your brand?
+        </label>
+        <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          rows={3}
+          placeholder="Tell us about your goals..."
+          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+        />
+      </div>
+
+      {/* Error */}
+      {error && (
+        <p className="text-red-400 text-sm bg-red-500/10 px-4 py-2 rounded-lg">
+          {error}
+        </p>
+      )}
+
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      >
+        {isSubmitting ? (
+          <>
+            <Loader2 className="w-5 h-5 animate-spin" />
+            Submitting...
+          </>
+        ) : (
+          <>
+            <Sparkles className="w-5 h-5" />
+            Join Partnership Waitlist
+          </>
+        )}
+      </button>
+    </form>
+  )
+}

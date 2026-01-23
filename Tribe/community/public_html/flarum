@@ -1,0 +1,4 @@
+<?php
+$site = require 'site.php';
+$server = new Flarum\Console\Server($site);
+$server->listen();

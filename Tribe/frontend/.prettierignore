@@ -1,0 +1,12 @@
+# Build outputs
+.next/
+
+# Dependencies
+node_modules/
+
+# Lock files
+pnpm-lock.yaml
+
+# Generated files
+coverage/
+*.tsbuildinfo

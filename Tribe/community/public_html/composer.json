@@ -1,0 +1,109 @@
+{
+    "name": "flarum/flarum",
+    "description": "Delightfully simple forum software.",
+    "type": "project",
+    "keywords": [
+        "forum",
+        "discussion"
+    ],
+    "homepage": "https://flarum.org/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Flarum",
+            "email": "info@flarum.org",
+            "homepage": "https://flarum.org/team"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum",
+        "docs": "https://docs.flarum.org/"
+    },
+    "require": {
+        "aws/aws-sdk-php": "^3.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "fof/s3-assets": "dev-master",
+        "acpl/mobile-tab": "^1.4.5",
+        "afrux/asirem": "^0.1.8",
+        "afrux/forum-widgets-core": "^0.1.7",
+        "afrux/news-widget": "^0.1.1",
+        "afrux/online-users-widget": "^0.1.9",
+        "antoinefr/flarum-ext-money": "^1.4",
+        "askvortsov/flarum-pwa": "dev-master",
+        "blomstra/database-queue": "^1.1",
+        "clarkwinkelmann/flarum-ext-anonymous-posting": "^1.1.1",
+        "clarkwinkelmann/flarum-ext-colorful-borders": "^1.0",
+        "clarkwinkelmann/flarum-ext-money-rewards": "^1.0",
+        "clarkwinkelmann/flarum-ext-money-to-all": "^1.0",
+        "clarkwinkelmann/flarum-ext-prominent-post-numbers": "^1.0.1",
+        "clarkwinkelmann/flarum-ext-vote-with-money": "^1.0",
+        "datlechin/flarum-birthdays-widget": "^0.1",
+        "davwheat/flarum-ext-share": "^1.1",
+        "dem13n/topic-starter-label": "^0.1.8",
+        "flarum/approval": "^1.8.2",
+        "flarum/bbcode": "^1.8",
+        "flarum/core": "^1.8.11",
+        "flarum/emoji": "^1.8.1",
+        "flarum/flags": "^1.8.2",
+        "flarum/lang-english": "^1.8",
+        "flarum/likes": "^1.8.1",
+        "flarum/lock": "^1.8.2",
+        "flarum/markdown": "^1.8.1",
+        "flarum/mentions": "^1.8.5",
+        "flarum/nicknames": "^1.8.2",
+        "flarum/pusher": "^1.8.1",
+        "flarum/statistics": "^1.8.1",
+        "flarum/sticky": "^1.8.2",
+        "flarum/subscriptions": "^1.8.1",
+        "flarum/suspend": "^1.8.4",
+        "flarum/tags": "^1.8.5",
+        "flarumtr/flarum-ext-mobile-search": "^1.2",
+        "flectar/flarum-fancybox": "^2.3",
+        "fof/analytics": "^1.1",
+        "fof/byobu": "^1.4.3",
+        "fof/discussion-views": "^1.0",
+        "fof/doorman": "^1.1.5",
+        "fof/gamification": "^1.6.8",
+        "fof/ignore-users": "^1.2.1",
+        "fof/linguist": "^1.1.6",
+        "fof/links": "^1.4",
+        "fof/nightmode": "^1.6",
+        "fof/reactions": "^1.4.1",
+        "fof/terms": "^1.4.2",
+        "fof/upload": "^1.8.7",
+        "fof/user-bio": "^1.4.2",
+        "gitzaai/mobile-ui-tab-2": "^0.1.0",
+        "hamcq/flarum-ext-auth-phone": "^1.0.9",
+        "ianm/boring-avatars": "^1.0.1",
+        "ianm/gravatar": "^0.2.1",
+        "justoverclock/flarum-ext-welcomebox": "^2.0.2",
+        "katosdev/automore": "^1.0",
+        "litalino/flarum-top-bar": "^1.5.1",
+        "matteocontrini/flarum-imgur-upload": "^3.9.1",
+        "mickmelon/flarum-ext-coloured-usernames": "^0.1.1",
+        "nearata/flarum-ext-gif-avatars": "^1",
+        "nearata/flarum-ext-remove-pane": "^2.1",
+        "ramesh-dada/realtime": "^100.2",
+        "sycho/flarum-private-facade": "^0.1.16",
+        "the-turk/flarum-nodp": "^1.0.1",
+        "therealsujitk/flarum-ext-gifs": "^4.1.1",
+        "ziiven/flarum-daily-check-in": "^0.3.7",
+        "ziiven/flarum-money-leaderboard": "^0.1.7",
+        "ziiven/money-transfer": "^0.2.5"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "repositories": {
+        "blomstra": {
+            "type": "vcs",
+            "url": "https://github.com/blomstra/flarum-pwa"
+        },
+        "extiverse": {
+            "type": "composer",
+            "url": "https://extiverse.com/composer/"
+        }
+    }
+}

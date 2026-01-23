@@ -1,0 +1,211 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-tribe-bg-base: #000000;
+  --color-tribe-bg-surface: #0a0a0a;
+  --color-tribe-bg-elevated: #111111;
+  --color-tribe-bg-card: rgba(255, 255, 255, 0.03);
+  --color-tribe-bg-card-hover: rgba(255, 255, 255, 0.08);
+
+  --color-tribe-text-primary: #f5f5f5;
+  --color-tribe-text-secondary: #a1a1aa;
+  --color-tribe-text-muted: #71717a;
+
+  --color-tribe-primary: #3b82f6;
+  --color-tribe-primary-hover: #2563eb;
+  --color-tribe-secondary: #10b981;
+
+  --color-tribe-border: rgba(255, 255, 255, 0.08);
+}
+
+:root {
+  --tribe-bg-base: var(--color-tribe-bg-base);
+  --tribe-bg-surface: var(--color-tribe-bg-surface);
+  --tribe-bg-elevated: var(--color-tribe-bg-elevated);
+  --tribe-bg-card: var(--color-tribe-bg-card);
+  --tribe-bg-card-hover: var(--color-tribe-bg-card-hover);
+  --tribe-text-primary: var(--color-tribe-text-primary);
+  --tribe-text-secondary: var(--color-tribe-text-secondary);
+  --tribe-text-muted: var(--color-tribe-text-muted);
+  --tribe-primary: var(--color-tribe-primary);
+  --tribe-secondary: var(--color-tribe-secondary);
+  --tribe-border: var(--color-tribe-border);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--tribe-bg-base);
+  color: var(--tribe-text-primary);
+  min-height: 100vh;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--tribe-primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: var(--tribe-text-primary);
+}
+
+/* Link hover effects */
+a {
+  transition: color 0.15s ease;
+}
+
+/* Card hover animation */
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Pulse glow animation */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Slide up animation for toasts */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Fade in animation for cards */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Slide in from left for mobile nav */
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.25s ease-out;
+}
+
+/* Scale on hover */
+.hover-scale {
+  transition: transform 0.15s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Pulse animation for loading */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* FontAwesome icon support */
+.fas,
+.far,
+.fab {
+  font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands', sans-serif;
+  font-weight: 900;
+}
