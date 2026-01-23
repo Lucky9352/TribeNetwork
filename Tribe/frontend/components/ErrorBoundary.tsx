@@ -4,7 +4,8 @@ import { ReactNode } from 'react'
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary'
 
 interface ErrorFallbackProps {
-  error: Error
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error: any
   resetErrorBoundary: () => void
 }
 
