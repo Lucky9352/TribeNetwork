@@ -219,6 +219,8 @@ a2enmod mpm_prefork
 
 # Run R2 Migration Script (if enabled via MIGRATE_TO_R2=true)
 if [ -f "/usr/local/bin/migrate-to-r2.sh" ]; then
+    export FILES_VOLUME
+    export AVATARS_VOLUME
     /usr/local/bin/migrate-to-r2.sh || echo "R2 migration skipped or failed."
 fi
 

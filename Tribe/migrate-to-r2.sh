@@ -38,8 +38,8 @@ acl = private
 EOF
 
 # Sync files from volume to R2
-FILES_DIR="/data/assets/files"
-AVATARS_DIR="/data/assets/avatars"
+FILES_DIR="${FILES_VOLUME:-/data/assets/files}"
+AVATARS_DIR="${AVATARS_VOLUME:-/data/assets/avatars}"
 
 if [ -d "$FILES_DIR" ] && [ "$(ls -A $FILES_DIR 2>/dev/null)" ]; then
     echo "Syncing files from $FILES_DIR to R2..."
