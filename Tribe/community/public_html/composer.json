@@ -86,7 +86,6 @@
         "nearata/flarum-ext-remove-pane": "^2.1",
         "ramesh-dada/realtime": "^100.2",
         "sycho/flarum-private-facade": "^0.1.16",
-        "the-turk/flarum-nodp": "^1.0.1",
         "therealsujitk/flarum-ext-gifs": "^4.1.1",
         "ziiven/flarum-daily-check-in": "^0.3.7",
         "ziiven/flarum-money-leaderboard": "^0.1.7",
