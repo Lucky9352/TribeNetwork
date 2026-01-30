@@ -92,13 +92,13 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
         animate={{ opacity: 1, scale: 1 }}
         className="text-center py-8"
       >
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-purple-500/15 flex items-center justify-center">
-          <Sparkles className="w-8 h-8 text-purple-400" />
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+          <Sparkles className="w-8 h-8 text-primary" />
         </div>
-        <h3 className="text-2xl font-bold text-white mb-2">
+        <h3 className="text-2xl font-bold text-foreground mb-2">
           You&apos;re on the list!
         </h3>
-        <p className="text-zinc-400">
+        <p className="text-muted-foreground">
           We&apos;ll reach out soon to discuss how we can help your brand
           connect with Gen Z.
         </p>
@@ -110,9 +110,9 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Name */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <User className="w-4 h-4" />
-          Your Name <span className="text-pink-500">*</span>
+          Your Name <span className="text-primary">*</span>
         </label>
         <input
           type="text"
@@ -121,15 +121,15 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
           value={formData.name}
           onChange={handleChange}
           placeholder="Jane Doe"
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
         />
       </div>
 
       {/* Email */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <Mail className="w-4 h-4" />
-          Work Email <span className="text-pink-500">*</span>
+          Work Email <span className="text-primary">*</span>
         </label>
         <input
           type="email"
@@ -138,15 +138,15 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
           value={formData.email}
           onChange={handleChange}
           placeholder="jane@company.com"
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
         />
       </div>
 
       {/* Company Website */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <Building2 className="w-4 h-4" />
-          Company Website <span className="text-pink-500">*</span>
+          Company Website <span className="text-primary">*</span>
         </label>
         <input
           type="url"
@@ -155,22 +155,22 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
           value={formData.companyWebsite}
           onChange={handleChange}
           placeholder="https://yourcompany.com"
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
         />
       </div>
 
       {/* Role */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <Briefcase className="w-4 h-4" />
-          Your Role <span className="text-pink-500">*</span>
+          Your Role <span className="text-primary">*</span>
         </label>
         <select
           name="role"
           required
           value={formData.role}
           onChange={handleChange}
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all appearance-none cursor-pointer"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer"
         >
           <option value="">Select your role</option>
           {ROLES.map((role) => (
@@ -183,16 +183,16 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
 
       {/* Budget */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <DollarSign className="w-4 h-4" />
-          Campaign Budget <span className="text-pink-500">*</span>
+          Campaign Budget <span className="text-primary">*</span>
         </label>
         <select
           name="budgetRange"
           required
           value={formData.budgetRange}
           onChange={handleChange}
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all appearance-none cursor-pointer"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer"
         >
           <option value="">Select budget range</option>
           {BUDGETS.map((budget) => (
@@ -205,7 +205,7 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
 
       {/* Message */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <MessageSquare className="w-4 h-4" />
           How can we help your brand?
         </label>
@@ -215,13 +215,13 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
           onChange={handleChange}
           rows={3}
           placeholder="Tell us about your goals..."
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
         />
       </div>
 
       {/* Error */}
       {error && (
-        <p className="text-red-400 text-sm bg-red-500/10 px-4 py-2 rounded-lg">
+        <p className="text-destructive text-sm bg-destructive/10 px-4 py-2 rounded-lg">
           {error}
         </p>
       )}
@@ -230,7 +230,7 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {isSubmitting ? (
           <>

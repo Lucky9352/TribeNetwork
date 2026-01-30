@@ -100,7 +100,7 @@ const NewsletterForm = () => {
           <Check className="w-5 h-5" />
           <span className="font-bold">You&apos;re subscribed!</span>
         </div>
-        <p className="text-gray-400 text-sm">
+        <p className="text-muted-foreground text-sm">
           Thanks for joining! We&apos;ll keep you updated on the latest
           features.
         </p>
@@ -111,7 +111,7 @@ const NewsletterForm = () => {
   return (
     <div className="max-w-md">
       <h3 className="font-bold text-lg mb-2">Stay updated</h3>
-      <p className="text-gray-400 text-sm mb-4">
+      <p className="text-muted-foreground text-sm mb-4">
         Get the latest updates on campus features and AI tools.
       </p>
       <form onSubmit={handleSubmit} className="relative">
@@ -121,7 +121,7 @@ const NewsletterForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           disabled={isSubmitting}
-          className="w-full bg-muted border border-border rounded-full py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
+          className="w-full bg-muted border border-border rounded-full py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50 text-foreground placeholder:text-muted-foreground"
         />
         <button
           type="submit"
@@ -129,13 +129,13 @@ const NewsletterForm = () => {
           className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
-            <Loader2 className="w-3 h-3 text-white animate-spin" />
+            <Loader2 className="w-3 h-3 text-primary-foreground animate-spin" />
           ) : (
-            <Send className="w-3 h-3 text-white" />
+            <Send className="w-3 h-3 text-primary-foreground" />
           )}
         </button>
       </form>
-      {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
+      {error && <p className="text-destructive text-xs mt-2">{error}</p>}
     </div>
   )
 }
@@ -177,7 +177,7 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-8">
             <Link href="/" className="inline-block">
               <span className="text-2xl font-black tracking-tighter text-primary">
-                Tribe.
+                Tribe Network
               </span>
             </Link>
             <NewsletterForm />
@@ -192,8 +192,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 text-xs">
+        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-muted-foreground text-xs">
             © {year} Tribe Network. All rights reserved.
           </p>
 

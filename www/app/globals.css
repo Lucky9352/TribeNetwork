@@ -103,6 +103,7 @@
   html {
     scroll-behavior: smooth;
     font-family: var(--font-inter);
+    overflow-x: hidden;
   }
 
   body {

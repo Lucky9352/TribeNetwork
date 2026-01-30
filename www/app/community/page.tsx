@@ -38,7 +38,7 @@ const FEATURES = [
     title: 'Anonymous by Default',
     description:
       'Share freely without revealing your identity. Your privacy is protected with end-to-end anonymity.',
-    color: 'bg-purple-500/10 text-purple-400',
+    color: 'bg-indigo-500/10 text-indigo-400',
   },
   {
     icon: MessageSquare,
@@ -66,14 +66,14 @@ const FEATURES = [
     title: 'Confessions Wall',
     description:
       'A safe space to share thoughts, feelings, and campus confessions without judgment.',
-    color: 'bg-pink-500/10 text-pink-400',
+    color: 'bg-red-500/10 text-red-400',
   },
   {
     icon: TrendingUp,
     title: 'Career & Placements',
     description:
       'Discuss internships, job openings, interview experiences, and career advice.',
-    color: 'bg-indigo-500/10 text-indigo-400',
+    color: 'bg-cyan-500/10 text-cyan-400',
   },
 ]
 
@@ -151,15 +151,10 @@ const FAQS = [
 
 const HeroSection = () => (
   <section className="relative min-h-[70vh] flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
-    <div className="absolute inset-0 -z-10">
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-[120px]" />
-    </div>
-
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-xs font-medium"
+      className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-medium"
     >
       <Users className="w-4 h-4" />
       JAIN University Student Forum
@@ -169,18 +164,18 @@ const HeroSection = () => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-[0.9] mb-6"
+      className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
     >
       Your Campus,
       <br />
-      <span className="text-purple-400">Connected.</span>
+      <span className="text-blue-400">Connected.</span>
     </motion.h1>
 
     <motion.p
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="text-zinc-400 text-lg md:text-xl max-w-2xl mb-10"
+      className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10"
     >
       An anonymous forum built for JAIN University students. Share confessions,
       find study groups, plan meetups, and connect with your campus community.
@@ -197,14 +192,14 @@ const HeroSection = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <button className="px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2">
+        <button className="px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2">
           <MessageSquare className="w-5 h-5" />
           Join the Forum
           <ArrowRight className="w-4 h-4" />
         </button>
       </a>
       <a href="#features">
-        <button className="px-8 py-4 border border-zinc-700 text-white font-semibold rounded-full hover:bg-zinc-800 transition-all">
+        <button className="px-8 py-4 border border-border text-foreground font-semibold rounded-full hover:bg-muted transition-all">
           Learn More
         </button>
       </a>
@@ -213,7 +208,7 @@ const HeroSection = () => (
 )
 
 const StatsSection = () => (
-  <section className="py-16 px-6 border-y border-zinc-800">
+  <section className="py-16 px-6 border-y border-border">
     <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
       {STATS.map((stat, i) => (
         <motion.div
@@ -224,9 +219,11 @@ const StatsSection = () => (
           transition={{ delay: i * 0.1 }}
           className="text-center"
         >
-          <stat.icon className="w-8 h-8 text-purple-400 mx-auto mb-3" />
-          <p className="text-4xl font-bold text-white mb-1">{stat.value}</p>
-          <p className="text-zinc-500 text-sm">{stat.label}</p>
+          <stat.icon className="w-8 h-8 text-blue-400 mx-auto mb-3" />
+          <p className="text-4xl font-bold text-foreground mb-1">
+            {stat.value}
+          </p>
+          <p className="text-muted-foreground text-sm">{stat.label}</p>
         </motion.div>
       ))}
     </div>
@@ -242,10 +239,10 @@ const FeaturesSection = () => (
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4">
-          Everything You <span className="text-purple-400">Need</span>
+        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+          Everything You <span className="text-blue-400">Need</span>
         </h2>
-        <p className="text-zinc-400 max-w-2xl mx-auto">
+        <p className="text-muted-foreground max-w-2xl mx-auto">
           Built specifically for university students. Every feature designed to
           make campus life better.
         </p>
@@ -259,17 +256,19 @@ const FeaturesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 hover:border-purple-500/50 transition-all group"
+            className="bg-card/50 border border-border rounded-2xl p-6 hover:border-blue-500/50 transition-all group"
           >
             <div
               className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
             >
               <feature.icon className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               {feature.title}
             </h3>
-            <p className="text-zinc-400 text-sm">{feature.description}</p>
+            <p className="text-muted-foreground text-sm">
+              {feature.description}
+            </p>
           </motion.div>
         ))}
       </div>
@@ -279,7 +278,7 @@ const FeaturesSection = () => (
 
 const CategoriesSection = () => (
   <section className="py-20 px-6 relative">
-    <div className="absolute inset-0 -z-10 bg-purple-900/5" />
+    <div className="absolute inset-0 -z-10 bg-blue-900/5" />
     <div className="max-w-6xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -287,10 +286,10 @@ const CategoriesSection = () => (
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4">
-          Discussion <span className="text-pink-400">Categories</span>
+        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+          Discussion <span className="text-indigo-400">Categories</span>
         </h2>
-        <p className="text-zinc-400 max-w-2xl mx-auto">
+        <p className="text-muted-foreground max-w-2xl mx-auto">
           Find exactly what you&apos;re looking for. Every topic has its place.
         </p>
       </motion.div>
@@ -303,12 +302,14 @@ const CategoriesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-5 hover:border-purple-500/50 transition-all"
+            className="bg-card/50 border border-border rounded-xl p-5 hover:border-blue-500/50 transition-all"
           >
             <div className="text-3xl mb-3">{cat.emoji}</div>
-            <h3 className="text-white font-bold mb-1">{cat.name}</h3>
-            <p className="text-zinc-500 text-sm mb-2">{cat.description}</p>
-            <p className="text-purple-400 text-xs font-medium">
+            <h3 className="text-foreground font-bold mb-1">{cat.name}</h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              {cat.description}
+            </p>
+            <p className="text-blue-400 text-xs font-medium">
               {cat.posts} posts
             </p>
           </motion.div>
@@ -330,8 +331,8 @@ const FAQSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4">
-            Frequently Asked <span className="text-cyan-400">Questions</span>
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+            Frequently Asked <span className="text-emerald-400">Questions</span>
           </h2>
         </motion.div>
 
@@ -343,19 +344,21 @@ const FAQSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden"
+              className="bg-card/50 border border-border rounded-xl overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="w-full p-5 flex items-center justify-between text-left"
               >
-                <span className="font-medium text-white">{faq.question}</span>
+                <span className="font-medium text-foreground">
+                  {faq.question}
+                </span>
                 <ChevronDown
-                  className={`w-5 h-5 text-zinc-400 transition-transform ${openIndex === i ? 'rotate-180' : ''}`}
+                  className={`w-5 h-5 text-muted-foreground transition-transform ${openIndex === i ? 'rotate-180' : ''}`}
                 />
               </button>
               {openIndex === i && (
-                <div className="px-5 pb-5 text-zinc-400 text-sm">
+                <div className="px-5 pb-5 text-muted-foreground text-sm">
                   {faq.answer}
                 </div>
               )}
@@ -373,14 +376,14 @@ const CTASection = () => (
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      className="max-w-4xl mx-auto bg-purple-900/30 border border-purple-500/20 rounded-3xl p-12 text-center relative overflow-hidden"
+      className="max-w-4xl mx-auto bg-blue-900/30 border border-blue-500/20 rounded-3xl p-12 text-center relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-purple-500/5" />
-      <Award className="w-16 h-16 text-purple-400 mx-auto mb-6 relative z-10" />
-      <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 relative z-10">
+      <div className="absolute inset-0 bg-blue-500/5" />
+      <Award className="w-16 h-16 text-blue-400 mx-auto mb-6 relative z-10" />
+      <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4 relative z-10">
         Ready to Join?
       </h2>
-      <p className="text-zinc-400 max-w-lg mx-auto mb-8 relative z-10">
+      <p className="text-muted-foreground max-w-lg mx-auto mb-8 relative z-10">
         Connect with thousands of JAIN University students. Start your first
         discussion today.
       </p>
@@ -390,7 +393,7 @@ const CTASection = () => (
         rel="noopener noreferrer"
         className="relative z-10"
       >
-        <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto">
+        <button className="px-8 py-4 bg-foreground text-background font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto">
           <Users className="w-5 h-5" />
           Join Tribe Community
         </button>
@@ -404,7 +407,7 @@ const CTASection = () => (
  */
 export default function CommunityPage() {
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-purple-500/30">
+    <main className="min-h-screen bg-background text-foreground selection:bg-blue-500/30">
       <Navbar />
       <Grain />
 

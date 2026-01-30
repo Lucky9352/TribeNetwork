@@ -88,13 +88,13 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
         animate={{ opacity: 1, scale: 1 }}
         className="text-center py-8"
       >
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-500/15 flex items-center justify-center">
-          <GraduationCap className="w-8 h-8 text-blue-400" />
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+          <GraduationCap className="w-8 h-8 text-primary" />
         </div>
-        <h3 className="text-2xl font-bold text-white mb-2">
+        <h3 className="text-2xl font-bold text-foreground mb-2">
           Request Submitted!
         </h3>
-        <p className="text-zinc-400">
+        <p className="text-muted-foreground">
           Thanks for your interest! We&apos;ll review your request and get back
           to you soon.
         </p>
@@ -106,9 +106,9 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Name */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <User className="w-4 h-4" />
-          Your Name <span className="text-cyan-500">*</span>
+          Your Name <span className="text-primary">*</span>
         </label>
         <input
           type="text"
@@ -117,15 +117,15 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
           value={formData.name}
           onChange={handleChange}
           placeholder="Your full name"
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
         />
       </div>
 
       {/* Email */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <Mail className="w-4 h-4" />
-          Email <span className="text-cyan-500">*</span>
+          Email <span className="text-primary">*</span>
         </label>
         <input
           type="email"
@@ -134,15 +134,15 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
           value={formData.email}
           onChange={handleChange}
           placeholder="you@university.edu"
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
         />
       </div>
 
       {/* School */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <School className="w-4 h-4" />
-          School / University <span className="text-cyan-500">*</span>
+          School / University <span className="text-primary">*</span>
         </label>
         <input
           type="text"
@@ -151,22 +151,22 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
           value={formData.school}
           onChange={handleChange}
           placeholder="XYZ University"
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
         />
       </div>
 
       {/* Class Year */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <GraduationCap className="w-4 h-4" />
-          Class Year <span className="text-cyan-500">*</span>
+          Class Year <span className="text-primary">*</span>
         </label>
         <select
           name="classYear"
           required
           value={formData.classYear}
           onChange={handleChange}
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all appearance-none cursor-pointer"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer"
         >
           <option value="">Select class year</option>
           {CLASS_YEARS.map((year) => (
@@ -180,9 +180,9 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
       {/* Phone & Instagram - side by side */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+          <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
             <Phone className="w-4 h-4" />
-            Phone <span className="text-cyan-500">*</span>
+            Phone <span className="text-primary">*</span>
           </label>
           <input
             type="tel"
@@ -191,13 +191,13 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.phone}
             onChange={handleChange}
             placeholder="+91 9876543210"
-            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
           />
         </div>
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+          <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
             <Instagram className="w-4 h-4" />
-            Instagram <span className="text-cyan-500">*</span>
+            Instagram <span className="text-primary">*</span>
           </label>
           <input
             type="text"
@@ -206,14 +206,14 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.instagram}
             onChange={handleChange}
             placeholder="@yourhandle"
-            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
           />
         </div>
       </div>
 
       {/* Message */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-2">
+        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
           <MessageSquare className="w-4 h-4" />
           Why should Tribe come to your campus?
         </label>
@@ -223,13 +223,13 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
           onChange={handleChange}
           rows={3}
           placeholder="Tell us about your community..."
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all resize-none"
+          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
         />
       </div>
 
       {/* Error */}
       {error && (
-        <p className="text-red-400 text-sm bg-red-500/10 px-4 py-2 rounded-lg">
+        <p className="text-destructive text-sm bg-destructive/10 px-4 py-2 rounded-lg">
           {error}
         </p>
       )}
@@ -238,7 +238,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {isSubmitting ? (
           <>

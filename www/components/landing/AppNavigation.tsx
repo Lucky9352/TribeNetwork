@@ -45,11 +45,11 @@ const FEED_ITEMS: PostData[] = [
     id: 'post-community',
     author: 'Tribe Community',
     handle: 'community',
-    avatarColor: 'bg-purple-500/20',
+    avatarColor: 'bg-blue-500/20',
     content:
       'We are building the largest network of campus communities. Connect, share, and grow with peers from 100+ universities! 🎓✨',
     tag: 'Community',
-    tagColor: 'bg-purple-500/20 text-purple-400',
+    tagColor: 'bg-blue-500/20 text-blue-400',
     stats: { likes: '5.2k', comments: '420' },
     href: siteConfig.urls.community,
   },
@@ -93,11 +93,11 @@ const FEED_ITEMS: PostData[] = [
     id: 'post-lifestyle',
     author: 'Bangalore Vibes',
     handle: 'blr_student_life',
-    avatarColor: 'bg-pink-500/20',
+    avatarColor: 'bg-indigo-500/20',
     content:
       'Best study spot detected: Third Wave Coffee, Koramangala. ☕️📚 Quiet, good wifi, great coffee.',
     tag: 'Lifestyle',
-    tagColor: 'bg-pink-500/20 text-pink-400',
+    tagColor: 'bg-indigo-500/20 text-indigo-400',
     stats: { likes: '2.1k', comments: '34' },
     href: siteConfig.urls.community,
   },
@@ -105,9 +105,9 @@ const FEED_ITEMS: PostData[] = [
 
 const CommunityHeader = () => (
   <div className="absolute top-0 left-0 right-0 z-40 px-5 pt-5 pb-4 flex items-center justify-between pointer-events-none bg-black/80 backdrop-blur-md border-b border-white/5">
-    <h1 className="text-xl font-bold text-purple-400 mt-1">Tribe</h1>
-    <div className="w-8 h-8 rounded-full bg-purple-500/20 border border-white/20 flex items-center justify-center">
-      <span className="text-[10px] font-bold text-purple-300">JD</span>
+    <h1 className="text-xl font-bold text-blue-400 mt-1">Tribe</h1>
+    <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-white/20 flex items-center justify-center">
+      <span className="text-[10px] font-bold text-blue-300">JD</span>
     </div>
   </div>
 )

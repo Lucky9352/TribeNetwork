@@ -37,6 +37,7 @@ interface ScrollSectionData {
   color: string
   icon: LucideIcon
   href: string
+  internalHref: string
   Screen: React.ElementType
   card: {
     title: string
@@ -54,15 +55,16 @@ const SCROLL_SECTIONS: ScrollSectionData[] = [
     subtitle: 'Community',
     description:
       'An anonymous forum built for JAIN University students. Share confessions, find study groups, plan meetups, and connect with your campus community.',
-    color: 'purple',
+    color: 'blue',
     icon: Users,
     href: siteConfig.urls.community,
+    internalHref: '/community',
     Screen: CommunityScreen,
     card: {
       title: 'Tribe Forum',
       subtitle: 'Anonymous discussions. Real connections.',
       icon: Users,
-      gradient: 'bg-purple-500/15 text-purple-400',
+      gradient: 'bg-blue-500/15 text-blue-400',
       delay: 0,
     },
   },
@@ -72,15 +74,16 @@ const SCROLL_SECTIONS: ScrollSectionData[] = [
     subtitle: 'Tribe AI',
     description:
       'Ask anything about campus life. Our AI searches across thousands of forum discussions to find students with similar interests, study partners, and answers.',
-    color: 'blue',
+    color: 'cyan',
     icon: BrainCircuit,
     href: siteConfig.urls.ai,
+    internalHref: '/ai',
     Screen: AIScreen,
     card: {
       title: 'Tribe AI',
       subtitle: 'Smart search across all discussions.',
       icon: Sparkles,
-      gradient: 'bg-blue-500/15 text-blue-400',
+      gradient: 'bg-cyan-500/15 text-cyan-400',
       delay: 0,
     },
   },
@@ -93,6 +96,7 @@ const SCROLL_SECTIONS: ScrollSectionData[] = [
     color: 'green',
     icon: Megaphone,
     href: siteConfig.urls.advertise,
+    internalHref: '/advertise',
     Screen: AdvertiseScreen,
     card: {
       title: 'Tribe Advertise',
@@ -252,7 +256,7 @@ function SectionText({
             dimmed: { opacity: 0.4, y: 0 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
           }}
-          className="text-xl text-gray-400 font-light leading-relaxed"
+          className="text-xl text-muted-foreground font-light leading-relaxed"
         >
           {section.description}
         </motion.p>
@@ -264,7 +268,7 @@ function SectionText({
           }}
           className="flex items-center gap-4 pt-2"
         >
-          <Link href={section.href}>
+          <Link href={section.internalHref}>
             <span
               className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-${section.color}-500/30 text-${section.color}-400 text-sm font-medium hover:bg-${section.color}-500/10 transition-all cursor-pointer`}
             >
@@ -322,15 +326,15 @@ const MobileLayout = () => (
   <div className="lg:hidden space-y-20 py-20 px-6">
     {SCROLL_SECTIONS.map((section) => (
       <div key={section.id} className="space-y-8">
-        <div className="aspect-9/16 w-full max-w-[300px] mx-auto overflow-hidden rounded-4xl border border-white/10 shadow-2xl relative">
+        <div className="aspect-9/16 w-full max-w-[300px] mx-auto overflow-hidden rounded-4xl border border-border shadow-2xl relative">
           <section.Screen />
         </div>
         <div className="text-center">
           <h2 className="text-4xl font-bold mb-4">{section.title}</h2>
-          <p className="text-gray-400 mb-6">{section.description}</p>
+          <p className="text-muted-foreground mb-6">{section.description}</p>
           <Link
-            href={section.href}
-            className="inline-flex items-center text-white border-b border-white pb-1"
+            href={section.internalHref}
+            className="inline-flex items-center text-foreground border-b border-foreground pb-1"
           >
             Explore {section.subtitle} <ArrowRight className="ml-2 w-4 h-4" />
           </Link>

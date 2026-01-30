@@ -36,7 +36,7 @@ const FEED_DATA: Post[] = [
     user: {
       name: 'Anonymous',
       handle: '@confession',
-      avatarGradient: 'bg-pink-500/20',
+      avatarGradient: 'bg-zinc-800',
     },
     time: '2h',
     content: (
@@ -49,7 +49,7 @@ const FEED_DATA: Post[] = [
     comments: '47',
     views: '2.1k',
     tag: 'confession',
-    tagColor: 'bg-pink-500/20 text-pink-400',
+    tagColor: 'bg-zinc-800 text-zinc-300',
   },
   {
     id: 'post-2',
@@ -78,7 +78,7 @@ const FEED_DATA: Post[] = [
       <>
         Weekend trip to Nandi Hills anyone? 🏔️ Planning for Saturday 6 AM start.
         DM if interested!
-        <span className="text-purple-400"> #meetup</span>
+        <span className="text-blue-400"> #meetup</span>
       </>
     ),
     likes: '156',
@@ -142,7 +142,7 @@ const MobileHeader = () => (
         JAIN University
       </span>
     </div>
-    <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
+    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
       <span className="text-xs">🎓</span>
     </div>
   </div>

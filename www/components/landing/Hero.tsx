@@ -162,10 +162,6 @@ const HeroVisual = () => (
     <PhoneMockup hideHeader={true}>
       <AppNavigation />
     </PhoneMockup>
-
-    {/* Decorative Elements around phone */}
-    <div className="absolute -z-10 top-20 -right-20 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px]" />
-    <div className="absolute -z-10 -bottom-10 -left-10 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px]" />
   </motion.div>
 )
 
@@ -182,9 +178,7 @@ export default function Hero({
       <ParallaxBackground />
 
       {/* Ambient Glow */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[120px]" />
-      </div>
+      <div className="absolute inset-0 z-0 pointer-events-none"></div>
 
       <div className="relative z-10 w-full px-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
         {/* LEFT SIDE: Headings + Description */}
@@ -202,7 +196,7 @@ export default function Hero({
       </div>
 
       {/* "Background Running Thing" - Full Width Topic Marquee */}
-      <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 z-0 opacity-100 pointer-events-none">
+      <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 z-0 opacity-100 pointer-events-none max-w-[100vw] overflow-hidden">
         <TopicMarquee />
       </div>
     </section>
