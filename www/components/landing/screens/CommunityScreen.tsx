@@ -223,9 +223,9 @@ const FeedPost = ({ post, index }: { post: Post; index: number }) => (
  */
 export default function CommunityScreen() {
   return (
-    <div className="w-full h-full bg-transparent text-white overflow-hidden flex flex-col font-sans rounded-[2.5rem] relative">
+    <div className="w-full h-full bg-transparent text-white overflow-hidden font-sans rounded-[2.5rem] relative">
       <UnifiedHeader />
-      <div className="flex-1 overflow-y-auto no-scrollbar p-0 space-y-0 pb-20 mask-gradient-b">
+      <div className="h-full overflow-y-auto no-scrollbar p-0 space-y-0 pt-16 pb-20 mask-gradient-b">
         {FEED_DATA.map((post, i) => (
           <div key={post.id} className="w-full">
             <FeedPost post={post} index={i} />

@@ -206,7 +206,7 @@ const BottomNav = ({
 )
 
 const FeedList = () => (
-  <div className="px-4 py-4 space-y-4 pt-20 pb-20 overflow-y-auto no-scrollbar h-full">
+  <div className="px-4 py-4 space-y-4 pt-16 pb-20 overflow-y-auto no-scrollbar h-full">
     {FEED_ITEMS.map((post, index) => (
       <PostCard key={post.id} post={post} index={index} />
     ))}

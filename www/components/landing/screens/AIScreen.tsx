@@ -209,13 +209,13 @@ const InputArea = () => (
  */
 export default function AIScreen() {
   return (
-    <div className="w-full h-full bg-transparent text-white flex flex-col relative overflow-hidden font-sans rounded-[2.5rem]">
+    <div className="w-full h-full bg-transparent text-white relative overflow-hidden font-sans rounded-[2.5rem]">
       <UnifiedHeader />
       <Link
         href={siteConfig.urls.ai}
-        className="flex-1 flex flex-col min-h-0 cursor-pointer"
+        className="w-full h-full flex flex-col min-h-0 cursor-pointer"
       >
-        <div className="flex-1 p-4 space-y-4 overflow-y-auto no-scrollbar pb-20 mask-gradient-b">
+        <div className="flex-1 p-4 space-y-4 overflow-y-auto no-scrollbar pt-16 pb-20 mask-gradient-b">
           {MESSAGES.map((msg, i) => (
             <div
               key={i}

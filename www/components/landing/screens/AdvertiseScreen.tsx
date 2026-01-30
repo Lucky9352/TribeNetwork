@@ -132,13 +132,13 @@ const ActiveCampaignCard = () => (
  */
 export default function AdvertiseScreen() {
   return (
-    <div className="w-full h-full bg-transparent text-white flex flex-col relative overflow-hidden font-sans rounded-[2.5rem]">
+    <div className="w-full h-full bg-transparent text-white relative overflow-hidden font-sans rounded-[2.5rem]">
       <UnifiedHeader />
       <Link
         href={siteConfig.urls.advertise}
-        className="block h-full overflow-hidden cursor-pointer transition-colors flex-1 min-h-0"
+        className="block h-full overflow-hidden cursor-pointer transition-colors"
       >
-        <div className="p-4 space-y-4 overflow-y-auto no-scrollbar h-full pb-20 mask-gradient-b">
+        <div className="p-4 space-y-4 overflow-y-auto no-scrollbar h-full pt-16 pb-20 mask-gradient-b">
           <MainStatCard />
           <GridStats />
           <ActiveCampaignCard />
