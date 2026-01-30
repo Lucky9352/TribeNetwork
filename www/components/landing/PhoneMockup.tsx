@@ -135,7 +135,7 @@ const AppHeader = () => (
 
     <h1 className="text-xl font-bold text-purple-400 mt-1">Tribe</h1>
     <div className="w-8 h-8 rounded-full bg-purple-500/20 border border-white/20 flex items-center justify-center">
-      <span className="text-[10px] font-bold text-purple-300">JD</span>
+      <span className="text-[10px] font-bold text-purple-300">TN</span>
     </div>
   </div>
 )
@@ -188,27 +188,10 @@ export default function PhoneMockup({
                     `,
         }}
       >
-        {/* Metallic Shimmer Reflection */}
-        <motion.div
-          initial={{ x: '-100%', opacity: 0 }}
-          animate={{ x: '200%', opacity: [0, 0.4, 0] }}
-          transition={{
-            repeat: Infinity,
-            duration: 5,
-            ease: 'easeInOut',
-            repeatDelay: 2,
-          }}
-          className="absolute inset-[-14px] bg-white/5 z-50 pointer-events-none rounded-[68px]"
-          style={{ mixBlendMode: 'overlay' }}
-        />
-
         <HardwareButtons />
 
         {/* Screen Container */}
-        <div
-          className="absolute inset-0 rounded-[50px] overflow-hidden z-20 backface-hidden"
-          style={{ transform: 'translateZ(0)' }}
-        >
+        <div className="absolute inset-0 rounded-[50px] overflow-hidden z-20">
           <DynamicIsland notification={notification} />
           {!hideHeader && <AppHeader />}
 

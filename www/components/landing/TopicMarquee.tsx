@@ -28,8 +28,8 @@ const MARQUEE_ROW_1: MarqueeItemData[] = [
   {
     type: 'pill',
     content: 'CRUSH',
-    color: 'bg-purple-500',
-    textColor: 'text-purple-100',
+    color: 'bg-indigo-500',
+    textColor: 'text-indigo-100',
   },
   { type: 'text', content: 'BE SUPPORTIVE' },
   {

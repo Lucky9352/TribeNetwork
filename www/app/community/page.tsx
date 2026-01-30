@@ -157,7 +157,7 @@ const HeroSection = () => (
       className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-medium"
     >
       <Users className="w-4 h-4" />
-      JAIN University Student Forum
+      Student Forum
     </motion.div>
 
     <motion.h1
@@ -177,8 +177,8 @@ const HeroSection = () => (
       transition={{ delay: 0.2 }}
       className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10"
     >
-      An anonymous forum built for JAIN University students. Share confessions,
-      find study groups, plan meetups, and connect with your campus community.
+      An anonymous forum built for University students. Share confessions, find
+      study groups, plan meetups, and connect with your campus community.
     </motion.p>
 
     <motion.div
@@ -384,8 +384,8 @@ const CTASection = () => (
         Ready to Join?
       </h2>
       <p className="text-muted-foreground max-w-lg mx-auto mb-8 relative z-10">
-        Connect with thousands of JAIN University students. Start your first
-        discussion today.
+        Connect with thousands of students from your university. Start your
+        first discussion today.
       </p>
       <a
         href={siteConfig.urls.community}

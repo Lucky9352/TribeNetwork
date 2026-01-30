@@ -95,9 +95,8 @@ interface FinalCTAProps {
 const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
   return (
     <section className="py-32 md:py-40 text-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
       <div className="relative z-10 max-w-4xl mx-auto px-6">
-        <AnimatedTitle text="READY TO JOIN?" />
+        <AnimatedTitle text="READY FOR TRANSFORMATION?" />
 
         <motion.p
           initial={{ opacity: 0 }}
@@ -106,8 +105,9 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
           transition={{ delay: 0.3 }}
           className="text-muted-foreground text-lg md:text-xl mb-12 max-w-2xl mx-auto"
         >
-          Whether you&apos;re a brand looking to connect with Gen Z or a student
-          wanting Tribe at your school — let&apos;s talk.
+          Whether you represent an institution seeking digital evolution or a
+          partner aiming for impact within the academic ecosystem — let&apos;s
+          collaborate.
         </motion.p>
 
         <motion.div
@@ -121,10 +121,10 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
           <Button
             onClick={onOpenPartnership}
             size="lg"
-            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-all"
+            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-all bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/20 border border-white/10"
           >
             <Building2 className="w-5 h-5" />
-            Partner With Us
+            Institutional Partnerships
           </Button>
 
           {/* University CTA */}
@@ -132,10 +132,10 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
             onClick={onOpenUniversity}
             variant="secondary"
             size="lg"
-            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-all bg-emerald-600 hover:bg-emerald-500 text-white"
+            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-all bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20 border border-white/10"
           >
             <GraduationCap className="w-5 h-5" />
-            Bring Tribe to Campus
+            Deploy At Your Campus
           </Button>
         </motion.div>
       </div>
@@ -179,7 +179,7 @@ export default function LandingPage() {
       <Modal
         isOpen={isPartnershipOpen}
         onClose={() => setIsPartnershipOpen(false)}
-        title="Partner With Tribe"
+        title="Institutional Partnership Inquiry"
       >
         <PartnershipForm onSuccess={() => {}} />
       </Modal>
@@ -188,7 +188,7 @@ export default function LandingPage() {
       <Modal
         isOpen={isUniversityOpen}
         onClose={() => setIsUniversityOpen(false)}
-        title="Bring Tribe to Your Campus"
+        title="Deploy At Your Campus"
       >
         <UniversityForm onSuccess={() => {}} />
       </Modal>

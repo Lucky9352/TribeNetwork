@@ -5,6 +5,7 @@ import { Heart, MessageCircle, Share2, Eye, User } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
+import { UnifiedHeader } from '@/components/landing/screens/UnifiedHeader'
 
 /**
  * @file CommunityScreen.tsx
@@ -42,7 +43,7 @@ const FEED_DATA: Post[] = [
     content: (
       <>
         That moment when you accidentally unmute yourself during online class
-        while roasting the professor 💀 Anyone else from JC campus relate?
+        while roasting the professor 💀 Anyone else from JU campus relate?
       </>
     ),
     likes: '324',
@@ -132,22 +133,6 @@ const FEED_DATA: Post[] = [
   },
 ]
 
-const MobileHeader = () => (
-  <div className="h-14 border-b border-white/10 flex items-center justify-between px-4 shrink-0 bg-zinc-950 z-10 sticky top-0">
-    <div className="flex flex-col">
-      <span className="font-bold text-lg tracking-tight leading-none">
-        Tribe
-      </span>
-      <span className="text-[10px] text-zinc-500 leading-none mt-1">
-        JAIN University
-      </span>
-    </div>
-    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
-      <span className="text-xs">🎓</span>
-    </div>
-  </div>
-)
-
 const PostTag = ({ tag, color }: { tag: string; color: string }) => (
   <span
     className={`text-[10px] px-2 py-0.5 rounded-full ${color} uppercase tracking-wider`}
@@ -192,7 +177,7 @@ const FeedPost = ({ post, index }: { post: Post; index: number }) => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
-      className="p-4 border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer text-left"
+      className="p-4 border-b border-white/5 transition-colors cursor-pointer text-left"
     >
       <div className="flex gap-3 mb-2">
         <div
@@ -238,11 +223,13 @@ const FeedPost = ({ post, index }: { post: Post; index: number }) => (
  */
 export default function CommunityScreen() {
   return (
-    <div className="w-full h-full bg-zinc-950 text-white overflow-hidden flex flex-col font-sans">
-      <MobileHeader />
-      <div className="flex-1 overflow-y-auto no-scrollbar p-0 space-y-0 pb-10">
+    <div className="w-full h-full bg-transparent text-white overflow-hidden flex flex-col font-sans rounded-[2.5rem] relative">
+      <UnifiedHeader />
+      <div className="flex-1 overflow-y-auto no-scrollbar p-0 space-y-0 pb-20 mask-gradient-b">
         {FEED_DATA.map((post, i) => (
-          <FeedPost key={post.id} post={post} index={i} />
+          <div key={post.id} className="w-full">
+            <FeedPost post={post} index={i} />
+          </div>
         ))}
       </div>
     </div>

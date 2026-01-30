@@ -95,7 +95,7 @@ const USE_CASES = [
     icon: '📚',
   },
   {
-    query: '"Best cafes near JC campus?"',
+    query: '"Best cafes near JU campus?"',
     result: 'Shows recommendations and reviews from real students',
     icon: '☕',
   },

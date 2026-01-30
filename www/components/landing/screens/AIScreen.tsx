@@ -1,10 +1,11 @@
 'use client'
 
 import React from 'react'
-import { Send, Sparkles, ExternalLink } from 'lucide-react'
+import { Send, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
+import { UnifiedHeader } from '@/components/landing/screens/UnifiedHeader'
 
 /**
  * @file AIScreen.tsx
@@ -47,7 +48,7 @@ const MESSAGES: ChatMessage[] = [
         title: 'Guitar lessons?',
         user: '@beginner_axe',
         snippet:
-          'Does anyone know a good guitar teacher near JC campus? Want to learn electric...',
+          'Does anyone know a good guitar teacher near JU campus? Want to learn electric...',
       },
     ],
   },
@@ -92,18 +93,6 @@ const MESSAGES: ChatMessage[] = [
   },
 ]
 
-const Header = () => (
-  <div className="h-14 border-b border-white/10 flex items-center justify-between px-4 shrink-0 bg-zinc-950 z-10 relative">
-    <span className="font-bold text-lg flex items-center gap-2">
-      <Sparkles className="w-4 h-4 text-blue-400" />
-      Tribe AI
-    </span>
-    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
-      <span className="text-xs text-blue-400">AI</span>
-    </div>
-  </div>
-)
-
 const ForumResultCard = ({
   result,
   index,
@@ -115,16 +104,18 @@ const ForumResultCard = ({
     initial={{ opacity: 0, x: -10 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ delay: 0.8 + index * 0.2 }}
-    className="bg-zinc-700/50 rounded-xl p-3 border border-white/5"
+    className="bg-transparent rounded-r-xl border-l-2 border-blue-500/30 pl-3 py-1 group"
   >
     <div className="flex items-start justify-between gap-2">
       <div className="flex-1">
-        <p className="text-xs font-medium text-white mb-1">{result.title}</p>
+        <p className="text-xs font-medium text-white mb-1 group-hover:text-blue-200 transition-colors">
+          {result.title}
+        </p>
         <p className="text-[10px] text-zinc-400">by {result.user}</p>
       </div>
-      <ExternalLink className="w-3 h-3 text-blue-400 shrink-0 mt-0.5" />
+      <ExternalLink className="w-3 h-3 text-zinc-500 group-hover:text-blue-400 shrink-0 mt-0.5 transition-colors" />
     </div>
-    <p className="text-[11px] text-zinc-400 mt-2 line-clamp-2">
+    <p className="text-[11px] text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
       {result.snippet}
     </p>
   </motion.div>
@@ -146,10 +137,10 @@ const MessageBubble = ({
       className={`flex ${isAi ? 'justify-start' : 'justify-end'}`}
     >
       <div
-        className={`px-4 py-3 max-w-[95%] text-sm leading-relaxed ${
+        className={`px-5 py-3 text-sm leading-relaxed ${
           isAi
-            ? 'bg-zinc-800 text-zinc-200 rounded-2xl rounded-tl-sm'
-            : 'bg-blue-600 text-white rounded-2xl rounded-tr-sm'
+            ? 'bg-transparent text-zinc-200 pl-0 w-full'
+            : 'bg-zinc-800 text-white rounded-[20px] max-w-[90%]'
         }`}
       >
         {typeof message.content === 'string' ? (
@@ -218,17 +209,17 @@ const InputArea = () => (
  */
 export default function AIScreen() {
   return (
-    <div className="w-full h-full bg-zinc-950 text-white flex flex-col relative overflow-hidden font-sans">
-      <Header />
+    <div className="w-full h-full bg-transparent text-white flex flex-col relative overflow-hidden font-sans rounded-[2.5rem]">
+      <UnifiedHeader />
       <Link
         href={siteConfig.urls.ai}
-        className="flex-1 flex flex-col min-h-0 cursor-pointer group"
+        className="flex-1 flex flex-col min-h-0 cursor-pointer"
       >
-        <div className="flex-1 p-4 space-y-4 overflow-y-auto no-scrollbar">
+        <div className="flex-1 p-4 space-y-4 overflow-y-auto no-scrollbar pb-20 mask-gradient-b">
           {MESSAGES.map((msg, i) => (
             <div
               key={i}
-              className="group-hover:bg-white/2 transition-colors rounded-lg -mx-2 px-2 py-1"
+              className="transition-colors rounded-lg -mx-2 px-2 py-1"
             >
               <MessageBubble message={msg} index={i} />
             </div>

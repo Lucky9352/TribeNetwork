@@ -5,6 +5,7 @@ import { Users, MousePointer2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
+import { UnifiedHeader } from '@/components/landing/screens/UnifiedHeader'
 
 /**
  * @file AdvertiseScreen.tsx
@@ -49,15 +50,6 @@ const ACTIVE_CAMPAIGN: CampaignDetails = {
   target: 'Target: Ivy League',
 }
 
-const Header = () => (
-  <div className="h-14 border-b border-white/10 flex items-center justify-between px-4 shrink-0 bg-zinc-950 z-10">
-    <span className="font-bold text-lg">Campaigns</span>
-    <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
-      <span className="text-xs text-green-400">A</span>
-    </div>
-  </div>
-)
-
 const Graph = () => (
   <div className="flex items-end gap-1 h-12 w-full pt-2">
     {GRAPH_DATA.map((h, i) => (
@@ -77,7 +69,7 @@ const MainStatCard = () => (
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.2 }}
-    className="bg-zinc-900 border border-white/10 p-4 rounded-xl space-y-4"
+    className="bg-transparent border border-white/10 p-4 rounded-xl space-y-4"
   >
     <div className="flex justify-between items-start">
       <div>
@@ -100,7 +92,7 @@ const GridStats = () => (
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3 + i * 0.1 }}
-        className="bg-zinc-900 border border-white/10 p-3 rounded-xl"
+        className="bg-transparent border border-white/10 p-3 rounded-xl"
       >
         {metric.icon && (
           <metric.icon className={`w-4 h-4 mb-2 ${metric.color}`} />
@@ -117,7 +109,7 @@ const ActiveCampaignCard = () => (
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.5 }}
-    className="bg-zinc-900 border border-white/10 p-4 rounded-xl"
+    className="bg-transparent border border-white/10 p-4 rounded-xl"
   >
     <div className="flex justify-between items-center mb-3">
       <p className="text-sm font-medium">Active Now</p>
@@ -140,13 +132,13 @@ const ActiveCampaignCard = () => (
  */
 export default function AdvertiseScreen() {
   return (
-    <div className="w-full h-full bg-zinc-950 text-white flex flex-col relative overflow-hidden font-sans">
-      <Header />
+    <div className="w-full h-full bg-transparent text-white flex flex-col relative overflow-hidden font-sans rounded-[2.5rem]">
+      <UnifiedHeader />
       <Link
         href={siteConfig.urls.advertise}
-        className="block h-full overflow-hidden cursor-pointer hover:bg-white/2 transition-colors"
+        className="block h-full overflow-hidden cursor-pointer transition-colors flex-1 min-h-0"
       >
-        <div className="p-4 space-y-4 overflow-y-auto no-scrollbar h-full pb-20">
+        <div className="p-4 space-y-4 overflow-y-auto no-scrollbar h-full pb-20 mask-gradient-b">
           <MainStatCard />
           <GridStats />
           <ActiveCampaignCard />
@@ -156,7 +148,7 @@ export default function AdvertiseScreen() {
               Past Campaigns
             </h3>
             <div className="space-y-3">
-              <div className="bg-zinc-900 border border-white/5 p-4 rounded-xl opacity-60">
+              <div className="bg-transparent border border-white/5 p-4 rounded-xl opacity-60">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-bold text-sm">Summer Sale</span>
                   <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
@@ -168,7 +160,7 @@ export default function AdvertiseScreen() {
                   <span>Clicks: 2.1k</span>
                 </div>
               </div>
-              <div className="bg-zinc-900 border border-white/5 p-4 rounded-xl opacity-60">
+              <div className="bg-transparent border border-white/5 p-4 rounded-xl opacity-60">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-bold text-sm">Hiring Drive</span>
                   <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
@@ -180,7 +172,7 @@ export default function AdvertiseScreen() {
                   <span>Applications: 850</span>
                 </div>
               </div>
-              <div className="bg-zinc-900 border border-white/5 p-4 rounded-xl opacity-60">
+              <div className="bg-transparent border border-white/5 p-4 rounded-xl opacity-60">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-bold text-sm">Hackathon Sponsor</span>
                   <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">

@@ -12,6 +12,7 @@ import {
   Instagram,
   MessageSquare,
   Sparkles,
+  ChevronDown,
 } from 'lucide-react'
 
 interface UniversityFormProps {
@@ -106,125 +107,140 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Name */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <User className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Your Name <span className="text-primary">*</span>
         </label>
-        <input
-          type="text"
-          name="name"
-          required
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Your full name"
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
+        <div className="relative">
+          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            name="name"
+            required
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Your full name"
+            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+          />
+        </div>
       </div>
 
       {/* Email */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <Mail className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Email <span className="text-primary">*</span>
         </label>
-        <input
-          type="email"
-          name="email"
-          required
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="you@university.edu"
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
+        <div className="relative">
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="email"
+            name="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="you@university.edu"
+            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+          />
+        </div>
       </div>
 
       {/* School */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <School className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           School / University <span className="text-primary">*</span>
         </label>
-        <input
-          type="text"
-          name="school"
-          required
-          value={formData.school}
-          onChange={handleChange}
-          placeholder="XYZ University"
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
+        <div className="relative">
+          <School className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            name="school"
+            required
+            value={formData.school}
+            onChange={handleChange}
+            placeholder="Your University"
+            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+          />
+        </div>
       </div>
 
       {/* Class Year */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <GraduationCap className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Class Year <span className="text-primary">*</span>
         </label>
-        <select
-          name="classYear"
-          required
-          value={formData.classYear}
-          onChange={handleChange}
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer"
-        >
-          <option value="">Select class year</option>
-          {CLASS_YEARS.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <GraduationCap className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <select
+            name="classYear"
+            required
+            value={formData.classYear}
+            onChange={handleChange}
+            className="w-full pl-10 pr-10 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all appearance-none cursor-pointer"
+          >
+            <option value="">Select class year</option>
+            {CLASS_YEARS.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+        </div>
       </div>
 
       {/* Phone & Instagram - side by side */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-            <Phone className="w-4 h-4" />
+          <label className="text-sm font-medium text-muted-foreground mb-2 block">
             Phone <span className="text-primary">*</span>
           </label>
-          <input
-            type="tel"
-            name="phone"
-            required
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="+91 9876543210"
-            className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-          />
+          <div className="relative">
+            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="tel"
+              name="phone"
+              required
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="+91 9876543210"
+              className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+            />
+          </div>
         </div>
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-            <Instagram className="w-4 h-4" />
+          <label className="text-sm font-medium text-muted-foreground mb-2 block">
             Instagram <span className="text-primary">*</span>
           </label>
-          <input
-            type="text"
-            name="instagram"
-            required
-            value={formData.instagram}
-            onChange={handleChange}
-            placeholder="@yourhandle"
-            className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-          />
+          <div className="relative">
+            <Instagram className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="text"
+              name="instagram"
+              required
+              value={formData.instagram}
+              onChange={handleChange}
+              placeholder="@yourhandle"
+              className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+            />
+          </div>
         </div>
       </div>
 
       {/* Message */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <MessageSquare className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Why should Tribe come to your campus?
         </label>
-        <textarea
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          rows={3}
-          placeholder="Tell us about your community..."
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
-        />
+        <div className="relative">
+          <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-muted-foreground" />
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows={3}
+            placeholder="Tell us about your community..."
+            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all resize-none"
+          />
+        </div>
       </div>
 
       {/* Error */}
@@ -235,10 +251,12 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
       )}
 
       {/* Submit */}
-      <button
+      <motion.button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        className="w-full py-4 bg-white hover:bg-zinc-200 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <>
@@ -248,10 +266,10 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
         ) : (
           <>
             <Sparkles className="w-5 h-5" />
-            Bring Tribe to My Campus
+            Request Deployment
           </>
         )}
-      </button>
+      </motion.button>
     </form>
   )
 }

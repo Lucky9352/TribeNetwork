@@ -38,12 +38,14 @@ interface ScrollSectionData {
   icon: LucideIcon
   href: string
   internalHref: string
+  cta: string
   Screen: React.ElementType
   card: {
     title: string
     subtitle: string
     icon: LucideIcon
     gradient: string
+    iconColor: string
     delay: number
   }
 }
@@ -51,58 +53,64 @@ interface ScrollSectionData {
 const SCROLL_SECTIONS: ScrollSectionData[] = [
   {
     id: 'community',
-    title: 'Your campus, connected.',
-    subtitle: 'Community',
+    title: 'Unified Campus Experience.',
+    subtitle: 'Student Network',
     description:
-      'An anonymous forum built for JAIN University students. Share confessions, find study groups, plan meetups, and connect with your campus community.',
+      'A dedicated digital environment for university life. Facilitate open dialogue, coordinate academic groups, and foster meaningful connections across the entire campus community.',
     color: 'blue',
     icon: Users,
     href: siteConfig.urls.community,
     internalHref: '/community',
+    cta: 'Explore Community',
     Screen: CommunityScreen,
     card: {
-      title: 'Tribe Forum',
-      subtitle: 'Anonymous discussions. Real connections.',
+      title: 'Tribe Network',
+      subtitle: 'Secure discourse. Verified identity.',
       icon: Users,
-      gradient: 'bg-blue-500/15 text-blue-400',
+      gradient: 'bg-blue-500/15',
+      iconColor: 'text-blue-400',
       delay: 0,
     },
   },
   {
     id: 'ai',
-    title: 'AI that knows your campus.',
-    subtitle: 'Tribe AI',
+    title: 'Contextual Campus Intelligence.',
+    subtitle: 'Advanced AI',
     description:
-      'Ask anything about campus life. Our AI searches across thousands of forum discussions to find students with similar interests, study partners, and answers.',
+      'Leverage our proprietary language model to navigate university life. Instantly synthesize thousands of campus discussions, identify academic peers, and access verified institutional knowledge.',
     color: 'cyan',
     icon: BrainCircuit,
     href: siteConfig.urls.ai,
     internalHref: '/ai',
+    cta: 'Access Intelligence',
     Screen: AIScreen,
     card: {
-      title: 'Tribe AI',
-      subtitle: 'Smart search across all discussions.',
+      title: 'Neural Search',
+      subtitle: 'Semantic understanding. Real-time retrieval.',
       icon: Sparkles,
-      gradient: 'bg-cyan-500/15 text-cyan-400',
+      gradient: 'bg-cyan-500/15',
+      iconColor: 'text-cyan-400',
       delay: 0,
     },
   },
   {
     id: 'advertise',
-    title: 'Reach 50k+ students.',
-    subtitle: 'Advertise',
+    title: 'Precision Campus Engagement.',
+    subtitle: 'Strategic Outreach',
     description:
-      'Launch campaigns on WhatsApp, Email, and SMS. Target by college, year, and interests. Real-time analytics and verified delivery to real students.',
-    color: 'green',
+      'Deploy targeted campaigns across WhatsApp, Email, and SMS with granular segmentation. Access verified student demographics and track performance with enterprise-grade analytics.',
+    color: 'emerald',
     icon: Megaphone,
     href: siteConfig.urls.advertise,
     internalHref: '/advertise',
+    cta: 'Start Campaign',
     Screen: AdvertiseScreen,
     card: {
-      title: 'Tribe Advertise',
-      subtitle: '18+ campuses. Multi-channel delivery.',
+      title: 'Tribe Ads',
+      subtitle: 'Verified Audience. High Conversion.',
       icon: Megaphone,
-      gradient: 'bg-emerald-500/15 text-emerald-400',
+      gradient: 'bg-emerald-500/15',
+      iconColor: 'text-emerald-400',
       delay: 0,
     },
   },
@@ -136,11 +144,6 @@ const StickyPhone = ({ activeSection }: { activeSection: number }) => {
         </PhoneMockup>
 
         {/* Dynamic Background Glow based on active section */}
-        {activeSection !== -1 && (
-          <div
-            className={`absolute -z-10 bg-${SCROLL_SECTIONS[activeSection].color}-500/20 blur-[100px] w-[500px] h-[500px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 opacity-60`}
-          />
-        )}
       </div>
     </div>
   )
@@ -212,7 +215,7 @@ function SectionText({
             dimmed: { opacity: 0.5, y: 0 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
           }}
-          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-${section.color}-400 text-sm font-medium bg-white/5`}
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border border-${section.color}-500/20 text-${section.color}-400 text-sm font-medium bg-${section.color}-500/10`}
         >
           <section.icon className="w-4 h-4" />
           {section.subtitle}
@@ -272,7 +275,7 @@ function SectionText({
             <span
               className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-${section.color}-500/30 text-${section.color}-400 text-sm font-medium hover:bg-${section.color}-500/10 transition-all cursor-pointer`}
             >
-              Learn More
+              {section.cta}
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -309,6 +312,7 @@ function SectionText({
               subtitle: section.card.subtitle,
               icon: section.card.icon,
               logoGradient: section.card.gradient,
+              iconColor: section.card.iconColor,
               delay: 0,
               className: 'h-full',
             }}

@@ -110,9 +110,10 @@ const NewsletterForm = () => {
 
   return (
     <div className="max-w-md">
-      <h3 className="font-bold text-lg mb-2">Stay updated</h3>
+      <h3 className="font-bold text-lg mb-2">Join the Network</h3>
       <p className="text-muted-foreground text-sm mb-4">
-        Get the latest updates on campus features and AI tools.
+        Stay ahead with the latest advancements in campus intelligence and
+        community connectivity.
       </p>
       <form onSubmit={handleSubmit} className="relative">
         <input

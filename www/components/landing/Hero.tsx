@@ -17,9 +17,9 @@ import TopicMarquee from './TopicMarquee'
 
 const HERO_CONTENT = {
   titlePart1: 'TRIBE',
-  titlePart2: 'NETWORK.',
+  titlePart2: 'NETWORK',
   description:
-    'The unified ecosystem for campus communities. Connect, explore intelligence, and grow.',
+    'The premier digital infrastructure for university campuses. Unifiying communities, amplifying intelligence, and fostering growth.',
 }
 
 interface HeroProps {
@@ -131,20 +131,20 @@ const HeroContent = ({
         {onOpenPartnership && (
           <Button
             onClick={onOpenPartnership}
-            className="group gap-2 rounded-full hover:scale-105 transition-all text-sm font-bold h-auto py-3 px-6"
+            className="group gap-2 rounded-full hover:scale-105 transition-all text-sm font-bold h-auto py-3 px-6 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/20 border border-white/10"
           >
             <Building2 className="w-4 h-4" />
-            Partner With Us
+            Institutional Partnerships
           </Button>
         )}
         {onOpenUniversity && (
           <Button
             onClick={onOpenUniversity}
             variant="secondary"
-            className="group gap-2 rounded-full hover:scale-105 transition-all text-sm font-bold h-auto py-3 px-6 bg-emerald-600 hover:bg-emerald-500 text-white"
+            className="group gap-2 rounded-full hover:scale-105 transition-all text-sm font-bold h-auto py-3 px-6 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20 border border-white/10"
           >
             <GraduationCap className="w-4 h-4" />
-            Bring Tribe to Campus
+            Deploy At Your Campus
           </Button>
         )}
       </motion.div>
@@ -196,7 +196,7 @@ export default function Hero({
       </div>
 
       {/* "Background Running Thing" - Full Width Topic Marquee */}
-      <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 z-0 opacity-100 pointer-events-none max-w-[100vw] overflow-hidden">
+      <div className="absolute top-[65%] left-0 right-0 -translate-y-1/2 z-0 opacity-100 pointer-events-none max-w-[100vw] overflow-hidden">
         <TopicMarquee />
       </div>
     </section>

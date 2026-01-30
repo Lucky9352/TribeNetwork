@@ -107,7 +107,7 @@ const CommunityHeader = () => (
   <div className="absolute top-0 left-0 right-0 z-40 px-5 pt-5 pb-4 flex items-center justify-between pointer-events-none bg-black/80 backdrop-blur-md border-b border-white/5">
     <h1 className="text-xl font-bold text-blue-400 mt-1">Tribe</h1>
     <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-white/20 flex items-center justify-center">
-      <span className="text-[10px] font-bold text-blue-300">JD</span>
+      <span className="text-[10px] font-bold text-blue-300">TN</span>
     </div>
   </div>
 )
@@ -119,7 +119,7 @@ const PostCard = ({ post, index }: { post: PostData; index: number }) => (
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
       whileHover={{ scale: 1.02 }}
-      className="bg-[#1a1a1a] rounded-2xl p-4 border border-white/5 hover:border-white/20 transition-all cursor-pointer"
+      className="bg-transparent rounded-2xl p-4 transition-all cursor-pointer"
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">

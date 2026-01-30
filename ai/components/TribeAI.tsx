@@ -145,7 +145,7 @@ const welcomeCards: WelcomeCard[] = [
     icon: Brain,
     title: 'Get Answers',
     description: 'Ask anything about campus life',
-    query: 'Best cafes near JC campus for studying?',
+    query: 'Best cafes near JU campus for studying?',
     gradient: 'text-zinc-400',
   },
   {

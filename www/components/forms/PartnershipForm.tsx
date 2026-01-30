@@ -11,6 +11,7 @@ import {
   Briefcase,
   DollarSign,
   MessageSquare,
+  ChevronDown,
 } from 'lucide-react'
 
 interface PartnershipFormProps {
@@ -110,113 +111,127 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Name */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <User className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Your Name <span className="text-primary">*</span>
         </label>
-        <input
-          type="text"
-          name="name"
-          required
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Jane Doe"
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
+        <div className="relative">
+          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            name="name"
+            required
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Jane Doe"
+            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+          />
+        </div>
       </div>
 
       {/* Email */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <Mail className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Work Email <span className="text-primary">*</span>
         </label>
-        <input
-          type="email"
-          name="email"
-          required
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="jane@company.com"
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
+        <div className="relative">
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="email"
+            name="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="jane@company.com"
+            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+          />
+        </div>
       </div>
 
       {/* Company Website */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <Building2 className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Company Website <span className="text-primary">*</span>
         </label>
-        <input
-          type="url"
-          name="companyWebsite"
-          required
-          value={formData.companyWebsite}
-          onChange={handleChange}
-          placeholder="https://yourcompany.com"
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-        />
+        <div className="relative">
+          <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="url"
+            name="companyWebsite"
+            required
+            value={formData.companyWebsite}
+            onChange={handleChange}
+            placeholder="https://yourcompany.com"
+            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+          />
+        </div>
       </div>
 
       {/* Role */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <Briefcase className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Your Role <span className="text-primary">*</span>
         </label>
-        <select
-          name="role"
-          required
-          value={formData.role}
-          onChange={handleChange}
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer"
-        >
-          <option value="">Select your role</option>
-          {ROLES.map((role) => (
-            <option key={role} value={role}>
-              {role}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <select
+            name="role"
+            required
+            value={formData.role}
+            onChange={handleChange}
+            className="w-full pl-10 pr-10 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all appearance-none cursor-pointer"
+          >
+            <option value="">Select your role</option>
+            {ROLES.map((role) => (
+              <option key={role} value={role}>
+                {role}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+        </div>
       </div>
 
       {/* Budget */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <DollarSign className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           Campaign Budget <span className="text-primary">*</span>
         </label>
-        <select
-          name="budgetRange"
-          required
-          value={formData.budgetRange}
-          onChange={handleChange}
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer"
-        >
-          <option value="">Select budget range</option>
-          {BUDGETS.map((budget) => (
-            <option key={budget} value={budget}>
-              {budget}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <select
+            name="budgetRange"
+            required
+            value={formData.budgetRange}
+            onChange={handleChange}
+            className="w-full pl-10 pr-10 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all appearance-none cursor-pointer"
+          >
+            <option value="">Select budget range</option>
+            {BUDGETS.map((budget) => (
+              <option key={budget} value={budget}>
+                {budget}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+        </div>
       </div>
 
       {/* Message */}
       <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-          <MessageSquare className="w-4 h-4" />
+        <label className="text-sm font-medium text-muted-foreground mb-2 block">
           How can we help your brand?
         </label>
-        <textarea
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          rows={3}
-          placeholder="Tell us about your goals..."
-          className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
-        />
+        <div className="relative">
+          <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-muted-foreground" />
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows={3}
+            placeholder="Tell us about your goals..."
+            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all resize-none"
+          />
+        </div>
       </div>
 
       {/* Error */}
@@ -227,10 +242,12 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
       )}
 
       {/* Submit */}
-      <button
+      <motion.button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        className="w-full py-4 bg-white hover:bg-zinc-200 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <>
@@ -240,10 +257,10 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
         ) : (
           <>
             <Sparkles className="w-5 h-5" />
-            Join Partnership Waitlist
+            Submit Partnership Inquiry
           </>
         )}
-      </button>
+      </motion.button>
     </form>
   )
 }
