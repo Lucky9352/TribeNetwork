@@ -121,12 +121,12 @@ const NewsletterForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           disabled={isSubmitting}
-          className="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-purple-500 transition-all disabled:opacity-50"
+          className="w-full bg-muted border border-border rounded-full py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
         />
         <button
           type="submit"
           disabled={isSubmitting || !email}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-purple-600 rounded-full hover:bg-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <Loader2 className="w-3 h-3 text-white animate-spin" />
@@ -148,7 +148,7 @@ const FooterColumn = ({ section }: { section: FooterSection }) => (
         <li key={link.label}>
           <Link
             href={link.href}
-            className="text-gray-400 hover:text-white text-sm transition-colors flex items-center group"
+            className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center group"
           >
             {link.label}
             <ArrowRight className="w-3 h-3 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -170,13 +170,13 @@ export default function Footer() {
   }, [])
 
   return (
-    <footer className="bg-black border-t border-white/10 pt-20 pb-10">
+    <footer className="bg-background border-t border-border pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
           {/* Brand & Newsletter - Takes up 2 columns */}
           <div className="lg:col-span-2 space-y-8">
             <Link href="/" className="inline-block">
-              <span className="text-2xl font-black tracking-tighter text-purple-400">
+              <span className="text-2xl font-black tracking-tighter text-primary">
                 Tribe.
               </span>
             </Link>
@@ -202,7 +202,7 @@ export default function Footer() {
               <Link
                 key={social.label}
                 href={social.href}
-                className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full"
+                className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-muted/50 rounded-full"
                 aria-label={social.label}
               >
                 <social.icon className="w-4 h-4" />

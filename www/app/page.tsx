@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { motion, Variants } from 'framer-motion'
 import { Building2, GraduationCap } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
 import Hero from '@/components/landing/Hero'
 import Footer from '@/components/landing/Footer'
 import Marquee from '@/components/landing/Marquee'
@@ -94,7 +95,7 @@ interface FinalCTAProps {
 const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
   return (
     <section className="py-32 md:py-40 text-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-purple-900/10 pointer-events-none" />
+      <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
       <div className="relative z-10 max-w-4xl mx-auto px-6">
         <AnimatedTitle text="READY TO JOIN?" />
 
@@ -103,7 +104,7 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="text-zinc-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto"
+          className="text-muted-foreground text-lg md:text-xl mb-12 max-w-2xl mx-auto"
         >
           Whether you&apos;re a brand looking to connect with Gen Z or a student
           wanting Tribe at your school — let&apos;s talk.
@@ -117,22 +118,25 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           {/* Partnership CTA */}
-          <button
+          <Button
             onClick={onOpenPartnership}
-            className="group flex items-center gap-3 px-8 py-5 bg-purple-600 hover:bg-purple-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-all"
+            size="lg"
+            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-all"
           >
             <Building2 className="w-5 h-5" />
             Partner With Us
-          </button>
+          </Button>
 
           {/* University CTA */}
-          <button
+          <Button
             onClick={onOpenUniversity}
-            className="group flex items-center gap-3 px-8 py-5 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-all"
+            variant="secondary"
+            size="lg"
+            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-all bg-emerald-600 hover:bg-emerald-500 text-white"
           >
             <GraduationCap className="w-5 h-5" />
             Bring Tribe to Campus
-          </button>
+          </Button>
         </motion.div>
       </div>
     </section>
@@ -147,7 +151,7 @@ export default function LandingPage() {
   const [isUniversityOpen, setIsUniversityOpen] = useState(false)
 
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-purple-500/30">
+    <main className="min-h-screen">
       <Navbar />
       <Grain />
 

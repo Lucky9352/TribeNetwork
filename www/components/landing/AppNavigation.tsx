@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import {
   Sparkles,
@@ -10,13 +10,17 @@ import {
   MessageCircle,
   Share2,
   MoreHorizontal,
+  User,
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { siteConfig } from '@/lib/site-config'
+import AIScreen from '@/components/landing/screens/AIScreen'
+import AdvertiseScreen from '@/components/landing/screens/AdvertiseScreen'
 
 /**
  * @file AppNavigation.tsx
  * @description A demo component simulating the "Feed" view of the mobile application.
- * It showcases the community aspect and navigation structure.
+ * It showcases the community aspect and navigation structure with functional tabs.
  */
 
 interface PostStats {
@@ -41,31 +45,31 @@ const FEED_ITEMS: PostData[] = [
     id: 'post-community',
     author: 'Tribe Community',
     handle: 'community',
-    avatarColor: 'bg-purple-600',
+    avatarColor: 'bg-purple-500/20',
     content:
       'We are building the largest network of campus communities. Connect, share, and grow with peers from 100+ universities! 🎓✨',
     tag: 'Community',
     tagColor: 'bg-purple-500/20 text-purple-400',
     stats: { likes: '5.2k', comments: '420' },
-    href: '/community',
+    href: siteConfig.urls.community,
   },
   {
     id: 'post-ai',
     author: 'Tribe AI Lab',
     handle: 'ai_research',
-    avatarColor: 'bg-blue-600',
+    avatarColor: 'bg-blue-500/20',
     content:
       'Experience the future of campus intelligence. Our new AI tools help you study smarter, not harder. 🤖🧠\n\nTry it now inside.',
     tag: 'Artificial Intelligence',
     tagColor: 'bg-blue-500/20 text-blue-400',
     stats: { likes: '3.8k', comments: '156' },
-    href: '/ai',
+    href: siteConfig.urls.ai,
   },
   {
     id: 'post-advertise',
     author: 'Tribe Brands',
     handle: 'advertise',
-    avatarColor: 'bg-green-600',
+    avatarColor: 'bg-green-500/20',
     content:
       'Want to reach students effectively? Launch your campaign across our network in minutes. 🚀📈',
     tag: 'Sponsored',
@@ -77,27 +81,36 @@ const FEED_ITEMS: PostData[] = [
     id: 'post-events',
     author: 'Campus Events',
     handle: 'events_blr',
-    avatarColor: 'bg-orange-600',
+    avatarColor: 'bg-orange-500/20',
     content:
       'Hackathon this weekend! 💻 Join 500+ developers at IIT Bangalore. Prizes worth ₹5L up for grabs. Register now! 👇',
     tag: 'Event',
     tagColor: 'bg-orange-500/20 text-orange-400',
     stats: { likes: '892', comments: '124' },
-    href: '/community',
+    href: siteConfig.urls.community,
   },
   {
     id: 'post-lifestyle',
     author: 'Bangalore Vibes',
     handle: 'blr_student_life',
-    avatarColor: 'bg-pink-600',
+    avatarColor: 'bg-pink-500/20',
     content:
       'Best study spot detected: Third Wave Coffee, Koramangala. ☕️📚 Quiet, good wifi, great coffee.',
     tag: 'Lifestyle',
     tagColor: 'bg-pink-500/20 text-pink-400',
     stats: { likes: '2.1k', comments: '34' },
-    href: '/community',
+    href: siteConfig.urls.community,
   },
 ]
+
+const CommunityHeader = () => (
+  <div className="absolute top-0 left-0 right-0 z-40 px-5 pt-5 pb-4 flex items-center justify-between pointer-events-none bg-black/80 backdrop-blur-md border-b border-white/5">
+    <h1 className="text-xl font-bold text-purple-400 mt-1">Tribe</h1>
+    <div className="w-8 h-8 rounded-full bg-purple-500/20 border border-white/20 flex items-center justify-center">
+      <span className="text-[10px] font-bold text-purple-300">JD</span>
+    </div>
+  </div>
+)
 
 const PostCard = ({ post, index }: { post: PostData; index: number }) => (
   <Link href={post.href} className="block mb-4">
@@ -111,9 +124,15 @@ const PostCard = ({ post, index }: { post: PostData; index: number }) => (
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
           <div
-            className={`w-10 h-10 rounded-full ${post.avatarColor} flex items-center justify-center font-bold text-white text-sm shrink-0`}
+            className={`w-10 h-10 rounded-full ${post.avatarColor} shrink-0 flex items-center justify-center`}
           >
-            {post.author[0]}
+            {post.author === 'Anonymous' ? (
+              <User className="w-5 h-5 text-white/70" />
+            ) : (
+              <span className="font-bold text-white/90 text-sm">
+                {post.author[0]}
+              </span>
+            )}
           </div>
           <div>
             <div className="flex items-center gap-1">
@@ -157,22 +176,37 @@ const PostCard = ({ post, index }: { post: PostData; index: number }) => (
   </Link>
 )
 
-const BottomNav = () => (
+const BottomNav = ({
+  activeTab,
+  setActiveTab,
+}: {
+  activeTab: string
+  setActiveTab: (tab: string) => void
+}) => (
   <div className="fixed bottom-0 w-full h-16 bg-[#0a0a0a]/90 backdrop-blur-lg border-t border-white/5 flex items-center justify-around px-6 z-50 rounded-b-[40px] max-w-[inherit]">
-    <div className="p-2 text-white cursor-pointer hover:bg-white/10 rounded-full transition-colors">
-      <Sparkles className="w-6 h-6" />
+    <div
+      onClick={() => setActiveTab('ai')}
+      className={`p-2 cursor-pointer rounded-full transition-colors group ${activeTab === 'ai' ? 'text-white bg-white/10' : 'text-gray-600 hover:text-white hover:bg-white/10'}`}
+    >
+      <Sparkles className="w-6 h-6 group-active:scale-95 transition-transform" />
     </div>
-    <div className="p-2 text-gray-600 cursor-pointer hover:text-white hover:bg-white/10 rounded-full transition-colors">
-      <Users className="w-6 h-6" />
+    <div
+      onClick={() => setActiveTab('community')}
+      className={`p-2 cursor-pointer rounded-full transition-colors group ${activeTab === 'community' ? 'text-white bg-white/10' : 'text-gray-600 hover:text-white hover:bg-white/10'}`}
+    >
+      <Users className="w-6 h-6 group-active:scale-95 transition-transform" />
     </div>
-    <div className="p-2 text-gray-600 cursor-pointer hover:text-white hover:bg-white/10 rounded-full transition-colors">
-      <Megaphone className="w-6 h-6" />
+    <div
+      onClick={() => setActiveTab('advertise')}
+      className={`p-2 cursor-pointer rounded-full transition-colors group ${activeTab === 'advertise' ? 'text-white bg-white/10' : 'text-gray-600 hover:text-white hover:bg-white/10'}`}
+    >
+      <Megaphone className="w-6 h-6 group-active:scale-95 transition-transform" />
     </div>
   </div>
 )
 
 const FeedList = () => (
-  <div className="px-4 py-4 space-y-4">
+  <div className="px-4 py-4 space-y-4 pt-20 pb-20 overflow-y-auto no-scrollbar h-full">
     {FEED_ITEMS.map((post, index) => (
       <PostCard key={post.id} post={post} index={index} />
     ))}
@@ -186,10 +220,48 @@ const FeedList = () => (
  * Main App Navigation Screen Component.
  */
 export default function AppNavigation() {
+  const [activeTab, setActiveTab] = useState('community')
+
   return (
-    <div className="pb-36 font-sans">
-      <FeedList />
-      <BottomNav />
+    <div className="w-full h-full bg-black relative overflow-hidden font-sans">
+      <AnimatePresence mode="wait">
+        {activeTab === 'community' && (
+          <motion.div
+            key="community"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="w-full h-full"
+          >
+            <CommunityHeader />
+            <FeedList />
+          </motion.div>
+        )}
+        {activeTab === 'ai' && (
+          <motion.div
+            key="ai"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="w-full h-full pb-16"
+          >
+            <AIScreen />
+          </motion.div>
+        )}
+        {activeTab === 'advertise' && (
+          <motion.div
+            key="advertise"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="w-full h-full pb-16"
+          >
+            <AdvertiseScreen />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   )
 }

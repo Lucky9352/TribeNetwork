@@ -3,6 +3,8 @@
 import React from 'react'
 import { Users, MousePointer2 } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { siteConfig } from '@/lib/site-config'
 
 /**
  * @file AdvertiseScreen.tsx
@@ -140,11 +142,60 @@ export default function AdvertiseScreen() {
   return (
     <div className="w-full h-full bg-zinc-950 text-white flex flex-col relative overflow-hidden font-sans">
       <Header />
-      <div className="p-4 space-y-4 overflow-y-auto no-scrollbar">
-        <MainStatCard />
-        <GridStats />
-        <ActiveCampaignCard />
-      </div>
+      <Link
+        href={siteConfig.urls.advertise}
+        className="block h-full overflow-hidden cursor-pointer hover:bg-white/2 transition-colors"
+      >
+        <div className="p-4 space-y-4 overflow-y-auto no-scrollbar h-full pb-20">
+          <MainStatCard />
+          <GridStats />
+          <ActiveCampaignCard />
+
+          <div className="pt-2">
+            <h3 className="text-sm font-bold mb-3 text-zinc-400">
+              Past Campaigns
+            </h3>
+            <div className="space-y-3">
+              <div className="bg-zinc-900 border border-white/5 p-4 rounded-xl opacity-60">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-bold text-sm">Summer Sale</span>
+                  <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
+                    Ended
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs text-zinc-500">
+                  <span>Reach: 85k</span>
+                  <span>Clicks: 2.1k</span>
+                </div>
+              </div>
+              <div className="bg-zinc-900 border border-white/5 p-4 rounded-xl opacity-60">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-bold text-sm">Hiring Drive</span>
+                  <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
+                    Ended
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs text-zinc-500">
+                  <span>Reach: 42k</span>
+                  <span>Applications: 850</span>
+                </div>
+              </div>
+              <div className="bg-zinc-900 border border-white/5 p-4 rounded-xl opacity-60">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-bold text-sm">Hackathon Sponsor</span>
+                  <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
+                    Ended
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs text-zinc-500">
+                  <span>Reach: 15k</span>
+                  <span>Registrations: 300</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Link>
     </div>
   )
 }

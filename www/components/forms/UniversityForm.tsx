@@ -150,7 +150,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
           required
           value={formData.school}
           onChange={handleChange}
-          placeholder="e.g. Stanford University"
+          placeholder="XYZ University"
           className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
         />
       </div>
@@ -190,7 +190,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             required
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+1 (555) 000-0000"
+            placeholder="+91 9876543210"
             className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
           />
         </div>
@@ -222,7 +222,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
           value={formData.message}
           onChange={handleChange}
           rows={3}
-          placeholder="Tell us about your community... (optional)"
+          placeholder="Tell us about your community..."
           className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all resize-none"
         />
       </div>

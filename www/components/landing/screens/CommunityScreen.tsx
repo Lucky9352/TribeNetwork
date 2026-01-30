@@ -1,8 +1,10 @@
 'use client'
 
 import React from 'react'
-import { Heart, MessageCircle, Share2, Eye } from 'lucide-react'
+import { Heart, MessageCircle, Share2, Eye, User } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { siteConfig } from '@/lib/site-config'
 
 /**
  * @file CommunityScreen.tsx
@@ -84,16 +86,64 @@ const FEED_DATA: Post[] = [
     tag: 'plan-meet',
     tagColor: 'bg-green-500/20 text-green-400',
   },
+  {
+    id: 'post-4',
+    user: {
+      name: 'TechGeek',
+      handle: '@code_wizard',
+      avatarGradient: 'bg-indigo-500/20',
+    },
+    time: '1d',
+    content:
+      'Just deployed my first React Native app! 📱 Any beta testers interested? #coding #reactnative',
+    likes: '45',
+    comments: '12',
+    tag: 'project',
+    tagColor: 'bg-indigo-500/20 text-indigo-400',
+  },
+  {
+    id: 'post-5',
+    user: {
+      name: 'CampusNews',
+      handle: '@daily_jain',
+      avatarGradient: 'bg-red-500/20',
+    },
+    time: '2d',
+    content:
+      '📢 Important Update: Library hours extended for exam week! Now open 24/7 starting Monday.',
+    likes: '500+',
+    comments: '89',
+    tag: 'announcement',
+    tagColor: 'bg-red-500/20 text-red-400',
+  },
+  {
+    id: 'post-6',
+    user: {
+      name: 'Lost&Found',
+      handle: '@lnf_official',
+      avatarGradient: 'bg-orange-500/20',
+    },
+    time: '2d',
+    content: 'Found: Blue water bottle near Block B cafeteria. DM to claim!',
+    likes: '12',
+    comments: '5',
+    tag: 'lost-found',
+    tagColor: 'bg-orange-500/20 text-orange-400',
+  },
 ]
 
 const MobileHeader = () => (
   <div className="h-14 border-b border-white/10 flex items-center justify-between px-4 shrink-0 bg-zinc-950 z-10 sticky top-0">
-    <span className="font-bold text-lg tracking-tight">Tribe</span>
-    <div className="flex items-center gap-2">
-      <span className="text-xs text-zinc-500">JAIN University</span>
-      <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
-        <span className="text-xs">🎓</span>
-      </div>
+    <div className="flex flex-col">
+      <span className="font-bold text-lg tracking-tight leading-none">
+        Tribe
+      </span>
+      <span className="text-[10px] text-zinc-500 leading-none mt-1">
+        JAIN University
+      </span>
+    </div>
+    <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
+      <span className="text-xs">🎓</span>
     </div>
   </div>
 )
@@ -137,40 +187,50 @@ const PostActions = ({
 )
 
 const FeedPost = ({ post, index }: { post: Post; index: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: index * 0.1, duration: 0.4 }}
-    className="p-4 border-b border-white/5 hover:bg-white/5 transition-colors cursor-default"
-  >
-    <div className="flex gap-3 mb-2">
-      <div
-        className={`w-10 h-10 rounded-full ${post.user.avatarGradient} shrink-0`}
-      />
-      <div className="flex-1">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-bold text-sm">{post.user.name}</span>
-          <span className="text-zinc-500 text-xs">
-            {post.user.handle} • {post.time}
-          </span>
-          {post.tag && (
-            <PostTag
-              tag={post.tag}
-              color={post.tagColor || 'bg-zinc-700 text-zinc-400'}
-            />
+  <Link href={siteConfig.urls.community} className="block w-full">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1, duration: 0.4 }}
+      className="p-4 border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer text-left"
+    >
+      <div className="flex gap-3 mb-2">
+        <div
+          className={`w-10 h-10 rounded-full ${post.user.avatarGradient} shrink-0 flex items-center justify-center`}
+        >
+          {post.user.name === 'Anonymous' ? (
+            <User className="w-5 h-5 text-white/70" />
+          ) : (
+            <span className="font-bold text-white/90 text-sm">
+              {post.user.name[0]}
+            </span>
           )}
         </div>
-        <div className="text-sm mt-2 leading-relaxed text-zinc-300">
-          {post.content}
+        <div className="flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-bold text-sm">{post.user.name}</span>
+            <span className="text-zinc-500 text-xs">
+              {post.user.handle} • {post.time}
+            </span>
+            {post.tag && (
+              <PostTag
+                tag={post.tag}
+                color={post.tagColor || 'bg-zinc-700 text-zinc-400'}
+              />
+            )}
+          </div>
+          <div className="text-sm mt-2 leading-relaxed text-zinc-300">
+            {post.content}
+          </div>
         </div>
       </div>
-    </div>
-    <PostActions
-      likes={post.likes}
-      comments={post.comments}
-      views={post.views}
-    />
-  </motion.div>
+      <PostActions
+        likes={post.likes}
+        comments={post.comments}
+        views={post.views}
+      />
+    </motion.div>
+  </Link>
 )
 
 /**

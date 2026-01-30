@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Building2, GraduationCap } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import ParallaxBackground from './ParallaxBackground'
 import PhoneMockup from './PhoneMockup'
 import AppNavigation from './AppNavigation'
@@ -88,7 +89,7 @@ const HeroContent = ({
     }}
     className="space-y-6"
   >
-    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-[0.9]">
+    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
       <StaggeredText
         text={HERO_CONTENT.titlePart1}
         wrapperClassName="overflow-hidden"
@@ -96,7 +97,7 @@ const HeroContent = ({
       <br />
       <StaggeredText
         text={HERO_CONTENT.titlePart2}
-        wrapperClassName="text-purple-400"
+        wrapperClassName="text-primary"
       />
     </h1>
     <motion.p
@@ -109,7 +110,7 @@ const HeroContent = ({
           transition: { duration: 0.8, ease: 'easeOut' },
         },
       }}
-      className="text-xl text-gray-400 font-light max-w-lg"
+      className="text-xl text-muted-foreground font-light max-w-lg"
     >
       {HERO_CONTENT.description}
     </motion.p>
@@ -128,22 +129,23 @@ const HeroContent = ({
         className="flex flex-wrap gap-3 pt-4"
       >
         {onOpenPartnership && (
-          <button
+          <Button
             onClick={onOpenPartnership}
-            className="flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold rounded-full hover:scale-105 transition-all"
+            className="group gap-2 rounded-full hover:scale-105 transition-all text-sm font-bold h-auto py-3 px-6"
           >
             <Building2 className="w-4 h-4" />
             Partner With Us
-          </button>
+          </Button>
         )}
         {onOpenUniversity && (
-          <button
+          <Button
             onClick={onOpenUniversity}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-full hover:scale-105 transition-all"
+            variant="secondary"
+            className="group gap-2 rounded-full hover:scale-105 transition-all text-sm font-bold h-auto py-3 px-6 bg-emerald-600 hover:bg-emerald-500 text-white"
           >
             <GraduationCap className="w-4 h-4" />
             Bring Tribe to Campus
-          </button>
+          </Button>
         )}
       </motion.div>
     )}
@@ -157,7 +159,7 @@ const HeroVisual = () => (
     transition={{ duration: 0.8, type: 'spring', delay: 0.2 }}
     className="relative"
   >
-    <PhoneMockup>
+    <PhoneMockup hideHeader={true}>
       <AppNavigation />
     </PhoneMockup>
 
@@ -175,7 +177,7 @@ export default function Hero({
   onOpenUniversity,
 }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex flex-col justify-start overflow-hidden bg-black text-white selection:bg-purple-500/30 pt-12 lg:pt-16 pb-24 lg:pb-32">
+    <section className="relative min-h-screen flex flex-col justify-start overflow-hidden pt-12 lg:pt-16 pb-24 lg:pb-32">
       {/* Scrolling Text Background */}
       <ParallaxBackground />
 

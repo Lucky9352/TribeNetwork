@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/components/ThemeProvider'
 
 /**
  * @file layout.tsx
@@ -65,15 +66,22 @@ interface RootLayoutProps {
  */
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
         className={cn(
           inter.variable,
           inter.className,
-          'antialiased min-h-screen bg-[#000000]'
+          'min-h-screen bg-background font-sans antialiased text-foreground selection:bg-primary/20 selection:text-primary'
         )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

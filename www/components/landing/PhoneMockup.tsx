@@ -29,6 +29,7 @@ interface MockNotificationData {
 interface PhoneMockupProps {
   children: React.ReactNode
   isStatic?: boolean
+  hideHeader?: boolean
 }
 
 const MOCK_NOTIFICATIONS: MockNotificationData[] = [
@@ -145,6 +146,7 @@ const AppHeader = () => (
 export default function PhoneMockup({
   children,
   isStatic = false,
+  hideHeader = false,
 }: PhoneMockupProps) {
   const notification = useMockNotifications()
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -201,22 +203,26 @@ export default function PhoneMockup({
         />
 
         <HardwareButtons />
-        <DynamicIsland notification={notification} />
-        <AppHeader />
 
-        {/* Scrollable Content Area */}
+        {/* Screen Container */}
         <div
-          ref={scrollRef}
-          className="h-full w-full overflow-y-auto no-scrollbar pt-24 relative z-20 bg-black rounded-[50px] overflow-hidden"
+          className="absolute inset-0 rounded-[50px] overflow-hidden z-20 backface-hidden"
+          style={{ transform: 'translateZ(0)' }}
         >
-          {children}
+          <DynamicIsland notification={notification} />
+          {!hideHeader && <AppHeader />}
 
-          {/* Bottom Fade */}
-          <div className="h-28 w-full sticky bottom-0 bg-black/80 z-40 pointer-events-none" />
+          {/* Scrollable Content Area */}
+          <div
+            ref={scrollRef}
+            className={`h-full w-full overflow-y-auto bg-black ${hideHeader ? 'pt-0' : 'pt-24'}`}
+          >
+            {children}
+          </div>
+
+          {/* Home Indicator */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-50 mix-blend-overlay"></div>
         </div>
-
-        {/* Home Indicator */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-50 mix-blend-overlay"></div>
       </motion.div>
     </div>
   )

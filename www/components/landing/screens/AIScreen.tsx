@@ -3,6 +3,8 @@
 import React from 'react'
 import { Send, Sparkles, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { siteConfig } from '@/lib/site-config'
 
 /**
  * @file AIScreen.tsx
@@ -49,14 +51,56 @@ const MESSAGES: ChatMessage[] = [
       },
     ],
   },
+  {
+    role: 'user',
+    content: 'Awesome! Also, any good late night food spots around here?',
+  },
+  {
+    role: 'ai',
+    content: 'Absolutely! Here are some popular spots open late near campus 🍔',
+    forumResults: [
+      {
+        title: 'Best midnight snacks?',
+        user: '@nightowl',
+        snippet:
+          'Maggi Point behind the library is open till 2 AM. Their cheese maggi is legendary...',
+      },
+      {
+        title: '24/7 Coffee shops',
+        user: '@caffeine_addict',
+        snippet:
+          'Third Wave Coffee near the main gate stays open for study sessions during exams!',
+      },
+    ],
+  },
+  {
+    role: 'user',
+    content: 'Thanks! One last thing - when is the next club fair?',
+  },
+  {
+    role: 'ai',
+    content:
+      'The Annual Club Fair is scheduled for next Friday at the Student Center Plaza! 🎉',
+    forumResults: [
+      {
+        title: 'Club Fair 2024 discussion',
+        user: '@event_coord',
+        snippet:
+          'We have over 50 clubs registering this year. Tech, Music, Dance, and more...',
+      },
+    ],
+  },
 ]
 
 const Header = () => (
-  <div className="h-14 border-b border-white/10 flex items-center justify-center shrink-0 bg-zinc-950 z-10 relative">
-    <span className="font-bold text-sm flex items-center gap-2">
+  <div className="h-14 border-b border-white/10 flex items-center justify-between px-4 shrink-0 bg-zinc-950 z-10 relative">
+    <span className="font-bold text-lg flex items-center gap-2">
       <Sparkles className="w-4 h-4 text-blue-400" />
       Tribe AI
     </span>
+    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+      <span className="text-xs text-blue-400">AI</span>
+    </div>
   </div>
 )
 
@@ -176,13 +220,23 @@ export default function AIScreen() {
   return (
     <div className="w-full h-full bg-zinc-950 text-white flex flex-col relative overflow-hidden font-sans">
       <Header />
-      <div className="flex-1 p-4 space-y-4 overflow-y-auto no-scrollbar">
-        {MESSAGES.map((msg, i) => (
-          <MessageBubble key={i} message={msg} index={i} />
-        ))}
-        <TypingIndicator />
-      </div>
-      <InputArea />
+      <Link
+        href={siteConfig.urls.ai}
+        className="flex-1 flex flex-col min-h-0 cursor-pointer group"
+      >
+        <div className="flex-1 p-4 space-y-4 overflow-y-auto no-scrollbar">
+          {MESSAGES.map((msg, i) => (
+            <div
+              key={i}
+              className="group-hover:bg-white/2 transition-colors rounded-lg -mx-2 px-2 py-1"
+            >
+              <MessageBubble message={msg} index={i} />
+            </div>
+          ))}
+          <TypingIndicator />
+        </div>
+        <InputArea />
+      </Link>
     </div>
   )
 }

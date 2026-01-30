@@ -1,167 +1,281 @@
 @import 'tailwindcss';
 
+@plugin "tailwindcss-animate";
+
 /* 
  * @file globals.css
- * @description Global styles, theme configuration, and shared utility classes for Tribe Network.
- * Structure:
- * 1. Configuration (Theme)
- * 2. Base Styles (Resets, Variables)
- * 3. Utilities (Scrollbars, Glass effects)
- * 4. Animations (Keyframes, Classes)
+ * @description Tribe Network global styles.
  */
 
-/* --- 1. CONFIGURATION --- */
-
-@custom-variant dark (&:where(.dark, .dark *));
+/* --- 1. THEME CONFIGURATION --- */
 
 @theme {
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-primary: #3b82f6;
+  --color-tribe-bg-base: #000000;
+  --color-tribe-bg-surface: #0a0a0a;
+  --color-tribe-bg-elevated: #111111;
+  --color-tribe-bg-card: rgba(255, 255, 255, 0.03);
+  --color-tribe-bg-card-hover: rgba(255, 255, 255, 0.08);
+
+  --color-tribe-text-primary: #f5f5f5;
+  --color-tribe-text-secondary: #a1a1aa;
+  --color-tribe-text-muted: #71717a;
+
+  --color-tribe-primary: #3b82f6;
+  --color-tribe-primary-hover: #2563eb;
+  --color-tribe-secondary: #10b981;
+
+  --color-tribe-border: rgba(255, 255, 255, 0.08);
+
+  /* ShadCN mappings to Tribe Theme */
+  --color-background: var(--color-tribe-bg-base);
+  --color-foreground: var(--color-tribe-text-primary);
+
+  --color-card: var(--color-tribe-bg-surface);
+  --color-card-foreground: var(--color-tribe-text-primary);
+
+  --color-popover: var(--color-tribe-bg-surface);
+  --color-popover-foreground: var(--color-tribe-text-primary);
+
+  --color-primary: var(--color-tribe-primary);
   --color-primary-foreground: #ffffff;
-  --color-muted: #f4f6f8;
-  --color-border: #e5e7eb;
-  --color-card: #ffffff;
 
+  --color-secondary: var(--color-tribe-bg-elevated);
+  --color-secondary-foreground: var(--color-tribe-text-primary);
+
+  --color-muted: var(--color-tribe-bg-elevated);
+  --color-muted-foreground: var(--color-tribe-text-muted);
+
+  --color-accent: var(--color-tribe-bg-card);
+  --color-accent-foreground: var(--color-tribe-text-primary);
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: var(--color-tribe-border);
+  --color-input: var(--color-tribe-bg-elevated);
+  --color-ring: var(--color-tribe-primary);
+
+  --radius-lg: 0.75rem;
+  --radius-md: calc(0.75rem - 2px);
+  --radius-sm: calc(0.75rem - 4px);
   --radius-xl: 1rem;
-
-  --shadow-soft: 0 18px 40px -24px rgba(0, 0, 0, 0.25);
 }
 
-/* --- 2. BASE STYLES --- */
+@layer base {
+  :root {
+    --tribe-bg-base: #000000;
+    --tribe-bg-surface: #0a0a0a;
+    --tribe-bg-elevated: #111111;
+    --tribe-bg-card: rgba(255, 255, 255, 0.03);
+    --tribe-text-primary: #f5f5f5;
+    --tribe-text-secondary: #a1a1aa;
+    --tribe-primary: #3b82f6;
 
-:root {
-  --background: 0 0% 1%;
-  --foreground: 220 13% 91%;
+    --background: var(--tribe-bg-base);
+    --foreground: var(--tribe-text-primary);
+  }
+
+  * {
+    @apply border-border;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    box-sizing: border-box;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-inter);
+  }
+
+  body {
+    background: var(--tribe-bg-base);
+    color: var(--tribe-text-primary);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 }
 
-* {
-  box-sizing: border-box;
-  border-radius: 5px;
+/* --- UTILITIES --- */
+
+@layer utilities {
+  /* Scrollbar Utilities */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .glass-card {
+    @apply bg-zinc-900/60 backdrop-blur-md border border-white/5 shadow-sm;
+  }
+
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      black 40%,
+      transparent 80%
+    );
+  }
+
+  /* Shadows - Subtle */
+  .glow-blue,
+  .glow-purple {
+    box-shadow: 0 0 20px -5px rgba(59, 130, 246, 0.2);
+  }
+
+  .glow-green {
+    box-shadow: 0 0 40px -10px rgba(34, 197, 94, 0.4);
+  }
+
+  .glow-emerald {
+    box-shadow: 0 0 40px -10px rgba(16, 185, 129, 0.4);
+  }
+
+  .glow-lime {
+    box-shadow: 0 0 40px -10px rgba(132, 204, 22, 0.4);
+  }
+
+  .admin-link-emerald {
+    color: rgb(52 211 153) !important;
+  }
+
+  .admin-link-emerald:hover {
+    color: rgb(110 231 183) !important;
+  }
+
+  .admin-link-pink {
+    color: rgb(249 168 212) !important;
+  }
+
+  .admin-link-pink:hover {
+    color: rgb(251 207 232) !important;
+  }
+
+  .admin-link-white {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .admin-link-white:hover {
+    color: rgb(255, 255, 255) !important;
+  }
 }
 
-html {
-  font-family: var(--font-inter);
-  scroll-behavior: smooth;
+/* --- ANIMATIONS --- */
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  .animate-gradient {
+    animation: gradient-shift 8s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  .animate-text-shimmer {
+    color: #3b82f6;
+    animation: textPulse 3s ease-in-out infinite;
+  }
+
+  .animate-marquee-left {
+    animation-name: marquee-left;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .animate-marquee-right {
+    animation-name: marquee-right;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .glow-blob {
+    animation: pulse-glow 8s infinite;
+  }
+
+  /* Flow Animation Lines */
+  .animated-line-h {
+    background: rgba(34, 197, 94, 0.4);
+    animation: pulseOpacity 3s linear infinite;
+  }
+
+  .animated-line-v {
+    background: rgba(34, 197, 94, 0.4);
+    animation: pulseOpacity 3s linear infinite;
+  }
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #000000;
-  color: #f5f5f5;
-  font-family:
-    'Inter',
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
-  overflow-x: hidden;
+/* Keyframes */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 30px -10px rgba(59, 130, 246, 0.4);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 50px -10px rgba(59, 130, 246, 0.6);
+  }
 }
 
-/* Admin Dashboard Link Overrides - Allow Tailwind colors to work */
-.admin-link-emerald {
-  color: rgb(52 211 153) !important;
-  /* emerald-400 */
-}
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
 
-.admin-link-emerald:hover {
-  color: rgb(110 231 183) !important;
-  /* emerald-300 */
-}
+  50% {
+    background-position: 100% 50%;
+  }
 
-.admin-link-pink {
-  color: rgb(249 168 212) !important;
-  /* pink-300 */
-}
-
-.admin-link-pink:hover {
-  color: rgb(251 207 232) !important;
-  /* pink-200 */
-}
-
-.admin-link-white {
-  color: rgba(255, 255, 255, 0.8) !important;
-}
-
-.admin-link-white:hover {
-  color: rgb(255, 255, 255) !important;
-}
-
-/* --- 3. UTILITIES --- */
-
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.no-scrollbar::-webkit-scrollbar,
-::-webkit-scrollbar {
-  display: none;
-  width: 0px;
-  background: transparent;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.no-scrollbar {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
-}
-
-/* Grid Background */
-.bg-grid {
-  background-size: 40px 40px;
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-  -webkit-mask-image: radial-gradient(
-    ellipse at center,
-    black 40%,
-    transparent 80%
-  );
-}
-
-/* Glass Card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-/* Glow Effects */
-.glow-green {
-  box-shadow: 0 0 40px -10px rgba(34, 197, 94, 0.4);
-}
-
-.glow-emerald {
-  box-shadow: 0 0 40px -10px rgba(16, 185, 129, 0.4);
-}
-
-.glow-lime {
-  box-shadow: 0 0 40px -10px rgba(132, 204, 22, 0.4);
-}
-
-/* --- 4. ANIMATIONS --- */
-
-/* Animated Accent Text */
-.animate-text-shimmer {
-  color: #3b82f6;
-  /* blue-500 */
-  animation: textPulse 3s ease-in-out infinite;
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes textPulse {
@@ -173,19 +287,6 @@ a {
   50% {
     opacity: 1;
   }
-}
-
-/* Marquee Animations */
-.animate-marquee-left {
-  animation-name: marquee-left;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-.animate-marquee-right {
-  animation-name: marquee-right;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
 }
 
 @keyframes marquee-left {
@@ -208,51 +309,6 @@ a {
   }
 }
 
-/* Float Animation */
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-/* Pulse Glow */
-.glow-blob {
-  animation: pulse-glow 8s infinite;
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-}
-
-/* Flow Animation Lines */
-.animated-line-h {
-  background: rgba(34, 197, 94, 0.4);
-  animation: pulseOpacity 3s linear infinite;
-}
-
-.animated-line-v {
-  background: rgba(34, 197, 94, 0.4);
-  animation: pulseOpacity 3s linear infinite;
-}
-
 @keyframes pulseOpacity {
   0%,
   100% {
@@ -262,4 +318,23 @@ a {
   50% {
     opacity: 0.7;
   }
+}
+
+/* Custom Scrollbar for dark mode specifics if needed */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }

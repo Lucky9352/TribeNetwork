@@ -23,7 +23,7 @@ const NAV_LINKS: NavLinkData[] = [
 ]
 
 const NavLink = ({ href, label }: NavLinkData) => (
-  <Link href={href} className="hover:text-white transition-colors">
+  <Link href={href} className="hover:text-foreground transition-colors">
     {label}
   </Link>
 )
@@ -39,17 +39,17 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-6 pointer-events-none"
     >
-      <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex items-center gap-8 pointer-events-auto shadow-2xl">
+      <div className="bg-background/60 backdrop-blur-xl border border-border rounded-full px-6 py-3 flex items-center gap-8 pointer-events-auto shadow-2xl">
         {/* Logo */}
         <Link
           href="/"
-          className="font-bold text-xl tracking-tighter text-white hover:text-gray-300 transition-colors"
+          className="font-bold text-xl tracking-tighter text-foreground hover:text-muted-foreground transition-colors"
         >
           Tribe
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-400">
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
           {NAV_LINKS.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}

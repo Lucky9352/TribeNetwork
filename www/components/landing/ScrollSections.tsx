@@ -111,12 +111,12 @@ const StickyPhone = ({ activeSection }: { activeSection: number }) => {
   return (
     <div className="w-1/2 sticky top-0 h-screen flex items-center justify-center p-10 z-0">
       <div className="relative w-[320px] h-[650px] transition-all duration-700">
-        <PhoneMockup isStatic={true}>
+        <PhoneMockup isStatic={true} hideHeader={true}>
           <div className="relative w-full h-full bg-black">
             {SCROLL_SECTIONS.map((section, index) => (
               <motion.div
                 key={section.id}
-                className="absolute inset-0 w-full h-full"
+                className={`absolute inset-0 w-full h-full ${activeSection === index ? 'pointer-events-auto' : 'pointer-events-none'}`}
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: activeSection === index ? 1 : 0,
@@ -264,7 +264,7 @@ function SectionText({
           }}
           className="flex items-center gap-4 pt-2"
         >
-          <Link href={`/${section.id}`}>
+          <Link href={section.href}>
             <span
               className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-${section.color}-500/30 text-${section.color}-400 text-sm font-medium hover:bg-${section.color}-500/10 transition-all cursor-pointer`}
             >
