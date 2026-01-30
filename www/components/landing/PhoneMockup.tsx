@@ -91,49 +91,47 @@ const DynamicIsland = ({
   notification,
 }: {
   notification: MockNotificationData | null
-}) => (
-  <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 flex justify-center w-full pointer-events-none">
-    <motion.div
-      initial={false}
-      animate={{
-        width: notification
-          ? window?.innerWidth < 640
-            ? 180
-            : 230
-          : window?.innerWidth < 640
-            ? 70
-            : 90,
-        height: notification ? 38 : 28,
-        borderRadius: 20,
-      }}
-      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-      className="bg-black flex items-center justify-center overflow-hidden shadow-2xl relative z-50 text-white"
-      style={{
-        boxShadow: '0 4px 12px rgba(0,0,0,0.8)',
-        border: '1px solid rgba(255,255,255,0.1)',
-      }}
-    >
-      <AnimatePresence mode="wait">
-        {notification ? (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="flex items-center gap-2.5 px-3 w-full"
-          >
-            <notification.icon
-              className={`w-3.5 h-3.5 ${notification.color}`}
-            />
-            <span className="text-[10px] font-medium whitespace-nowrap opacity-90">
-              {notification.text}
-            </span>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </motion.div>
-  </div>
-)
+}) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640
+
+  return (
+    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 flex justify-center w-full pointer-events-none">
+      <motion.div
+        initial={false}
+        animate={{
+          width: notification ? (isMobile ? 180 : 230) : isMobile ? 70 : 90,
+          height: notification ? 38 : 28,
+          borderRadius: 20,
+        }}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        className="bg-black flex items-center justify-center overflow-hidden shadow-2xl relative z-50 text-white"
+        style={{
+          boxShadow: '0 4px 12px rgba(0,0,0,0.8)',
+          border: '1px solid rgba(255,255,255,0.1)',
+        }}
+      >
+        <AnimatePresence mode="wait">
+          {notification ? (
+            <motion.div
+              key="content"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="flex items-center gap-2.5 px-3 w-full"
+            >
+              <notification.icon
+                className={`w-3.5 h-3.5 ${notification.color}`}
+              />
+              <span className="text-[10px] font-medium whitespace-nowrap opacity-90">
+                {notification.text}
+              </span>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </motion.div>
+    </div>
+  )
+}
 
 const AppHeader = () => (
   <div className="absolute top-0 left-0 right-0 z-40 px-5 pt-5 pb-4 flex items-center justify-between pointer-events-none">
