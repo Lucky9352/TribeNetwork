@@ -146,7 +146,8 @@ ${cleanQuery}
 Would love to hear from you if you have any experience or thoughts on this! 🙏`
 
   const tag = suggestTag(query)
-  const link = process.env.FLARUM_URL || 'https://tribe-community.vercel.app'
+  const link =
+    process.env.NEXT_PUBLIC_FLARUM_URL || 'https://tribe-community.vercel.app'
 
   return { title, content, tag, link }
 }
@@ -200,7 +201,7 @@ function suggestTag(content: string): string {
  */
 export function buildSystemPromptWithContext(context: ForumContext): string {
   const forumUrl =
-    process.env.FLARUM_URL || 'https://tribe-community.vercel.app'
+    process.env.NEXT_PUBLIC_FLARUM_URL || 'https://tribe-community.vercel.app'
 
   const baseIdentity = `You are TribeAI, the friendly AI assistant for the JAIN University student community forum called Tribe.
 

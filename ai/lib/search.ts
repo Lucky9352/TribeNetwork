@@ -24,7 +24,7 @@ export interface SearchOptions {
  * Flarum URL for generating post links.
  */
 const FLARUM_URL =
-  process.env.FLARUM_URL || 'https://tribe-community.vercel.app'
+  process.env.NEXT_PUBLIC_FLARUM_URL || 'https://tribe-community.vercel.app'
 
 /**
  * Perform a comprehensive FULLTEXT search across all forum posts.

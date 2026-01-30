@@ -318,7 +318,10 @@ export function ChatMessage({ message }: ChatMessageProps) {
               asChild
             >
               <a
-                href="https://tribe-community.vercel.app"
+                href={
+                  process.env.NEXT_PUBLIC_FLARUM_URL ||
+                  'https://tribe-community.vercel.app'
+                }
                 target="_blank"
                 rel="noopener noreferrer"
               >

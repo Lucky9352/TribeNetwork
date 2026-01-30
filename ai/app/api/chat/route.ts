@@ -273,7 +273,7 @@ You help students with:
 - Career and placement guidance
 - General community engagement
 
-Forum URL: ${process.env.FLARUM_URL || 'https://tribe-community.vercel.app'}
+Forum URL: ${process.env.NEXT_PUBLIC_FLARUM_URL || 'https://tribe-community.vercel.app'}
 
 When you don't have specific forum content, encourage users to:
 1. Check the forum directly for discussions
