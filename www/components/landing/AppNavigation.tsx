@@ -47,7 +47,7 @@ const FEED_ITEMS: PostData[] = [
     handle: 'community',
     avatarColor: 'bg-blue-500/20',
     content:
-      'We are building the largest network of campus communities. Connect, share, and grow with peers from 100+ universities! 🎓✨',
+      'Connect with the largest network of verified students. Join academic circles, coordinate events, and foster meaningful discourse. 🎓✨',
     tag: 'Community',
     tagColor: 'bg-blue-500/20 text-blue-400',
     stats: { likes: '5.2k', comments: '420' },
@@ -59,7 +59,7 @@ const FEED_ITEMS: PostData[] = [
     handle: 'ai_research',
     avatarColor: 'bg-blue-500/20',
     content:
-      'Experience the future of campus intelligence. Our new AI tools help you study smarter, not harder. 🤖🧠\n\nTry it now inside.',
+      'Leverage our proprietary LLM to navigate university life. Synthesize discussions, track academic deadlines, and access institutional knowledge instantly. 🤖🧠',
     tag: 'Artificial Intelligence',
     tagColor: 'bg-blue-500/20 text-blue-400',
     stats: { likes: '3.8k', comments: '156' },
@@ -67,36 +67,36 @@ const FEED_ITEMS: PostData[] = [
   },
   {
     id: 'post-advertise',
-    author: 'Tribe Brands',
-    handle: 'advertise',
-    avatarColor: 'bg-green-500/20',
+    author: 'Tribe Ads',
+    handle: 'partners',
+    avatarColor: 'bg-emerald-500/20',
     content:
-      'Want to reach students effectively? Launch your campaign across our network in minutes. 🚀📈',
+      'Launch precision campaigns across 500+ campuses. Target by stream, year, and interest with enterprise-grade analytics. 🎯📈',
     tag: 'Sponsored',
-    tagColor: 'bg-green-500/20 text-green-400',
+    tagColor: 'bg-emerald-500/20 text-emerald-400',
     stats: { likes: '1.2k', comments: '89' },
     href: '/advertise',
   },
   {
     id: 'post-events',
-    author: 'Campus Events',
-    handle: 'events_blr',
+    author: 'University Events Board',
+    handle: 'official_events',
     avatarColor: 'bg-orange-500/20',
     content:
-      'Hackathon this weekend! 💻 Join 500+ developers at IIT Bangalore. Prizes worth ₹5L up for grabs. Register now! 👇',
-    tag: 'Event',
+      'Registration open for the National Inter-University Coding Championship. ₹5L Prize Pool. Represent your campus! 🏆💻',
+    tag: 'Official',
     tagColor: 'bg-orange-500/20 text-orange-400',
     stats: { likes: '892', comments: '124' },
     href: siteConfig.urls.community,
   },
   {
     id: 'post-lifestyle',
-    author: 'Bangalore Vibes',
-    handle: 'blr_student_life',
+    author: 'Campus Lifestyle',
+    handle: 'student_wellness',
     avatarColor: 'bg-indigo-500/20',
     content:
-      'Best study spot detected: Third Wave Coffee, Koramangala. ☕️📚 Quiet, good wifi, great coffee.',
-    tag: 'Lifestyle',
+      'New dedicated 24/7 Quiet Study Zones are now operational in the North Block. High-speed Wi-Fi and ergonomic seating available. 📚✨',
+    tag: 'Facilities',
     tagColor: 'bg-indigo-500/20 text-indigo-400',
     stats: { likes: '2.1k', comments: '34' },
     href: siteConfig.urls.community,
@@ -206,7 +206,7 @@ const BottomNav = ({
 )
 
 const FeedList = () => (
-  <div className="px-4 py-4 space-y-4 pt-16 pb-20 overflow-y-auto no-scrollbar h-full">
+  <div className="p-0 space-y-4 pt-16 pb-20 overflow-y-auto no-scrollbar h-full">
     {FEED_ITEMS.map((post, index) => (
       <PostCard key={post.id} post={post} index={index} />
     ))}
@@ -243,7 +243,7 @@ export default function AppNavigation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="w-full h-full pb-16"
+            className="w-full h-full"
           >
             <AIScreen />
           </motion.div>
@@ -254,7 +254,7 @@ export default function AppNavigation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="w-full h-full pb-16"
+            className="w-full h-full"
           >
             <AdvertiseScreen />
           </motion.div>

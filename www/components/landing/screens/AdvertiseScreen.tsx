@@ -29,25 +29,30 @@ interface CampaignDetails {
 const GRAPH_DATA = [20, 35, 30, 50, 45, 60, 55, 75, 70, 90, 85, 100]
 
 const MAIN_METRIC = {
-  label: 'Total Reach',
+  label: 'Student Reach',
   value: '124,592',
-  growth: '+12%',
+  growth: '+18.4%',
 }
 
 const GRID_METRICS: MetricItem[] = [
-  { label: 'Impressions', value: '45.2k', icon: Users, color: 'text-blue-400' },
   {
-    label: 'Clicks',
-    value: '3,891',
+    label: 'Verified Impressions',
+    value: '45.2k',
+    icon: Users,
+    color: 'text-blue-400',
+  },
+  {
+    label: 'Engagement Rate',
+    value: '8.4%',
     icon: MousePointer2,
     color: 'text-purple-400',
   },
 ]
 
 const ACTIVE_CAMPAIGN: CampaignDetails = {
-  brand: 'NIKE',
-  name: 'Back to School',
-  target: 'Target: Ivy League',
+  brand: 'FinTech Corp',
+  name: 'Campus Ambassador',
+  target: 'All Streams • Final Year',
 }
 
 const Graph = () => (
@@ -132,13 +137,13 @@ const ActiveCampaignCard = () => (
  */
 export default function AdvertiseScreen() {
   return (
-    <div className="w-full h-full bg-transparent text-white relative overflow-hidden font-sans rounded-[2.5rem]">
+    <div className="w-full h-full bg-transparent text-white relative overflow-hidden font-sans">
       <UnifiedHeader />
       <Link
         href={siteConfig.urls.advertise}
         className="block h-full overflow-hidden cursor-pointer transition-colors"
       >
-        <div className="p-4 space-y-4 overflow-y-auto no-scrollbar h-full pt-16 pb-20 mask-gradient-b">
+        <div className="p-4 space-y-4 overflow-y-auto no-scrollbar h-full pt-16 pb-20">
           <MainStatCard />
           <GridStats />
           <ActiveCampaignCard />
@@ -150,26 +155,30 @@ export default function AdvertiseScreen() {
             <div className="space-y-3">
               <div className="bg-transparent border border-white/5 p-4 rounded-xl opacity-60">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold text-sm">Summer Sale</span>
+                  <span className="font-bold text-sm">
+                    Internship Drive 2025
+                  </span>
                   <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
                     Ended
                   </span>
                 </div>
                 <div className="flex justify-between text-xs text-zinc-500">
                   <span>Reach: 85k</span>
-                  <span>Clicks: 2.1k</span>
+                  <span>Applications: 2.1k</span>
                 </div>
               </div>
               <div className="bg-transparent border border-white/5 p-4 rounded-xl opacity-60">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold text-sm">Hiring Drive</span>
+                  <span className="font-bold text-sm">
+                    Cultural Fest Partner
+                  </span>
                   <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
                     Ended
                   </span>
                 </div>
                 <div className="flex justify-between text-xs text-zinc-500">
                   <span>Reach: 42k</span>
-                  <span>Applications: 850</span>
+                  <span>Booth Visits: 850</span>
                 </div>
               </div>
               <div className="bg-transparent border border-white/5 p-4 rounded-xl opacity-60">

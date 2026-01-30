@@ -28,66 +28,70 @@ interface ForumResult {
 const MESSAGES: ChatMessage[] = [
   {
     role: 'user',
-    content: 'Anyone into guitar here?',
+    content: 'Summarize student feedback on the Advanced ML course (CS402).',
   },
   {
     role: 'ai',
     content: (
       <>
-        <p className="mb-3">Found some fellow guitarists on campus! 🎸</p>
+        <p className="mb-3">
+          Synthesized from 42 discussions: CS402 is challenging but highly
+          rewarding. Focuses heavily on practical PyTorch implementation. 🧠
+        </p>
       </>
     ),
     forumResults: [
       {
-        title: 'Looking for jam buddies',
-        user: '@musiclover',
+        title: 'CS402 Course Review',
+        user: '@grad_student',
         snippet:
-          'I play acoustic guitar, been learning for 2 years. Looking for people to jam with on weekends...',
+          'Professor Anand is brilliant but demands rigorous math background. Make sure you revise Linear Algebra...',
       },
       {
-        title: 'Guitar lessons?',
-        user: '@beginner_axe',
+        title: 'Best ML Electives?',
+        user: '@ai_researcher',
         snippet:
-          'Does anyone know a good guitar teacher near JU campus? Want to learn electric...',
+          'If you want industry-ready skills, CS402 is a must. The final project directly helps in placements...',
       },
     ],
   },
   {
     role: 'user',
-    content: 'Awesome! Also, any good late night food spots around here?',
-  },
-  {
-    role: 'ai',
-    content: 'Absolutely! Here are some popular spots open late near campus 🍔',
-    forumResults: [
-      {
-        title: 'Best midnight snacks?',
-        user: '@nightowl',
-        snippet:
-          'Maggi Point behind the library is open till 2 AM. Their cheese maggi is legendary...',
-      },
-      {
-        title: '24/7 Coffee shops',
-        user: '@caffeine_addict',
-        snippet:
-          'Third Wave Coffee near the main gate stays open for study sessions during exams!',
-      },
-    ],
-  },
-  {
-    role: 'user',
-    content: 'Thanks! One last thing - when is the next club fair?',
+    content: 'Is the library open 24/7 this week?',
   },
   {
     role: 'ai',
     content:
-      'The Annual Club Fair is scheduled for next Friday at the Student Center Plaza! 🎉',
+      'Yes, for the exam period, the Central Library is operating 24/7. Shuttle service runs every 30 mins post-midnight. 📚🚌',
     forumResults: [
       {
-        title: 'Club Fair 2024 discussion',
-        user: '@event_coord',
+        title: 'Library Night Shift',
+        user: '@admin_desk',
         snippet:
-          'We have over 50 clubs registering this year. Tech, Music, Dance, and more...',
+          'Extended hours notice: Ground and 1st floors accessible all night. Cafe closes at 2 AM...',
+      },
+      {
+        title: 'Late night transport',
+        user: '@student_welfare',
+        snippet:
+          'Special bus service added for library route from 12 AM to 4 AM during finals week...',
+      },
+    ],
+  },
+  {
+    role: 'user',
+    content: 'Can you help me find a hackathon team?',
+  },
+  {
+    role: 'ai',
+    content:
+      'I found 3 teams looking for a frontend developer for the upcoming HackMit. Connecting you now... 🤝',
+    forumResults: [
+      {
+        title: 'Team overflow looking for dev',
+        user: '@hack_lead',
+        snippet:
+          'We have a backend and ML engineer. Need someone strong in React/Next.js for the UI...',
       },
     ],
   },
@@ -209,13 +213,13 @@ const InputArea = () => (
  */
 export default function AIScreen() {
   return (
-    <div className="w-full h-full bg-transparent text-white relative overflow-hidden font-sans rounded-[2.5rem]">
+    <div className="w-full h-full bg-transparent text-white relative overflow-hidden font-sans">
       <UnifiedHeader />
       <Link
         href={siteConfig.urls.ai}
         className="w-full h-full flex flex-col min-h-0 cursor-pointer"
       >
-        <div className="flex-1 p-4 space-y-4 overflow-y-auto no-scrollbar pt-16 pb-20 mask-gradient-b">
+        <div className="flex-1 p-4 space-y-4 overflow-y-auto no-scrollbar pt-16 pb-20">
           {MESSAGES.map((msg, i) => (
             <div
               key={i}

@@ -35,86 +35,86 @@ const FEED_DATA: Post[] = [
   {
     id: 'post-1',
     user: {
-      name: 'Anonymous',
-      handle: '@confession',
+      name: 'CampusConfessions',
+      handle: '@confessions',
       avatarGradient: 'bg-zinc-800',
     },
     time: '2h',
     content: (
       <>
-        That moment when you accidentally unmute yourself during online class
-        while roasting the professor 💀 Anyone else from JU campus relate?
+        The library 3rd floor is officially the best silent study spot on
+        campus. Change my mind. 🤫📚
       </>
     ),
-    likes: '324',
-    comments: '47',
-    views: '2.1k',
+    likes: '842',
+    comments: '128',
+    views: '5.2k',
     tag: 'confession',
     tagColor: 'bg-zinc-800 text-zinc-300',
   },
   {
     id: 'post-2',
     user: {
-      name: 'StudyBuddy',
-      handle: '@jain_bba',
+      name: 'AcademicCircle',
+      handle: '@study_group',
       avatarGradient: 'bg-blue-500/20',
     },
     time: '5h',
     content:
-      'Looking for a study group for CA Foundation! Anyone preparing for Nov attempt? 📚',
-    likes: '89',
-    comments: '23',
-    tag: 'notes-links',
+      'Forming a study group for Advanced Calculus/Economics. We meet at the Student Center every Tuesday. DM to join! 📊',
+    likes: '156',
+    comments: '42',
+    tag: 'study-group',
     tagColor: 'bg-blue-500/20 text-blue-400',
   },
   {
     id: 'post-3',
     user: {
-      name: 'PlanMaster',
-      handle: '@weekend_vibes',
+      name: 'StudentCouncil',
+      handle: '@official_council',
       avatarGradient: 'bg-emerald-500/20',
     },
     time: '1d',
     content: (
       <>
-        Weekend trip to Nandi Hills anyone? 🏔️ Planning for Saturday 6 AM start.
-        DM if interested!
-        <span className="text-blue-400"> #meetup</span>
+        Join us for the Inter-University Hackathon kickoff this Saturday at the
+        Main Auditorium. 🚀
+        <span className="text-blue-400"> #innovation</span>
       </>
     ),
-    likes: '156',
-    comments: '34',
-    tag: 'plan-meet',
+    likes: '489',
+    comments: '64',
+    tag: 'event',
     tagColor: 'bg-green-500/20 text-green-400',
   },
   {
     id: 'post-4',
     user: {
-      name: 'TechGeek',
-      handle: '@code_wizard',
+      name: 'InnovationLab',
+      handle: '@tech_society',
       avatarGradient: 'bg-indigo-500/20',
     },
     time: '1d',
     content:
-      'Just deployed my first React Native app! 📱 Any beta testers interested? #coding #reactnative',
-    likes: '45',
-    comments: '12',
+      'Showcasing our new campus navigator app at the tech fair. Come test the beta and give feedback! 📱✨',
+    likes: '234',
+    comments: '45',
     tag: 'project',
     tagColor: 'bg-indigo-500/20 text-indigo-400',
   },
   {
     id: 'post-5',
     user: {
-      name: 'CampusNews',
-      handle: '@daily_jain',
+      name: 'UniversityAdmin',
+      handle: '@registrar',
       avatarGradient: 'bg-red-500/20',
     },
     time: '2d',
     content:
-      '📢 Important Update: Library hours extended for exam week! Now open 24/7 starting Monday.',
-    likes: '500+',
-    comments: '89',
-    tag: 'announcement',
+      '📢 Exam schedule for Fall Semester has been released on the student portal. Please check your dashboard.',
+    likes: '1.2k',
+    comments: '210',
+    tag: 'notice',
     tagColor: 'bg-red-500/20 text-red-400',
   },
   {
@@ -223,9 +223,9 @@ const FeedPost = ({ post, index }: { post: Post; index: number }) => (
  */
 export default function CommunityScreen() {
   return (
-    <div className="w-full h-full bg-transparent text-white overflow-hidden font-sans rounded-[2.5rem] relative">
+    <div className="w-full h-full bg-transparent text-white overflow-hidden font-sans relative">
       <UnifiedHeader />
-      <div className="h-full overflow-y-auto no-scrollbar p-0 space-y-0 pt-16 pb-20 mask-gradient-b">
+      <div className="h-full overflow-y-auto no-scrollbar p-0 space-y-0 pt-16 pb-20">
         {FEED_DATA.map((post, i) => (
           <div key={post.id} className="w-full">
             <FeedPost post={post} index={i} />
