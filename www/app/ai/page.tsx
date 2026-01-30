@@ -204,7 +204,7 @@ const HeroSection = () => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="text-5xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
+      className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-white leading-[1.1] md:leading-[0.9] mb-6"
     >
       Institutional
       <br />
@@ -215,7 +215,7 @@ const HeroSection = () => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10"
+      className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mb-10 px-4"
     >
       Navigate university life with precision. Leverage our proprietary LLM to
       synthesize academic resources, campus logistics, and student discourse
@@ -251,7 +251,7 @@ const HeroSection = () => (
 )
 
 const StatsSection = () => (
-  <section className="py-16 px-6 border-y border-border">
+  <section className="py-12 sm:py-16 px-6 border-y border-border">
     <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
       {STATS.map((stat, i) => (
         <motion.div
@@ -262,11 +262,13 @@ const StatsSection = () => (
           transition={{ delay: i * 0.1 }}
           className="text-center"
         >
-          <stat.icon className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-          <p className="text-4xl font-bold text-foreground mb-1">
+          <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 mx-auto mb-3" />
+          <p className="text-3xl sm:text-4xl font-black text-white mb-1 tracking-tight">
             {stat.value}
           </p>
-          <p className="text-muted-foreground text-sm">{stat.label}</p>
+          <p className="text-muted-foreground text-[10px] sm:text-sm font-bold uppercase tracking-widest leading-relaxed">
+            {stat.label}
+          </p>
         </motion.div>
       ))}
     </div>
@@ -280,9 +282,9 @@ const FeaturesSection = () => (
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-10 sm:mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
           Enterprise-Grade <span className="text-blue-400">Capabilities</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -302,14 +304,14 @@ const FeaturesSection = () => (
             className="bg-card/30 border border-white/5 rounded-2xl p-6 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
             <div
-              className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
             >
-              <feature.icon className="w-6 h-6" />
+              <feature.icon className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <h3 className="text-lg font-bold text-foreground mb-2">
+            <h3 className="text-base sm:text-lg font-black text-white mb-2 tracking-tight">
               {feature.title}
             </h3>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
               {feature.description}
             </p>
           </motion.div>
@@ -327,9 +329,9 @@ const HowItWorksSection = () => (
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-12 sm:mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
           How It <span className="text-blue-400">Works</span>
         </h2>
         <p className="text-muted-foreground">
@@ -350,16 +352,18 @@ const HowItWorksSection = () => (
             {i < HOW_IT_WORKS.length - 1 && (
               <div className="hidden md:block absolute top-8 left-1/2 w-full h-px bg-border" />
             )}
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-500/15 flex items-center justify-center relative z-10">
-              <item.icon className="w-7 h-7 text-blue-400" />
+            <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 rounded-full bg-blue-500/15 flex items-center justify-center relative z-10">
+              <item.icon className="w-6 h-6 sm:w-7 sm:h-7 text-blue-400" />
             </div>
-            <div className="text-xs text-blue-400 font-mono mb-2">
+            <div className="text-[10px] text-blue-400 font-mono mb-2 uppercase tracking-widest">
               {item.step}
             </div>
-            <h3 className="text-lg font-bold text-foreground mb-2">
+            <h3 className="text-base sm:text-lg font-black text-white mb-2 tracking-tight">
               {item.title}
             </h3>
-            <p className="text-muted-foreground text-sm">{item.description}</p>
+            <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+              {item.description}
+            </p>
           </motion.div>
         ))}
       </div>
@@ -374,9 +378,9 @@ const UseCasesSection = () => (
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-10 sm:mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
           What You Can <span className="text-indigo-400">Ask</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -394,11 +398,15 @@ const UseCasesSection = () => (
             transition={{ delay: i * 0.05 }}
             className="bg-card/30 border border-white/5 rounded-xl p-5 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <useCase.icon className="w-6 h-6 text-blue-400" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <useCase.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
             </div>
-            <p className="text-foreground font-medium mb-2">{useCase.query}</p>
-            <p className="text-muted-foreground text-sm">→ {useCase.result}</p>
+            <p className="text-white font-black text-sm sm:text-base mb-2 tracking-tight">
+              {useCase.query}
+            </p>
+            <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+              → {useCase.result}
+            </p>
           </motion.div>
         ))}
       </div>
@@ -416,9 +424,9 @@ const FAQSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
             Frequently Asked <span className="text-blue-400">Questions</span>
           </h2>
         </motion.div>
@@ -444,8 +452,8 @@ const FAQSection = () => {
                   className="w-full p-6 flex items-start justify-between text-left gap-4"
                 >
                   <span
-                    className={`font-semibold text-lg transition-colors ${
-                      isOpen ? 'text-blue-400' : 'text-foreground'
+                    className={`font-black text-base sm:text-lg transition-colors tracking-tight ${
+                      isOpen ? 'text-blue-400' : 'text-white'
                     }`}
                   >
                     {faq.question}
@@ -472,7 +480,7 @@ const FAQSection = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
-                      <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                      <div className="px-6 pb-6 text-muted-foreground text-sm sm:text-base leading-relaxed">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -493,17 +501,17 @@ const CTASection = () => (
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-12 text-center relative overflow-hidden group"
+      className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 text-center relative overflow-hidden group"
     >
       <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-[100px]" />
       <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/20 rounded-full blur-[100px]" />
 
       <Bot className="w-16 h-16 text-blue-400 mx-auto mb-6 relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-      <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4 relative z-10">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 relative z-10 leading-tight">
         Ready to Deploy?
       </h2>
-      <p className="text-muted-foreground max-w-lg mx-auto mb-10 relative z-10 text-lg">
+      <p className="text-muted-foreground max-w-lg mx-auto mb-8 sm:mb-10 relative z-10 text-base sm:text-lg leading-relaxed">
         Empower your student body with the next generation of campus
         intelligence.
       </p>

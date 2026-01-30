@@ -36,7 +36,7 @@ function ParallaxTextLayer({ text, velocity = 5 }: ParallaxLayerProps) {
   return (
     <motion.div
       style={{ x, WebkitTextStroke: '2px rgba(255,255,255,0.05)' }}
-      className="text-[12rem] md:text-[20rem] font-black uppercase tracking-tighter text-transparent stroke-white/5 stroke-2 flex whitespace-nowrap leading-none select-none"
+      className="text-[8rem] sm:text-[12rem] md:text-[20rem] font-black uppercase tracking-tighter text-transparent stroke-white/5 stroke-2 flex whitespace-nowrap leading-none select-none"
     >
       <span className="mx-4">{text}</span>
       <span className="mx-4">{text}</span>

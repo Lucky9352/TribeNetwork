@@ -87,27 +87,26 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="text-center py-8"
+        className="text-center py-12 px-4"
       >
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
-          <GraduationCap className="w-8 h-8 text-primary" />
+        <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-blue-500/10 flex items-center justify-center ring-1 ring-blue-500/20 shadow-lg shadow-blue-500/10">
+          <GraduationCap className="w-10 h-10 text-blue-400" />
         </div>
-        <h3 className="text-2xl font-bold text-foreground mb-2">
-          Request Submitted!
+        <h3 className="text-2xl sm:text-3xl font-black text-white mb-3 tracking-tight">
+          Inquiry Received!
         </h3>
-        <p className="text-muted-foreground">
-          Thanks for your interest! We&apos;ll review your request and get back
-          to you soon.
+        <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+          Our team will review your deployment request and get back to you soon.
         </p>
       </motion.div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* Name */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
           Your Name <span className="text-blue-500">*</span>
         </label>
         <div className="relative group">
@@ -119,14 +118,14 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.name}
             onChange={handleChange}
             placeholder="Your full name"
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
           />
         </div>
       </div>
 
       {/* Email */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
           Email <span className="text-blue-500">*</span>
         </label>
         <div className="relative group">
@@ -138,14 +137,14 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.email}
             onChange={handleChange}
             placeholder="you@university.edu"
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
           />
         </div>
       </div>
 
       {/* School */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
           School / University <span className="text-blue-500">*</span>
         </label>
         <div className="relative group">
@@ -157,14 +156,14 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.school}
             onChange={handleChange}
             placeholder="Your University"
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
           />
         </div>
       </div>
 
       {/* Class Year */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
           Class Year <span className="text-blue-500">*</span>
         </label>
         <div className="relative group">
@@ -174,11 +173,13 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             required
             value={formData.classYear}
             onChange={handleChange}
-            className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/10"
+            className="w-full pl-10 pr-10 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/5"
           >
-            <option value="">Select class year</option>
+            <option value="" className="bg-zinc-900">
+              Select class year
+            </option>
             {CLASS_YEARS.map((year) => (
-              <option key={year} value={year}>
+              <option key={year} value={year} className="bg-zinc-900">
                 {year}
               </option>
             ))}
@@ -187,10 +188,10 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
         </div>
       </div>
 
-      {/* Phone & Instagram - side by side */}
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="text-sm font-medium text-muted-foreground mb-2 block">
+      {/* Phone & Instagram - responsive grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
             Phone <span className="text-blue-500">*</span>
           </label>
           <div className="relative group">
@@ -201,13 +202,13 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
               required
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+91 9876543210"
-              className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
+              placeholder="+91 98765 43210"
+              className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
             />
           </div>
         </div>
-        <div>
-          <label className="text-sm font-medium text-muted-foreground mb-2 block">
+        <div className="space-y-2">
+          <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
             Instagram <span className="text-blue-500">*</span>
           </label>
           <div className="relative group">
@@ -219,16 +220,16 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
               value={formData.instagram}
               onChange={handleChange}
               placeholder="@yourhandle"
-              className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
+              className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
             />
           </div>
         </div>
       </div>
 
       {/* Message */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          Why should Tribe come to your campus?
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
+          Community Highlights
         </label>
         <div className="relative group">
           <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
@@ -237,31 +238,35 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.message}
             onChange={handleChange}
             rows={3}
-            placeholder="Tell us about your community..."
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all resize-none hover:bg-white/10"
+            placeholder="Tell us about your campus community..."
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all resize-none hover:bg-white/5"
           />
         </div>
       </div>
 
       {/* Error */}
       {error && (
-        <p className="text-destructive text-sm bg-destructive/10 px-4 py-2 rounded-lg">
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-red-400 text-xs bg-red-500/10 px-4 py-3 rounded-xl border border-red-500/20 font-medium"
+        >
           {error}
-        </p>
+        </motion.p>
       )}
 
       {/* Submit */}
       <motion.button
         type="submit"
         disabled={isSubmitting}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 border border-white/10"
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 border border-white/10"
       >
         {isSubmitting ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
-            Submitting...
+            Processing...
           </>
         ) : (
           <>

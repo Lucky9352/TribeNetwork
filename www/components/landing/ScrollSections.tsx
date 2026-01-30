@@ -327,21 +327,32 @@ function SectionText({
  * Renders the stacked layout for mobile devices.
  */
 const MobileLayout = () => (
-  <div className="lg:hidden space-y-20 py-20 px-6">
+  <div className="lg:hidden space-y-20 px-6">
     {SCROLL_SECTIONS.map((section) => (
-      <div key={section.id} className="space-y-8">
-        <div className="aspect-9/16 w-full max-w-[300px] mx-auto overflow-hidden rounded-4xl border border-border shadow-2xl relative">
-          <section.Screen />
-        </div>
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4">{section.title}</h2>
-          <p className="text-muted-foreground mb-6">{section.description}</p>
-          <Link
-            href={section.internalHref}
-            className="inline-flex items-center text-foreground border-b border-foreground pb-1"
+      <div key={section.id} className="space-y-10">
+        <div className="text-center space-y-4">
+          <div
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border border-${section.color}-500/20 text-${section.color}-400 text-xs font-bold uppercase tracking-widest bg-${section.color}-500/10 mx-auto`}
           >
-            Explore {section.subtitle} <ArrowRight className="ml-2 w-4 h-4" />
-          </Link>
+            {section.subtitle}
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tighter text-white leading-tight">
+            {section.title}
+          </h2>
+          <p className="text-muted-foreground text-sm sm:text-base font-medium leading-relaxed px-4">
+            {section.description}
+          </p>
+          <div className="pt-4">
+            <Link
+              href={section.internalHref}
+              className={`inline-flex items-center px-6 py-3 rounded-full border border-${section.color}-500/30 text-${section.color}-400 text-sm font-black uppercase tracking-widest hover:bg-${section.color}-500/10 transition-all`}
+            >
+              Explore {section.subtitle} <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+        <div className="aspect-9/16 w-full max-w-[280px] mx-auto overflow-hidden rounded-[2.5rem] border border-transparent shadow-2xl relative bg-black">
+          <section.Screen />
         </div>
       </div>
     ))}

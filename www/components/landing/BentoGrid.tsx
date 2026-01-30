@@ -8,7 +8,6 @@ import {
   Sparkles,
   Megaphone,
   ArrowUpRight,
-  Activity,
   LucideIcon,
 } from 'lucide-react'
 import { Spotlight } from '@/components/ui/Spotlight'
@@ -46,7 +45,7 @@ const BENTO_ITEMS: BentoItem[] = [
     iconColor: 'text-purple-400',
     delay: 0.2,
     variant: 'community',
-    className: 'col-span-2 lg:col-span-2 aspect-[2.2/1]',
+    className: 'col-span-1 sm:col-span-2 aspect-[1.1/1] sm:aspect-[2.2/1]',
   },
   {
     id: 'ai',
@@ -124,23 +123,6 @@ const TiltCard = ({
   )
 }
 
-const LiveIndicator = () => (
-  <div className="absolute top-0 right-0 flex items-center gap-1.5 bg-green-500/10 border border-green-500/20 px-2 py-1 rounded-full">
-    <span className="relative flex h-2 w-2">
-      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-    </span>
-    <span className="text-[10px] font-medium text-green-400">420 Live</span>
-  </div>
-)
-
-const ProcessingIndicator = () => (
-  <div className="absolute top-0 right-0 flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded-full">
-    <Activity className="w-3 h-3 text-blue-400 animate-pulse" />
-    <span className="text-[10px] font-medium text-blue-400">Processing</span>
-  </div>
-)
-
 export const BentoCard = ({ item }: { item: BentoItem }) => {
   const {
     className,
@@ -150,14 +132,13 @@ export const BentoCard = ({ item }: { item: BentoItem }) => {
     icon: Icon,
     logoGradient,
     delay,
-    variant,
   } = item
 
   return (
     <div className={`${className} perspective-1000`}>
       <TiltCard className="h-full w-full">
         <Link href={href} className="block h-full group">
-          <Spotlight className="h-full flex flex-col p-6 transition-all duration-500 hover:border-white/30 bg-zinc-900/50 border border-white/10 rounded-3xl">
+          <Spotlight className="h-full flex flex-col p-6 transition-all duration-500 hover:border-white/30 bg-zinc-900/30 backdrop-blur-sm border border-white/10 rounded-3xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -182,10 +163,6 @@ export const BentoCard = ({ item }: { item: BentoItem }) => {
                 </p>
               </div>
 
-              {/* Variant Specific Indicators */}
-              {variant === 'community' && <LiveIndicator />}
-              {variant === 'ai' && <ProcessingIndicator />}
-
               <div className="absolute bottom-1 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-2 group-hover:translate-x-0">
                 <ArrowUpRight className="w-5 h-5 text-white/70" />
               </div>
@@ -202,11 +179,10 @@ export const BentoCard = ({ item }: { item: BentoItem }) => {
  */
 export default function BentoGrid() {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-2 gap-6 w-full h-full min-h-[400px]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full h-full min-h-[400px]">
       {BENTO_ITEMS.map((item) => (
         <BentoCard key={item.id} item={item} />
       ))}
-      <div className="hidden lg:block absolute -z-10 top-0 right-0 w-full h-full bg-purple-500/5 blur-3xl pointer-events-none" />
     </div>
   )
 }

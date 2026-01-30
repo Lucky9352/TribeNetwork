@@ -4,7 +4,6 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Building2, GraduationCap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import ParallaxBackground from './ParallaxBackground'
 import PhoneMockup from './PhoneMockup'
 import AppNavigation from './AppNavigation'
 import TopicMarquee from './TopicMarquee'
@@ -89,7 +88,7 @@ const HeroContent = ({
     }}
     className="space-y-6"
   >
-    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
+    <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tighter text-white leading-[1.1] sm:leading-[0.9]">
       <StaggeredText
         text={HERO_CONTENT.titlePart1}
         wrapperClassName="overflow-hidden"
@@ -97,7 +96,7 @@ const HeroContent = ({
       <br />
       <StaggeredText
         text={HERO_CONTENT.titlePart2}
-        wrapperClassName="text-primary"
+        wrapperClassName="text-blue-500"
       />
     </h1>
     <motion.p
@@ -110,7 +109,7 @@ const HeroContent = ({
           transition: { duration: 0.8, ease: 'easeOut' },
         },
       }}
-      className="text-xl text-muted-foreground font-light max-w-lg"
+      className="text-base sm:text-lg md:text-xl text-muted-foreground font-medium max-w-lg leading-relaxed"
     >
       {HERO_CONTENT.description}
     </motion.p>
@@ -173,14 +172,11 @@ export default function Hero({
   onOpenUniversity,
 }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex flex-col justify-start overflow-hidden pt-12 lg:pt-16 pb-24 lg:pb-32">
-      {/* Scrolling Text Background */}
-      <ParallaxBackground />
-
+    <section className="relative min-h-screen flex flex-col justify-start pb-0">
       {/* Ambient Glow */}
       <div className="absolute inset-0 z-0 pointer-events-none"></div>
 
-      <div className="relative z-10 w-full px-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+      <div className="relative z-10 w-full px-6 sm:px-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start pt-24 lg:pt-32">
         {/* LEFT SIDE: Headings + Description */}
         <div className="lg:col-span-7 flex flex-col space-y-12">
           <HeroContent
@@ -195,8 +191,7 @@ export default function Hero({
         </div>
       </div>
 
-      {/* "Background Running Thing" - Full Width Topic Marquee */}
-      <div className="absolute top-[65%] left-0 right-0 -translate-y-1/2 z-0 opacity-100 pointer-events-none max-w-[100vw] overflow-hidden">
+      <div className="absolute top-[101%] lg:top-[65%] left-0 right-0 -translate-y-1/2 z-0 opacity-100 pointer-events-none max-w-[100vw] overflow-visible">
         <TopicMarquee />
       </div>
     </section>

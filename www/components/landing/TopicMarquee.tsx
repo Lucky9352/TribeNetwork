@@ -93,7 +93,7 @@ const MARQUEE_ROW_2: MarqueeItemData[] = [
 ]
 
 const MarqueeText = ({ content }: { content: string }) => (
-  <span className="text-6xl md:text-8xl font-black tracking-tighter text-white/90">
+  <span className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-white/90">
     {content}
   </span>
 )
@@ -108,10 +108,10 @@ const MarqueePill = ({
   textColor?: string
 }) => (
   <div
-    className={`px-8 py-3 rounded-full ${color} border-4 border-white/10 shadow-2xl transform -rotate-2`}
+    className={`px-5 py-2 sm:px-8 sm:py-3 rounded-full ${color} border-2 sm:border-4 border-white/10 shadow-2xl transform -rotate-2`}
   >
     <span
-      className={`text-2xl md:text-4xl font-bold tracking-widest ${textColor}`}
+      className={`text-base sm:text-2xl md:text-4xl font-bold tracking-widest ${textColor}`}
     >
       {content}
     </span>
@@ -190,7 +190,7 @@ const MarqueeRow = ({
  */
 export default function TopicMarquee() {
   return (
-    <div className="w-full flex flex-col gap-8 py-10 select-none overflow-hidden">
+    <div className="w-full flex flex-col gap-4 sm:gap-8 py-10 select-none overflow-visible">
       <MarqueeRow items={MARQUEE_ROW_1} direction="left" duration={40} />
       <MarqueeRow items={MARQUEE_ROW_2} direction="right" duration={45} />
     </div>

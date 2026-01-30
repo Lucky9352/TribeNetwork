@@ -25,7 +25,7 @@ const DEFAULT_UNIVERSITIES = [
 ]
 
 const MarqueeItem = ({ text }: { text: string }) => (
-  <span className="text-2xl font-bold text-white/20 uppercase tracking-widest hover:text-white/40 transition-colors cursor-default shrink-0">
+  <span className="text-lg sm:text-2xl font-bold text-white/20 uppercase tracking-widest hover:text-white/40 transition-colors cursor-default shrink-0">
     {text}
   </span>
 )
@@ -40,7 +40,7 @@ const MarqueeContent = memo(function MarqueeContent({
   return (
     <div className="flex overflow-hidden select-none">
       <motion.div
-        className="flex shrink-0 items-center gap-16 pr-16"
+        className="flex shrink-0 items-center gap-8 sm:gap-16 pr-8 sm:pr-16"
         animate={{ x: '-50%' }}
         transition={{
           duration: 30,
@@ -85,9 +85,9 @@ export default function Marquee() {
   }, [])
 
   return (
-    <div className="relative flex overflow-hidden py-10 bg-black border-y border-white/5">
-      <div className="absolute inset-y-0 left-0 w-24 bg-black z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 bg-black z-10 pointer-events-none" />
+    <div className="relative flex overflow-hidden bg-transparent">
+      <div className="absolute inset-y-0 left-0 w-8 sm:w-24 bg-linear-to-r from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-8 sm:w-24 bg-linear-to-l from-black to-transparent z-10 pointer-events-none" />
       {isLoaded ? (
         <MarqueeContent universities={universities} />
       ) : (

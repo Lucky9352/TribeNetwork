@@ -121,7 +121,7 @@ const ActiveCampaignCard = () => (
       <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
     </div>
     <div className="flex gap-3 items-center bg-black/40 p-2 rounded-lg border border-white/5">
-      <div className="w-10 h-10 bg-white rounded-md flex items-center justify-center font-bold text-black text-xs">
+      <div className="w-10 h-10 bg-blue-500/10 border border-blue-500/20 rounded-md flex items-center justify-center font-bold text-blue-400 text-[8px] text-center p-1 uppercase leading-tight">
         {ACTIVE_CAMPAIGN.brand}
       </div>
       <div>

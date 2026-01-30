@@ -50,7 +50,7 @@ export default function Modal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
           onClick={handleBackdropClick}
         >
           {/* Backdrop */}
@@ -59,26 +59,28 @@ export default function Modal({
           {/* Modal */}
           <motion.div
             ref={modalRef}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 100 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            exit={{ opacity: 0, scale: 0.95, y: 100 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-blue-500/10"
+            className="relative w-full max-w-lg max-h-[95vh] sm:max-h-[90vh] overflow-y-auto bg-black/80 backdrop-blur-xl border-t sm:border border-white/10 rounded-t-4xl sm:rounded-3xl shadow-2xl shadow-blue-500/10"
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 flex items-center justify-between p-6 border-b border-white/10 bg-black/50 backdrop-blur-md">
-              <h2 className="text-xl font-bold text-white">{title}</h2>
+            <div className="sticky top-0 z-10 flex items-center justify-between p-5 sm:p-6 border-b border-white/10 bg-black/50 backdrop-blur-md">
+              <h2 className="text-lg sm:text-xl font-black text-white tracking-tight uppercase">
+                {title}
+              </h2>
               <button
                 onClick={onClose}
-                className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="p-2 sm:p-2.5 rounded-full hover:bg-white/10 transition-colors group"
                 aria-label="Close modal"
               >
-                <X className="w-5 h-5 text-zinc-400" />
+                <X className="w-5 h-5 text-muted-foreground group-hover:text-white transition-colors" />
               </button>
             </div>
 
             {/* Content */}
-            <div className="p-6">{children}</div>
+            <div className="p-6 sm:p-8">{children}</div>
           </motion.div>
         </motion.div>
       )}

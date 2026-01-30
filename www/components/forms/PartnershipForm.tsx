@@ -91,27 +91,26 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="text-center py-8"
+        className="text-center py-12 px-4"
       >
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
-          <Sparkles className="w-8 h-8 text-primary" />
+        <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-blue-500/10 flex items-center justify-center ring-1 ring-blue-500/20 shadow-lg shadow-blue-500/10">
+          <Sparkles className="w-10 h-10 text-blue-400" />
         </div>
-        <h3 className="text-2xl font-bold text-foreground mb-2">
-          You&apos;re on the list!
+        <h3 className="text-2xl sm:text-3xl font-black text-white mb-3 tracking-tight">
+          Inquiry Received!
         </h3>
-        <p className="text-muted-foreground">
-          We&apos;ll reach out soon to discuss how we can help your brand
-          connect with Gen Z.
+        <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+          Our team will reach out within 24 hours to discuss your campus goals.
         </p>
       </motion.div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* Name */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
           Your Name <span className="text-blue-500">*</span>
         </label>
         <div className="relative group">
@@ -123,14 +122,14 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
             value={formData.name}
             onChange={handleChange}
             placeholder="Jane Doe"
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
           />
         </div>
       </div>
 
       {/* Email */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
           Work Email <span className="text-blue-500">*</span>
         </label>
         <div className="relative group">
@@ -142,14 +141,14 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
             value={formData.email}
             onChange={handleChange}
             placeholder="jane@company.com"
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
           />
         </div>
       </div>
 
       {/* Company Website */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
           Company Website <span className="text-blue-500">*</span>
         </label>
         <div className="relative group">
@@ -161,69 +160,71 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
             value={formData.companyWebsite}
             onChange={handleChange}
             placeholder="https://yourcompany.com"
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
           />
         </div>
       </div>
 
-      {/* Role */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          Your Role <span className="text-blue-500">*</span>
-        </label>
-        <div className="relative group">
-          <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
-          <select
-            name="role"
-            required
-            value={formData.role}
-            onChange={handleChange}
-            className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/10"
-          >
-            <option value="" className="bg-zinc-900">
-              Select your role
-            </option>
-            {ROLES.map((role) => (
-              <option key={role} value={role} className="bg-zinc-900">
-                {role}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {/* Role */}
+        <div className="space-y-2">
+          <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
+            Your Role <span className="text-blue-500">*</span>
+          </label>
+          <div className="relative group">
+            <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
+            <select
+              name="role"
+              required
+              value={formData.role}
+              onChange={handleChange}
+              className="w-full pl-10 pr-10 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/5"
+            >
+              <option value="" className="bg-zinc-900">
+                Select role
               </option>
-            ))}
-          </select>
-          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none group-focus-within:text-blue-400 transition-colors" />
+              {ROLES.map((role) => (
+                <option key={role} value={role} className="bg-zinc-900">
+                  {role}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none group-focus-within:text-blue-400 transition-colors" />
+          </div>
         </div>
-      </div>
 
-      {/* Budget */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          Campaign Budget <span className="text-blue-500">*</span>
-        </label>
-        <div className="relative group">
-          <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
-          <select
-            name="budgetRange"
-            required
-            value={formData.budgetRange}
-            onChange={handleChange}
-            className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/10"
-          >
-            <option value="" className="bg-zinc-900">
-              Select budget range
-            </option>
-            {BUDGETS.map((budget) => (
-              <option key={budget} value={budget} className="bg-zinc-900">
-                {budget}
+        {/* Budget */}
+        <div className="space-y-2">
+          <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
+            Budget <span className="text-blue-500">*</span>
+          </label>
+          <div className="relative group">
+            <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
+            <select
+              name="budgetRange"
+              required
+              value={formData.budgetRange}
+              onChange={handleChange}
+              className="w-full pl-10 pr-10 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/5"
+            >
+              <option value="" className="bg-zinc-900">
+                Select range
               </option>
-            ))}
-          </select>
-          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none group-focus-within:text-blue-400 transition-colors" />
+              {BUDGETS.map((budget) => (
+                <option key={budget} value={budget} className="bg-zinc-900">
+                  {budget}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none group-focus-within:text-blue-400 transition-colors" />
+          </div>
         </div>
       </div>
 
       {/* Message */}
-      <div>
-        <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          How can we help your brand?
+      <div className="space-y-2">
+        <label className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest ml-1">
+          Campaign Goals
         </label>
         <div className="relative group">
           <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
@@ -232,36 +233,40 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
             value={formData.message}
             onChange={handleChange}
             rows={3}
-            placeholder="Tell us about your goals..."
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all resize-none hover:bg-white/10"
+            placeholder="Tell us what you'd like to achieve..."
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all resize-none hover:bg-white/5"
           />
         </div>
       </div>
 
       {/* Error */}
       {error && (
-        <p className="text-destructive text-sm bg-destructive/10 px-4 py-2 rounded-lg border border-destructive/20">
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-red-400 text-xs bg-red-500/10 px-4 py-3 rounded-xl border border-red-500/20 font-medium"
+        >
           {error}
-        </p>
+        </motion.p>
       )}
 
       {/* Submit */}
       <motion.button
         type="submit"
         disabled={isSubmitting}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 border border-white/10"
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 border border-white/10"
       >
         {isSubmitting ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
-            Submitting...
+            Processing...
           </>
         ) : (
           <>
             <Sparkles className="w-5 h-5" />
-            Submit Partnership Inquiry
+            Launch Inquiry
           </>
         )}
       </motion.button>

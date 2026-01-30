@@ -96,7 +96,13 @@ const DynamicIsland = ({
     <motion.div
       initial={false}
       animate={{
-        width: notification ? 230 : 90,
+        width: notification
+          ? window?.innerWidth < 640
+            ? 180
+            : 230
+          : window?.innerWidth < 640
+            ? 70
+            : 90,
         height: notification ? 38 : 28,
         borderRadius: 20,
       }}
@@ -160,7 +166,7 @@ export default function PhoneMockup({
   }, [])
 
   return (
-    <div className="relative mx-auto flex items-center justify-center perspective-[2000px] py-16">
+    <div className="relative mx-auto flex items-center justify-center perspective-[2000px] py-8 sm:py-16">
       <motion.div
         initial={
           isStatic
@@ -180,7 +186,7 @@ export default function PhoneMockup({
           duration: 6,
           ease: 'easeInOut',
         }}
-        className="relative z-10 w-[310px] md:w-[340px] h-[680px] bg-black rounded-[60px] select-none border-10 border-[#121212] overflow-visible"
+        className="relative z-10 w-[240px] xs:w-[310px] md:w-[340px] h-[480px] xs:h-[620px] md:h-[680px] bg-black rounded-[40px] xs:rounded-[60px] select-none border-10 border-[#121212] overflow-visible"
         style={{
           boxShadow: `
                         0 0 0 4px #3a3a3a, /* Metallic Frame */
@@ -194,7 +200,7 @@ export default function PhoneMockup({
 
         {/* Screen Container */}
         <div
-          className="absolute inset-0 rounded-[50px] overflow-hidden z-20"
+          className="absolute inset-[-2px] rounded-[38px] xs:rounded-[50px] overflow-hidden z-20"
           style={{
             WebkitMaskImage: '-webkit-radial-gradient(white, black)',
           }}

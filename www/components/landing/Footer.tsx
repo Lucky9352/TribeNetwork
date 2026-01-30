@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowRight, Send, Loader2, Check } from 'lucide-react'
 import { SiX, SiInstagram, SiGithub } from '@icons-pack/react-simple-icons'
 import { siteConfig } from '@/lib/site-config'
+import { motion } from 'framer-motion'
 
 /**
  * @file Footer.tsx
@@ -95,55 +96,75 @@ const NewsletterForm = () => {
 
   if (isSuccess) {
     return (
-      <div className="max-w-md">
-        <div className="flex items-center gap-2 text-green-400 mb-2">
-          <Check className="w-5 h-5" />
-          <span className="font-bold">You&apos;re subscribed!</span>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="max-w-md p-6 bg-blue-500/5 border border-blue-500/20 rounded-2xl"
+      >
+        <div className="flex items-center gap-3 text-blue-400 mb-2">
+          <div className="p-1 rounded-lg bg-blue-400/10">
+            <Check className="w-5 h-5" />
+          </div>
+          <span className="font-black uppercase tracking-widest text-sm">
+            Subscribed
+          </span>
         </div>
-        <p className="text-muted-foreground text-sm">
-          Thanks for joining! We&apos;ll keep you updated on the latest
-          features.
+        <p className="text-muted-foreground text-sm leading-relaxed">
+          Welcome to the network. You&apos;ll receive our next campus update
+          shortly.
         </p>
-      </div>
+      </motion.div>
     )
   }
 
   return (
     <div className="max-w-md">
-      <h3 className="font-bold text-lg mb-2">Join the Network</h3>
-      <p className="text-muted-foreground text-sm mb-4">
+      <h3 className="font-black text-white text-lg uppercase tracking-tighter mb-2">
+        Join the <span className="text-blue-400">Network</span>
+      </h3>
+      <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
         Stay ahead with the latest advancements in campus intelligence and
         community connectivity.
       </p>
-      <form onSubmit={handleSubmit} className="relative">
+      <form onSubmit={handleSubmit} className="relative group">
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
+          placeholder="Enter your work email"
           disabled={isSubmitting}
-          className="w-full bg-muted border border-border rounded-full py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50 text-foreground placeholder:text-muted-foreground"
+          className="w-full bg-white/3 border border-white/10 rounded-full py-4 pl-6 pr-14 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all disabled:opacity-50 text-foreground placeholder:text-muted-foreground hover:bg-white/5"
         />
         <button
           type="submit"
           disabled={isSubmitting || !email}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-blue-600 rounded-full hover:bg-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/20"
         >
           {isSubmitting ? (
-            <Loader2 className="w-3 h-3 text-primary-foreground animate-spin" />
+            <Loader2 className="w-4 h-4 text-white animate-spin" />
           ) : (
-            <Send className="w-3 h-3 text-primary-foreground" />
+            <Send className="w-4 h-4 text-white" />
           )}
         </button>
       </form>
-      {error && <p className="text-destructive text-xs mt-2">{error}</p>}
+      {error && (
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-red-400 text-xs mt-3 ml-2 font-medium"
+        >
+          {error}
+        </motion.p>
+      )}
     </div>
   )
 }
 
 const FooterColumn = ({ section }: { section: FooterSection }) => (
   <div>
-    <h3 className="font-bold text-white mb-4">{section.title}</h3>
+    <h3 className="font-black text-white text-xs uppercase tracking-[0.2em] mb-6">
+      {section.title}
+    </h3>
     <ul className="space-y-3">
       {section.links.map((link) => (
         <li key={link.label}>
@@ -171,7 +192,7 @@ export default function Footer() {
   }, [])
 
   return (
-    <footer className="bg-background border-t border-border pt-20 pb-10">
+    <footer className="bg-transparent relative z-10 border-t border-white/5 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
           {/* Brand & Newsletter - Takes up 2 columns */}
@@ -185,7 +206,7 @@ export default function Footer() {
           </div>
 
           {/* Links Columns */}
-          <div className="lg:col-span-4 grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="lg:col-span-4 grid grid-cols-2 sm:grid-cols-3 gap-8">
             {FOOTER_SECTIONS.map((section) => (
               <FooterColumn key={section.title} section={section} />
             ))}

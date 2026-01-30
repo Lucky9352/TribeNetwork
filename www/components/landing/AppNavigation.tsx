@@ -183,7 +183,7 @@ const BottomNav = ({
   activeTab: string
   setActiveTab: (tab: string) => void
 }) => (
-  <div className="fixed bottom-0 w-full h-16 bg-[#0a0a0a]/90 backdrop-blur-lg border-t border-white/5 flex items-center justify-around px-6 z-50 rounded-b-[40px] max-w-[inherit]">
+  <div className="absolute bottom-0 left-0 right-0 w-full h-16 bg-black/95 backdrop-blur-lg flex items-center justify-around px-6 z-50 max-w-[inherit]">
     <div
       onClick={() => setActiveTab('ai')}
       className={`p-2 cursor-pointer rounded-full transition-colors group ${activeTab === 'ai' ? 'text-white bg-white/10' : 'text-gray-600 hover:text-white hover:bg-white/10'}`}

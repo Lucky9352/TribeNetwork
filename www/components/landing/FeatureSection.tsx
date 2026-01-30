@@ -106,11 +106,11 @@ const FeatureText = ({
         {subtitle}
       </div>
 
-      <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white leading-[1.1]">
+      <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter text-white leading-tight md:leading-[1.1]">
         {title}
       </h2>
 
-      <p className="text-xl text-gray-400 font-light leading-relaxed max-w-lg">
+      <p className="text-base sm:text-xl text-gray-400 font-light leading-relaxed max-w-lg">
         {description}
       </p>
 
@@ -128,7 +128,6 @@ const FeatureText = ({
 
 const FeatureVisual = ({
   visual,
-  color,
   alignment,
   y,
 }: {
@@ -137,19 +136,12 @@ const FeatureVisual = ({
   alignment: FeatureAlignment
   y: MotionValue<number>
 }) => {
-  const styles = COLOR_VARIANTS[color]
-
   return (
     <div className={`${alignment === 'right' ? 'lg:col-start-1' : ''}`}>
       <motion.div style={{ y }} className="relative">
-        <Spotlight className="aspect-4/3 rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl flex items-center justify-center overflow-hidden">
+        <Spotlight className="aspect-square sm:aspect-4/3 rounded-3xl border border-transparent bg-transparent flex items-center justify-center overflow-hidden">
           {visual}
         </Spotlight>
-
-        {/* Decorative Glow */}
-        <div
-          className={`absolute -inset-10 -z-10 ${styles.glow} blur-[100px] rounded-full opacity-50`}
-        />
       </motion.div>
     </div>
   )
@@ -171,7 +163,7 @@ export default function FeatureSection(props: FeatureSectionProps) {
   return (
     <section
       ref={ref}
-      className="min-h-[80vh] flex items-center py-24 relative overflow-hidden"
+      className="min-h-[50vh] sm:min-h-[70vh] flex items-center pt-12 sm:pt-20 pb-0 relative overflow-hidden"
     >
       <div
         className={`max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full ${

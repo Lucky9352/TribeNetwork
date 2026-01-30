@@ -153,7 +153,7 @@ export function StatusSelect({ value, onChange, disabled }: StatusSelectProps) {
         onClick={handleToggle}
         disabled={disabled}
         className={cn(
-          'flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-lg text-xs font-semibold border cursor-pointer transition-all',
+          'flex items-center gap-1.5 sm:gap-2 px-2 sm:pl-3 sm:pr-2 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-semibold border cursor-pointer transition-all',
           'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#12121a]',
           config?.bg || 'bg-slate-800',
           config?.text || 'text-slate-300',

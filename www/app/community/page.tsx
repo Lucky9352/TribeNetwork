@@ -165,7 +165,7 @@ const HeroSection = () => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="text-5xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
+      className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-white leading-[1.1] md:leading-[0.9] mb-6"
     >
       The Digital
       <br />
@@ -176,7 +176,7 @@ const HeroSection = () => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10"
+      className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mb-10 px-4"
     >
       A unified platform for student governance, academic collaboration, and
       vibrant campus life.
@@ -214,7 +214,7 @@ const HeroSection = () => (
 )
 
 const StatsSection = () => (
-  <section className="py-16 px-6 border-y border-border">
+  <section className="py-12 sm:py-16 px-6 border-y border-border">
     <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
       {STATS.map((stat, i) => (
         <motion.div
@@ -225,11 +225,13 @@ const StatsSection = () => (
           transition={{ delay: i * 0.1 }}
           className="text-center"
         >
-          <stat.icon className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-          <p className="text-4xl font-bold text-foreground mb-1">
+          <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 mx-auto mb-3" />
+          <p className="text-3xl sm:text-4xl font-black text-white mb-1 tracking-tight">
             {stat.value}
           </p>
-          <p className="text-muted-foreground text-sm">{stat.label}</p>
+          <p className="text-muted-foreground text-[10px] sm:text-sm font-bold uppercase tracking-widest leading-relaxed">
+            {stat.label}
+          </p>
         </motion.div>
       ))}
     </div>
@@ -243,12 +245,12 @@ const FeaturesSection = () => (
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-10 sm:mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
           Everything <span className="text-blue-400">Campus</span>
         </h2>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-4 leading-relaxed">
           Built to support the diverse needs of a modern university ecosystem.
         </p>
       </motion.div>
@@ -264,14 +266,14 @@ const FeaturesSection = () => (
             className="bg-card/30 border border-white/5 p-6 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
             <div
-              className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
             >
-              <feature.icon className="w-6 h-6" />
+              <feature.icon className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">
+            <h3 className="text-base sm:text-lg font-black text-white mb-2 tracking-tight">
               {feature.title}
             </h3>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
               {feature.description}
             </p>
           </motion.div>
@@ -289,12 +291,12 @@ const CategoriesSection = () => (
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-12 sm:mb-16 px-4"
       >
-        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
           Discussion <span className="text-blue-400">Categories</span>
         </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
           Find exactly what you&apos;re looking for. Every topic has its place.
         </p>
       </motion.div>
@@ -309,14 +311,16 @@ const CategoriesSection = () => (
             transition={{ delay: i * 0.05 }}
             className="bg-card/30 border border-white/5 rounded-xl p-5 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
-            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform origin-left">
+            <div className="text-2xl sm:text-3xl mb-3 group-hover:scale-110 transition-transform origin-left">
               {cat.emoji}
             </div>
-            <h3 className="text-foreground font-bold mb-1">{cat.name}</h3>
-            <p className="text-muted-foreground text-sm mb-2">
+            <h3 className="text-white font-black text-sm sm:text-base mb-1 tracking-tight">
+              {cat.name}
+            </h3>
+            <p className="text-muted-foreground text-[10px] sm:text-sm mb-2 leading-tight">
               {cat.description}
             </p>
-            <p className="text-blue-400 text-xs font-medium">
+            <p className="text-blue-400 text-[10px] font-black uppercase tracking-widest">
               {cat.posts} posts
             </p>
           </motion.div>
@@ -336,9 +340,9 @@ const FAQSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
             Frequently Asked <span className="text-blue-400">Questions</span>
           </h2>
         </motion.div>
@@ -364,8 +368,8 @@ const FAQSection = () => {
                   className="w-full p-6 flex items-start justify-between text-left gap-4"
                 >
                   <span
-                    className={`font-semibold text-lg transition-colors ${
-                      isOpen ? 'text-blue-400' : 'text-foreground'
+                    className={`font-black text-base sm:text-lg transition-colors tracking-tight ${
+                      isOpen ? 'text-blue-400' : 'text-white'
                     }`}
                   >
                     {faq.question}
@@ -392,7 +396,7 @@ const FAQSection = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
-                      <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                      <div className="px-6 pb-6 text-muted-foreground text-sm sm:text-base leading-relaxed">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -413,17 +417,17 @@ const CTASection = () => (
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-12 text-center relative overflow-hidden group"
+      className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 text-center relative overflow-hidden group"
     >
       <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-[100px]" />
       <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/20 rounded-full blur-[100px]" />
 
       <GraduationCap className="w-16 h-16 text-blue-400 mx-auto mb-6 relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-      <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4 relative z-10">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 relative z-10 leading-tight">
         Ready to Join?
       </h2>
-      <p className="text-muted-foreground max-w-lg mx-auto mb-10 relative z-10 text-lg">
+      <p className="text-muted-foreground max-w-lg mx-auto mb-8 sm:mb-10 relative z-10 text-base sm:text-lg leading-relaxed px-4">
         Claim your digital campus identity today.
       </p>
 
