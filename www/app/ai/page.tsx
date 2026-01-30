@@ -14,15 +14,21 @@ import {
   Link2,
   Shield,
   Clock,
-  ChevronDown,
   Bot,
   Target,
-  Lightbulb,
+  FileText,
+  CalendarCheck,
+  Briefcase,
+  Globe,
+  Award,
+  Plus,
+  Minus,
 } from 'lucide-react'
 import Navbar from '@/components/landing/Navbar'
 import Footer from '@/components/landing/Footer'
 import Grain from '@/components/ui/Grain'
 import { siteConfig } from '@/lib/site-config'
+import { AnimatePresence } from 'framer-motion'
 
 /**
  * @file page.tsx
@@ -30,152 +36,156 @@ import { siteConfig } from '@/lib/site-config'
  */
 
 const STATS = [
-  { value: '10k+', label: 'Posts Indexed', icon: BookOpen },
-  { value: '<2s', label: 'Response Time', icon: Zap },
-  { value: '24/7', label: 'Available', icon: Clock },
-  { value: '100%', label: 'Forum Connected', icon: Link2 },
+  { value: '1M+', label: 'Academic Data Points', icon: BookOpen },
+  { value: '<2s', label: 'Retrieval Latency', icon: Zap },
+  { value: '24/7', label: 'Student Support', icon: Clock },
+  { value: '100%', label: 'Knowledge Graph', icon: Link2 },
 ]
 
 const FEATURES = [
   {
     icon: Search,
-    title: 'Smart Forum Search',
+    title: 'Cross-Platform Retrieval',
     description:
-      "Our AI searches across thousands of forum discussions to find exactly what you're looking for. No more endless scrolling.",
+      'Synthesize answers from university portals, forum discussions, and academic repositories instantly.',
     color: 'bg-blue-500/10 text-blue-400',
   },
   {
     icon: Users,
-    title: 'Find People Like You',
+    title: 'Academic Networking',
     description:
-      'Ask "anyone into photography?" and get matched with students who share your interests, hobbies, and passions.',
-    color: 'bg-purple-500/10 text-purple-400',
+      'Identify peers with similar research interests or find study partners for specific courses.',
+    color: 'bg-indigo-500/10 text-indigo-400',
   },
   {
     icon: MessageSquare,
-    title: 'Natural Conversations',
+    title: 'Discourse Analysis',
     description:
-      'Chat naturally like you would with a friend. Ask questions, get recommendations, and discover campus life.',
-    color: 'bg-emerald-500/10 text-emerald-400',
+      'Understand campus sentiment and trending academic topics through real-time natural language processing.',
+    color: 'bg-sky-500/10 text-sky-400',
   },
   {
     icon: Link2,
-    title: 'Direct Forum Links',
+    title: 'Citation & Attribution',
     description:
-      'Every answer comes with links to original forum discussions so you can dive deeper and connect with the community.',
-    color: 'bg-amber-500/10 text-amber-400',
+      'Every AI response includes direct citations to source discussions or administrative documents for verification.',
+    color: 'bg-blue-500/10 text-blue-400',
   },
   {
     icon: Brain,
-    title: 'Context-Aware Answers',
+    title: 'Context-Aware Knowledge Graph',
     description:
-      'TribeAI understands JAIN University context - campus names, courses, events, and student life.',
-    color: 'bg-pink-500/10 text-pink-400',
+      'Built tailored to your specific university ontology - departments, faculty, events, and campus lexicon.',
+    color: 'bg-indigo-500/10 text-indigo-400',
   },
   {
     icon: Shield,
-    title: 'Privacy First',
+    title: 'Enterprise-Grade Privacy',
     description:
-      "Your conversations with TribeAI are private. We don't store personal queries or share your data.",
-    color: 'bg-indigo-500/10 text-indigo-400',
+      'Student queries are anonymized and processed securely. No personal data is used for model training.',
+    color: 'bg-sky-500/10 text-sky-400',
   },
 ]
 
 const USE_CASES = [
   {
-    query: '"Anyone into guitar here?"',
+    query: '"Summarize CS402 feedback"',
     result:
-      'Finds students who play guitar, jam sessions, and music communities',
-    icon: '🎸',
+      'Aggregates student reviews on course difficulty, syllabus coverage, and faculty teaching styles.',
+    icon: FileText,
   },
   {
-    query: '"Study group for CA exams?"',
+    query: '"Library hours during finals?"',
     result:
-      'Connects you with chartered accountancy students and study materials',
-    icon: '📚',
+      'Provides real-time operational hours, shuttle schedules, and study room availability.',
+    icon: Clock,
   },
   {
-    query: '"Best cafes near JU campus?"',
-    result: 'Shows recommendations and reviews from real students',
-    icon: '☕',
+    query: '"Find research collaborators"',
+    result:
+      'Connects you with students working on similar thesis topics or projects.',
+    icon: Globe,
   },
   {
-    query: '"Internship opportunities?"',
-    result: 'Finds job postings, interview experiences, and career advice',
-    icon: '💼',
+    query: '"Internship placement stats?"',
+    result:
+      'Retrieves verified data on recent campus placements and salary packages.',
+    icon: Briefcase,
   },
   {
-    query: '"Weekend trip plans?"',
-    result: 'Discovers upcoming trips, travel groups, and adventure buddies',
-    icon: '🏔️',
+    query: '"Hackathon team finding"',
+    result: 'Matches you with developers and designers looking for teammates.',
+    icon: Award,
   },
   {
-    query: '"Basketball players?"',
-    result: 'Matches you with sports enthusiasts and team tryout information',
-    icon: '🏀',
+    query: '"Administrative deadlines"',
+    result:
+      'Alerts you about upcoming fee payments, exam registrations, and form submissions.',
+    icon: CalendarCheck,
   },
 ]
 
 const HOW_IT_WORKS = [
   {
     step: '01',
-    title: 'Ask Anything',
+    title: 'Input Query',
     description:
-      'Type your question naturally - about people, topics, or campus life',
+      'Ask about academic resources, campus facilities, or student sentiment.',
     icon: MessageSquare,
   },
   {
     step: '02',
-    title: 'AI Searches Forum',
+    title: 'Semantic Search',
     description:
-      'TribeAI searches across all forum discussions using smart matching',
+      'Our LLM scans the proprietary university knowledge graph and discussion forums.',
     icon: Search,
   },
   {
     step: '03',
-    title: 'Get Relevant Results',
+    title: 'Synthesized Response',
     description:
-      'Receive curated answers with direct links to discussions and users',
+      'Receive a comprehensive answer citing specific documents and discussions.',
     icon: Target,
   },
   {
     step: '04',
-    title: 'Connect & Engage',
-    description: 'Jump into discussions, reply to posts, or create new topics',
+    title: 'Verify & Engage',
+    description:
+      'Click citations to view source material or join the relevant discussion.',
     icon: Users,
   },
 ]
 
 const FAQS = [
   {
-    question: 'How does TribeAI find relevant answers?',
+    question: 'How is the data sourced?',
     answer:
-      'TribeAI uses advanced natural language processing to understand your question and searches across all forum discussions. It ranks results by relevance and returns the most helpful discussions with direct links.',
+      'TribeAI aggregates data solely from internal university portals, authorized announcements, and verified student discussions. It does not scrape external, unverified sources.',
   },
   {
-    question: 'Is TribeAI connected to the live forum?',
+    question: 'Is the integration real-time?',
     answer:
-      'Yes! TribeAI searches the actual Tribe Community forum in real-time. All results link to real discussions where you can engage with other students.',
+      'Yes. The Knowledge Graph updates instantly as new discussions are posted or administrative notices are released, ensuring you always have the latest campus information.',
   },
   {
-    question: 'Can TribeAI answer general knowledge questions?',
+    question: 'Can it help with course selection?',
     answer:
-      'TribeAI is primarily designed for campus-related queries. While it can answer general questions, it excels at finding campus-specific information, people with shared interests, and community discussions.',
+      'Absolutely. By analyzing thousands of student reviews and syllabus documents, TribeAI can provide detailed insights into course difficulty, faculty expectations, and prerequisites.',
   },
   {
-    question: 'Are my conversations private?',
+    question: 'How is student privacy protected?',
     answer:
-      "Yes, your conversations with TribeAI are private. We don't store your queries or share your data with third parties. Your privacy is our priority.",
+      'We strictly adhere to enterprise-grade privacy standards. Query data is anonymized, and the model is trained to respect information boundaries. Personal identifiers are never exposed.',
   },
   {
-    question: "What if TribeAI can't find what I'm looking for?",
+    question: "What if the information isn't available?",
     answer:
-      'If no relevant discussions exist, TribeAI will suggest creating a new post on the forum. This helps build the community and ensures your question gets answered by real students.',
+      'If a specific answer cannot be synthesized, TribeAI will guide you to the appropriate university department or suggest starting a new discussion thread to gather community input.',
   },
   {
-    question: 'Does TribeAI work on mobile?',
+    question: 'Is it accessible on mobile devices?',
     answer:
-      'Absolutely! TribeAI is fully responsive and works on any device - smartphones, tablets, or desktops. Access it through any modern web browser.',
+      'Yes, the TribeAI interface is fully responsive and optimized for mobile browsers, allowing you to access institutional intelligence from anywhere on campus.',
   },
 ]
 
@@ -196,9 +206,9 @@ const HeroSection = () => (
       transition={{ delay: 0.1 }}
       className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
     >
-      AI That Knows
+      Institutional
       <br />
-      <span className="text-blue-400">Your Campus</span>
+      <span className="text-blue-400">Intelligence Engine</span>
     </motion.h1>
 
     <motion.p
@@ -207,29 +217,35 @@ const HeroSection = () => (
       transition={{ delay: 0.2 }}
       className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10"
     >
-      Ask anything about campus life. TribeAI searches across thousands of forum
-      discussions to find students with similar interests, study partners, and
-      answers.
+      Navigate university life with precision. Leverage our proprietary LLM to
+      synthesize academic resources, campus logistics, and student discourse
+      into actionable insights.
     </motion.p>
 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
-      className="flex flex-col sm:flex-row gap-4"
+      className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
     >
       <a href={siteConfig.urls.ai} target="_blank" rel="noopener noreferrer">
-        <button className="px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2">
+        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2 shadow-lg shadow-blue-500/25">
           <Bot className="w-5 h-5" />
           Try TribeAI
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-5 h-5" />
         </button>
       </a>
-      <a href="#how-it-works">
-        <button className="px-8 py-4 border border-border text-foreground font-semibold rounded-full hover:bg-muted transition-all">
-          See How It Works
-        </button>
-      </a>
+      <button
+        onClick={() => {
+          document
+            .getElementById('how-it-works')
+            ?.scrollIntoView({ behavior: 'smooth' })
+        }}
+        className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white text-lg font-bold rounded-full border border-white/10 hover:border-white/20 backdrop-blur-sm transition-all flex items-center gap-2"
+      >
+        <Zap className="w-5 h-5 text-blue-400" />
+        See How It Works
+      </button>
     </motion.div>
   </section>
 )
@@ -267,10 +283,11 @@ const FeaturesSection = () => (
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          Intelligent <span className="text-blue-400">Features</span>
+          Enterprise-Grade <span className="text-blue-400">Capabilities</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          More than just a chatbot. TribeAI is your personal campus assistant.
+          More than just a chatbot. A comprehensive knowledge management system
+          for your campus.
         </p>
       </motion.div>
 
@@ -313,7 +330,7 @@ const HowItWorksSection = () => (
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          How It <span className="text-cyan-400">Works</span>
+          How It <span className="text-blue-400">Works</span>
         </h2>
         <p className="text-muted-foreground">
           From question to answer in seconds.
@@ -360,7 +377,7 @@ const UseCasesSection = () => (
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          What You Can <span className="text-pink-400">Ask</span>
+          What You Can <span className="text-indigo-400">Ask</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Real examples of how students use TribeAI.
@@ -377,7 +394,9 @@ const UseCasesSection = () => (
             transition={{ delay: i * 0.05 }}
             className="bg-card/50 border border-border rounded-xl p-5 hover:border-blue-500/30 transition-all"
           >
-            <div className="text-3xl mb-3">{useCase.icon}</div>
+            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+              <useCase.icon className="w-6 h-6 text-blue-400" />
+            </div>
             <p className="text-foreground font-medium mb-2">{useCase.query}</p>
             <p className="text-muted-foreground text-sm">→ {useCase.result}</p>
           </motion.div>
@@ -392,7 +411,7 @@ const FAQSection = () => {
 
   return (
     <section className="py-20 px-6">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -400,38 +419,68 @@ const FAQSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-            Frequently Asked <span className="text-green-400">Questions</span>
+            Frequently Asked <span className="text-blue-400">Questions</span>
           </h2>
         </motion.div>
 
-        <div className="space-y-4">
-          {FAQS.map((faq, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="bg-card/50 border border-border rounded-xl overflow-hidden"
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full p-5 flex items-center justify-between text-left"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+          {FAQS.map((faq, i) => {
+            const isOpen = openIndex === i
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
+                  isOpen
+                    ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
+                    : 'bg-card/30 border-white/5 hover:border-white/10'
+                }`}
               >
-                <span className="font-medium text-foreground">
-                  {faq.question}
-                </span>
-                <ChevronDown
-                  className={`w-5 h-5 text-muted-foreground transition-transform ${openIndex === i ? 'rotate-180' : ''}`}
-                />
-              </button>
-              {openIndex === i && (
-                <div className="px-5 pb-5 text-muted-foreground text-sm">
-                  {faq.answer}
-                </div>
-              )}
-            </motion.div>
-          ))}
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full p-6 flex items-start justify-between text-left gap-4"
+                >
+                  <span
+                    className={`font-semibold text-lg transition-colors ${
+                      isOpen ? 'text-blue-400' : 'text-foreground'
+                    }`}
+                  >
+                    {faq.question}
+                  </span>
+                  <div
+                    className={`mt-1 p-1 rounded-full border transition-colors ${
+                      isOpen
+                        ? 'bg-blue-500 text-white border-blue-500'
+                        : 'border-white/10 text-muted-foreground'
+                    }`}
+                  >
+                    {isOpen ? (
+                      <Minus className="w-4 h-4" />
+                    ) : (
+                      <Plus className="w-4 h-4" />
+                    )}
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -444,24 +493,27 @@ const CTASection = () => (
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      className="max-w-4xl mx-auto bg-blue-900/30 border border-blue-500/20 rounded-3xl p-12 text-center relative overflow-hidden"
+      className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-12 text-center relative overflow-hidden group"
     >
-      <div className="absolute inset-0 bg-blue-500/5" />
-      <Lightbulb className="w-16 h-16 text-blue-400 mx-auto mb-6 relative z-10" />
+      <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-[100px]" />
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/20 rounded-full blur-[100px]" />
+
+      <Bot className="w-16 h-16 text-blue-400 mx-auto mb-6 relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
       <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4 relative z-10">
-        Ready to Explore?
+        Ready to Deploy?
       </h2>
-      <p className="text-muted-foreground max-w-lg mx-auto mb-8 relative z-10">
-        Start asking questions. Find your people. Discover campus life like
-        never before.
+      <p className="text-muted-foreground max-w-lg mx-auto mb-10 relative z-10 text-lg">
+        Empower your student body with the next generation of campus
+        intelligence.
       </p>
       <a
         href={siteConfig.urls.ai}
         target="_blank"
         rel="noopener noreferrer"
-        className="relative z-10"
+        className="relative z-10 inline-block"
       >
-        <button className="px-8 py-4 bg-primary text-primary-foreground font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto">
+        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto shadow-lg shadow-blue-500/25 border border-white/10">
           <Sparkles className="w-5 h-5" />
           Start Chatting
         </button>
