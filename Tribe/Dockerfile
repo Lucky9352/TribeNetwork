@@ -41,7 +41,7 @@ RUN echo "memory_limit = 512M" > /usr/local/etc/php/conf.d/php-limits.ini && \
 RUN a2enmod rewrite proxy proxy_http ssl headers
 
 # Set Document Root To Public Folder.
-ENV APACHE_DOCUMENT_ROOT /var/www/html
+ENV APACHE_DOCUMENT_ROOT=/var/www/html
 
 # Update Apache Config To Use New Document Root.
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf

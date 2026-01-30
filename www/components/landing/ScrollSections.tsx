@@ -123,7 +123,7 @@ const StickyPhone = ({ activeSection }: { activeSection: number }) => {
   return (
     <div className="w-1/2 sticky top-0 h-screen flex items-center justify-center p-10 z-0">
       <div className="relative w-[320px] h-[650px] transition-all duration-700">
-        <PhoneMockup isStatic={true} hideHeader={true}>
+        <PhoneMockup isStatic={true} hideHeader={true} noScroll={true}>
           <div className="relative w-full h-full bg-black">
             {SCROLL_SECTIONS.map((section, index) => (
               <motion.div

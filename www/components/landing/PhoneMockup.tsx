@@ -30,6 +30,7 @@ interface PhoneMockupProps {
   children: React.ReactNode
   isStatic?: boolean
   hideHeader?: boolean
+  noScroll?: boolean
 }
 
 const MOCK_NOTIFICATIONS: MockNotificationData[] = [
@@ -147,6 +148,7 @@ export default function PhoneMockup({
   children,
   isStatic = false,
   hideHeader = false,
+  noScroll = false,
 }: PhoneMockupProps) {
   const notification = useMockNotifications()
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -191,14 +193,21 @@ export default function PhoneMockup({
         <HardwareButtons />
 
         {/* Screen Container */}
-        <div className="absolute inset-0 rounded-[50px] overflow-hidden z-20">
+        <div
+          className="absolute inset-0 rounded-[50px] overflow-hidden z-20"
+          style={{
+            WebkitMaskImage: '-webkit-radial-gradient(white, black)',
+          }}
+        >
           <DynamicIsland notification={notification} />
           {!hideHeader && <AppHeader />}
 
           {/* Scrollable Content Area */}
           <div
             ref={scrollRef}
-            className={`h-full w-full overflow-y-auto bg-black ${hideHeader ? 'pt-0' : 'pt-24'}`}
+            className={`h-full w-full bg-black ${hideHeader ? 'pt-0' : 'pt-24'} ${
+              noScroll ? 'overflow-hidden' : 'overflow-y-auto'
+            }`}
           >
             {children}
           </div>

@@ -10,15 +10,20 @@ import { getSession } from '@/lib/auth'
  * GET is public (for marquee), POST/PATCH/DELETE require admin auth.
  */
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url)
+    const showAll = searchParams.get('showAll') === 'true'
+
     const universities = await prisma.featuredUniversity.findMany({
-      where: { isActive: true },
+      where: showAll ? {} : { isActive: true },
       orderBy: { order: 'asc' },
       select: {
         id: true,
         name: true,
+        isActive: true,
         order: true,
+        createdAt: true,
       },
     })
 

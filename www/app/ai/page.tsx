@@ -433,26 +433,29 @@ const FAQSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen
-                  ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
-                  : 'bg-card/30 border-white/5 hover:border-white/10'
-                  }`}
+                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
+                  isOpen
+                    ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
+                    : 'bg-card/30 border-white/5 hover:border-white/10'
+                }`}
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full p-6 flex items-start justify-between text-left gap-4"
                 >
                   <span
-                    className={`font-semibold text-lg transition-colors ${isOpen ? 'text-blue-400' : 'text-foreground'
-                      }`}
+                    className={`font-semibold text-lg transition-colors ${
+                      isOpen ? 'text-blue-400' : 'text-foreground'
+                    }`}
                   >
                     {faq.question}
                   </span>
                   <div
-                    className={`mt-1 p-1 rounded-full border transition-colors ${isOpen
-                      ? 'bg-blue-500 text-white border-blue-500'
-                      : 'border-white/10 text-muted-foreground'
-                      }`}
+                    className={`mt-1 p-1 rounded-full border transition-colors ${
+                      isOpen
+                        ? 'bg-blue-500 text-white border-blue-500'
+                        : 'border-white/10 text-muted-foreground'
+                    }`}
                   >
                     {isOpen ? (
                       <Minus className="w-4 h-4" />
