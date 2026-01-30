@@ -267,28 +267,32 @@ const NavigationContent = ({
           <motion.div
             key={category.title}
             initial={false}
-            animate={{
-              backgroundColor:
-                activeCategory === category.title
-                  ? 'hsl(var(--accent))'
-                  : 'transparent',
-            }}
-            className="rounded-lg overflow-hidden"
+            className="rounded-xl overflow-hidden mb-1"
           >
             <Button
               variant="ghost"
               className={cn(
-                'w-full justify-between gap-3 text-base min-h-[44px] rounded-lg',
-                'hover:bg-accent hover:text-accent-foreground',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring',
+                'w-full justify-between gap-3 text-sm font-medium min-h-[44px] rounded-xl px-3 py-2.5',
+                'hover:bg-zinc-900 hover:text-zinc-200',
+                'focus-visible:outline-none',
                 'transition-all duration-200 ease-in-out',
-                activeCategory === category.title &&
-                  'bg-accent text-accent-foreground'
+                activeCategory === category.title
+                  ? 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300'
+                  : 'text-zinc-400'
               )}
               onClick={() => handleCategoryClick(category.title)}
             >
               <div className="flex items-center gap-3">
-                <category.icon className="h-5 w-5" />
+                <div
+                  className={cn(
+                    'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors',
+                    activeCategory === category.title
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-zinc-800 text-zinc-400 group-hover:bg-zinc-700'
+                  )}
+                >
+                  <category.icon className="h-4 w-4" />
+                </div>
                 <span>{category.title}</span>
               </div>
               <motion.div
@@ -296,6 +300,11 @@ const NavigationContent = ({
                   rotate: activeCategory === category.title ? 180 : 0,
                 }}
                 transition={{ duration: 0.2 }}
+                className={
+                  activeCategory === category.title
+                    ? 'text-blue-400'
+                    : 'text-zinc-600'
+                }
               >
                 <ChevronDown className="h-4 w-4" />
               </motion.div>
@@ -308,13 +317,13 @@ const NavigationContent = ({
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.2, ease: 'easeInOut' }}
-                  className="overflow-hidden bg-accent/5"
+                  className="overflow-hidden"
                 >
-                  <div className="space-y-1 p-2">
+                  <div className="space-y-0.5 p-2 pt-0 pl-11">
                     {category.items.map((item) => (
                       <motion.div
                         key={item}
-                        initial={{ x: -20, opacity: 0 }}
+                        initial={{ x: -10, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.2 }}
                       >
@@ -322,10 +331,10 @@ const NavigationContent = ({
                           variant="ghost"
                           size="sm"
                           className={cn(
-                            'w-full justify-start text-sm font-normal min-h-[44px] pl-10 rounded-lg',
-                            'hover:bg-accent/50 hover:text-accent-foreground',
-                            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring',
-                            'transition-all duration-200 ease-in-out'
+                            'w-full justify-start text-sm font-normal h-9 rounded-lg px-3',
+                            'hover:bg-zinc-800/50 hover:text-white',
+                            'text-zinc-400',
+                            'focus-visible:outline-none transition-all'
                           )}
                           onClick={() => handleItemClick(category.title, item)}
                         >

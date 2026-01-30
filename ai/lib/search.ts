@@ -153,7 +153,6 @@ async function fallbackSearch(
       is_private: number
     }
 
-    // Allow 2-char terms like "AI", "JS"
     const searchTerms = searchQuery
       .toLowerCase()
       .split(/\s+/)
@@ -164,18 +163,15 @@ async function fallbackSearch(
       return getRecentPosts(limit)
     }
 
-    // Search both Content and Title
     const contentConditions = searchTerms
       .map(() => 'LOWER(p.content) LIKE ?')
       .join(' OR ')
     const titleConditions = searchTerms
       .map(() => 'LOWER(d.title) LIKE ?')
-      .join(' OR ') // Check title match
+      .join(' OR ')
 
-    // Combine conditions
     const whereClause = `(${contentConditions} OR ${titleConditions})`
 
-    // Params: Content params first, then Title params
     const likeParams = [
       ...searchTerms.map((t) => `%${t}%`),
       ...searchTerms.map((t) => `%${t}%`),
@@ -222,8 +218,7 @@ async function fallbackSearch(
       isPrivate: Boolean(row.is_private),
       score: 0.5,
     }))
-  } catch (error) {
-    console.error('Fallback search error:', error)
+  } catch {
     return []
   }
 }

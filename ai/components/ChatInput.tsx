@@ -60,7 +60,7 @@ export function ChatInput({ onSendMessage, isLoading }: ChatInputProps) {
           className={cn(
             'relative flex items-end gap-2 bg-zinc-900/80 rounded-2xl border transition-all duration-300',
             isFocused
-              ? 'border-purple-500/50 shadow-lg shadow-purple-500/10'
+              ? 'border-blue-500/50 shadow-lg shadow-blue-500/10'
               : 'border-white/10 hover:border-white/20'
           )}
         >
@@ -69,7 +69,7 @@ export function ChatInput({ onSendMessage, isLoading }: ChatInputProps) {
             <Sparkles
               className={cn(
                 'h-5 w-5 transition-colors duration-300',
-                isFocused ? 'text-purple-400' : 'text-zinc-600'
+                isFocused ? 'text-blue-400' : 'text-zinc-600'
               )}
             />
           </div>
@@ -89,7 +89,7 @@ export function ChatInput({ onSendMessage, isLoading }: ChatInputProps) {
               'placeholder:text-zinc-500 focus:outline-none',
               'min-h-[56px] max-h-[150px]'
             )}
-            disabled={isLoading}
+            disabled={false}
           />
 
           {/* Send button */}
@@ -101,7 +101,7 @@ export function ChatInput({ onSendMessage, isLoading }: ChatInputProps) {
                 className={cn(
                   'h-10 w-10 rounded-xl transition-all duration-300',
                   message.trim()
-                    ? 'bg-purple-600 hover:bg-purple-500 text-white'
+                    ? 'bg-blue-600 hover:bg-blue-500 text-white'
                     : 'bg-zinc-800 text-zinc-500',
                   isLoading && 'opacity-50 cursor-not-allowed'
                 )}

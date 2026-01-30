@@ -122,7 +122,7 @@ function StreamingText({
       {isIncomplete && (
         <span
           className={cn(
-            'inline-block w-[2px] h-[1em] ml-0.5 align-middle bg-purple-400 rounded-full transition-opacity',
+            'inline-block w-[2px] h-[1em] ml-0.5 align-middle bg-blue-400 rounded-full transition-opacity',
             showCursor ? 'opacity-100' : 'opacity-30'
           )}
         />
@@ -173,9 +173,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex justify-end"
+        className="flex justify-end mb-6"
       >
-        <div className="max-w-[80%] bg-purple-600 text-white px-4 py-3 rounded-2xl rounded-tr-sm">
+        <div className="max-w-[80%] bg-zinc-800/80 backdrop-blur-sm text-zinc-100 px-5 py-3.5 rounded-2xl rounded-tr-md border border-white/5 shadow-sm">
           {message.content}
         </div>
       </motion.div>
@@ -186,20 +186,20 @@ export function ChatMessage({ message }: ChatMessageProps) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full"
+      className="w-full mb-8 relative group"
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
       {/* AI Header */}
-      <div className="flex items-center gap-2 mb-3">
-        <div className="w-6 h-6 rounded-lg bg-purple-500/15 flex items-center justify-center">
-          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/10 shadow-[0_0_15px_-3px_rgba(59,130,246,0.3)]">
+          <Sparkles className="w-4 h-4 text-blue-400" />
         </div>
-        <span className="text-sm font-medium text-zinc-400">TribeAI</span>
+        <span className="text-sm font-semibold text-zinc-300">Tribe AI</span>
       </div>
 
       {/* AI Content */}
-      <div className="text-zinc-100 text-[15px] leading-relaxed prose prose-invert prose-sm max-w-none">
+      <div className="pl-11 text-zinc-300 text-[15px] leading-7 prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-white/5 prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-li:marker:text-zinc-500">
         {!streamComplete ? (
           <StreamingText
             text={message.content}
@@ -228,19 +228,19 @@ export function ChatMessage({ message }: ChatMessageProps) {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="block p-3 bg-white/5 hover:bg-purple-500/10 border border-white/5 hover:border-purple-500/30 rounded-lg transition-all group/card"
+              className="block p-3 bg-white/5 hover:bg-blue-500/10 border border-white/5 hover:border-blue-500/30 rounded-lg transition-all group/card"
             >
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center shrink-0">
-                  <MessageSquare className="w-4 h-4 text-purple-400" />
+                <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0">
+                  <MessageSquare className="w-4 h-4 text-blue-400" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-white text-sm truncate group-hover/card:text-purple-400 transition-colors">
+                  <p className="font-medium text-white text-sm truncate group-hover/card:text-blue-400 transition-colors">
                     {result.title}
                   </p>
                   <p className="text-xs text-zinc-500">by {result.author}</p>
                 </div>
-                <ExternalLink className="w-4 h-4 text-zinc-500 group-hover/card:text-purple-400 transition-colors shrink-0" />
+                <ExternalLink className="w-4 h-4 text-zinc-500 group-hover/card:text-blue-400 transition-colors shrink-0" />
               </div>
             </motion.a>
           ))}
@@ -314,7 +314,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 px-3 text-xs gap-1.5 text-zinc-500 hover:text-purple-400 hover:bg-purple-500/10"
+              className="h-8 px-3 text-xs gap-1.5 text-zinc-500 hover:text-blue-400 hover:bg-blue-500/10"
               asChild
             >
               <a

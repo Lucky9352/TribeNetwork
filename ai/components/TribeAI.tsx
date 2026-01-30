@@ -125,42 +125,42 @@ const welcomeCards: WelcomeCard[] = [
     title: 'Find Your People',
     description: 'Connect with students who share your interests',
     query: 'Anyone here into photography?',
-    gradient: 'bg-purple-500/10 text-purple-400',
+    gradient: 'text-zinc-400',
   },
   {
     icon: Book,
     title: 'Study Together',
     description: 'Find study groups and share resources',
     query: 'Looking for a study group for CA Foundation',
-    gradient: 'bg-blue-500/10 text-blue-400',
+    gradient: 'text-zinc-400',
   },
   {
     icon: Calendar,
     title: 'Plan Meetups',
     description: 'Organize trips, events, and hangouts',
     query: 'Weekend trip to Nandi Hills anyone?',
-    gradient: 'bg-emerald-500/10 text-emerald-400',
+    gradient: 'text-zinc-400',
   },
   {
     icon: Brain,
     title: 'Get Answers',
     description: 'Ask anything about campus life',
     query: 'Best cafes near JC campus for studying?',
-    gradient: 'bg-amber-500/10 text-amber-400',
+    gradient: 'text-zinc-400',
   },
   {
     icon: Music,
     title: 'Hobbies & Fun',
     description: 'Find people with similar hobbies',
     query: 'Any guitarists looking to jam?',
-    gradient: 'bg-pink-500/10 text-pink-400',
+    gradient: 'text-zinc-400',
   },
   {
     icon: GraduationCap,
     title: 'Career Help',
     description: 'Placement prep and career advice',
     query: 'Tips for cracking Amazon interviews?',
-    gradient: 'bg-indigo-500/10 text-indigo-400',
+    gradient: 'text-zinc-400',
   },
 ]
 
@@ -374,157 +374,173 @@ export function TribeAI() {
   return (
     <div className="flex h-screen bg-black relative">
       {/* Subtle Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px]" />
-      </div>
+      {/* Background - Clean Solid */}
+      <div className="fixed inset-0 -z-10 bg-black pointer-events-none" />
 
       {/* Sidebar - Desktop */}
-      <div className="hidden md:flex md:flex-col w-72 border-r border-white/5 bg-black/50 backdrop-blur-xl">
-        <div className="p-4 border-b border-white/5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-purple-400" />
-              </div>
-              <div>
-                <h1 className="font-bold text-white">Tribe AI</h1>
-                <p className="text-xs text-zinc-500">Campus Assistant</p>
-              </div>
+      <div className="hidden md:flex md:flex-col w-64 shrink-0 border-r border-white/5 bg-black h-full">
+        <div className="p-4">
+          <div className="flex items-center gap-3 mb-6 px-2">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <Sparkles className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <h1 className="font-bold text-white text-sm">Tribe AI</h1>
             </div>
           </div>
-        </div>
 
-        {/* Tab buttons */}
-        <div className="flex border-b border-white/5">
-          <button
-            onClick={() => setShowHistory(false)}
-            className={cn(
-              'flex-1 py-3 text-sm font-medium transition-colors',
-              !showHistory
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-zinc-500 hover:text-white'
-            )}
-          >
-            Topics
-          </button>
-          <button
-            onClick={() => setShowHistory(true)}
-            className={cn(
-              'flex-1 py-3 text-sm font-medium transition-colors flex items-center justify-center gap-2',
-              showHistory
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-zinc-500 hover:text-white'
-            )}
-          >
-            <History className="w-4 h-4" />
-            History
-          </button>
-        </div>
-
-        <ScrollArea className="flex-1 p-3">
-          {showHistory ? (
-            <div className="space-y-2">
-              <Button
-                onClick={startNewConversation}
-                className="w-full bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 mb-3"
-              >
-                <MessageSquare className="w-4 h-4 mr-2" />
-                New Chat
-              </Button>
-              {conversations.length === 0 ? (
-                <p className="text-zinc-500 text-sm text-center py-4">
-                  No conversations yet
-                </p>
-              ) : (
-                conversations.map((conv) => (
-                  <div
-                    key={conv.id}
-                    className={cn(
-                      'group flex items-center gap-2 p-3 rounded-lg cursor-pointer transition-colors',
-                      currentConversationId === conv.id
-                        ? 'bg-purple-500/20'
-                        : 'hover:bg-white/5'
-                    )}
-                    onClick={() => loadConversation(conv)}
-                  >
-                    <MessageSquare className="w-4 h-4 text-zinc-500 shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-white line-clamp-2 leading-snug">
-                        {conv.title}
-                      </p>
-                      <p className="text-xs text-zinc-500 mt-1">
-                        {conv.createdAt.toLocaleDateString()}
-                      </p>
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        deleteConversation(conv.id)
-                      }}
-                      className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-500/20 rounded transition-all"
-                    >
-                      <Trash2 className="w-4 h-4 text-red-400" />
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-          ) : (
-            <>
-              <p className="text-xs text-zinc-500 uppercase tracking-wider px-3 mb-3">
-                Explore Topics
-              </p>
+          <ScrollArea className="flex-1 -mx-2 px-2">
+            {showHistory ? (
               <div className="space-y-1">
-                {navigationCategories.map((category) => (
-                  <motion.div
-                    key={category.title}
-                    className="rounded-xl overflow-hidden"
+                <div className="mb-4 px-2">
+                  <Button
+                    onClick={() => setShowHistory(false)}
+                    variant="ghost"
+                    className="w-full justify-start text-xs text-zinc-500 hover:text-white pl-0 hover:bg-transparent"
                   >
-                    <Button
-                      variant="ghost"
+                    ← Back to Topics
+                  </Button>
+                </div>
+
+                <h2 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 px-3">
+                  History
+                </h2>
+
+                <Button
+                  onClick={startNewConversation}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 mb-4 justify-start h-auto"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span className="font-medium text-sm">New Chat</span>
+                </Button>
+
+                {conversations.length === 0 ? (
+                  <p className="text-zinc-500 text-sm text-center py-4">
+                    No conversations yet
+                  </p>
+                ) : (
+                  conversations.map((conv) => (
+                    <button
+                      key={conv.id}
+                      onClick={() => loadConversation(conv)}
+                      title={conv.title}
                       className={cn(
-                        'w-full justify-start gap-3 h-auto py-3 px-3 hover:bg-white/5',
-                        activeCategory === category.title && 'bg-purple-500/15'
+                        'w-full flex items-start gap-3 px-3 py-2.5 rounded-xl transition-all group text-left',
+                        currentConversationId === conv.id
+                          ? 'bg-blue-500/10 text-blue-400'
+                          : 'hover:bg-zinc-900/60 text-zinc-400 hover:text-zinc-200'
                       )}
-                      onClick={() =>
-                        setActiveCategory(
-                          activeCategory === category.title
-                            ? null
-                            : category.title
-                        )
-                      }
                     >
-                      <category.icon className="h-5 w-5 text-purple-400" />
-                      <span className="text-sm">{category.title}</span>
-                    </Button>
-                    <AnimatePresence>
-                      {activeCategory === category.title && (
-                        <motion.div
-                          initial={{ height: 0 }}
-                          animate={{ height: 'auto' }}
-                          exit={{ height: 0 }}
-                          className="overflow-hidden"
-                        >
-                          {category.questions.map((question) => (
-                            <Button
-                              key={question}
-                              variant="ghost"
-                              className="w-full justify-start text-xs py-2 px-10 text-zinc-400 hover:text-white hover:bg-white/5 h-auto"
-                              onClick={() => handleSendMessage(question)}
-                            >
-                              {question}
-                            </Button>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                ))}
+                      <div
+                        className={cn(
+                          'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors mt-0.5',
+                          currentConversationId === conv.id
+                            ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20'
+                            : 'bg-zinc-800 text-zinc-400 group-hover:bg-zinc-700 group-hover:text-zinc-200'
+                        )}
+                      >
+                        <MessageSquare className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 min-w-0 py-1">
+                        <span className="font-medium text-sm line-clamp-2 block leading-snug">
+                          {conv.title}
+                        </span>
+                      </div>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          deleteConversation(conv.id)
+                        }}
+                        className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-500/20 rounded transition-all text-red-400 shrink-0"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </div>
+                    </button>
+                  ))
+                )}
               </div>
-            </>
-          )}
-        </ScrollArea>
+            ) : (
+              <>
+                <div className="mb-6">
+                  <h2 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 px-3">
+                    Explore
+                  </h2>
+
+                  <button
+                    onClick={() => setShowHistory(true)}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all mb-1 group text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center shrink-0 group-hover:bg-zinc-700 transition-colors">
+                      <History className="w-4 h-4 text-zinc-400 group-hover:text-zinc-200" />
+                    </div>
+                    <div className="flex-1 text-left min-w-0 font-medium text-sm">
+                      Chat History
+                    </div>
+                  </button>
+                </div>
+
+                <div className="space-y-1">
+                  {navigationCategories.map((category) => {
+                    const isActive = activeCategory === category.title
+                    return (
+                      <div key={category.title} className="mb-1">
+                        <button
+                          onClick={() =>
+                            setActiveCategory(isActive ? null : category.title)
+                          }
+                          className={cn(
+                            'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group',
+                            isActive
+                              ? 'bg-blue-500/10 text-blue-400'
+                              : 'text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200'
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors',
+                              isActive
+                                ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20'
+                                : 'bg-zinc-800 text-zinc-400 group-hover:bg-zinc-700 group-hover:text-zinc-200'
+                            )}
+                          >
+                            <category.icon className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 text-left min-w-0 font-medium text-sm">
+                            {category.title}
+                          </div>
+                        </button>
+
+                        <AnimatePresence>
+                          {isActive && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pl-14 pr-2 py-1 space-y-1">
+                                {category.questions.map((question) => (
+                                  <button
+                                    key={question}
+                                    onClick={() => handleSendMessage(question)}
+                                    className="w-full text-left text-xs py-2 px-3 text-zinc-500 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-colors line-clamp-2 leading-relaxed"
+                                    title={question}
+                                  >
+                                    {question}
+                                  </button>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )
+                  })}
+                </div>
+              </>
+            )}
+          </ScrollArea>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -545,8 +561,8 @@ export function TribeAI() {
               )}
             </Button>
             <div className="flex items-center gap-2 md:hidden">
-              <div className="w-8 h-8 rounded-lg bg-purple-500/15 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-purple-400" />
+              <div className="w-8 h-8 rounded-lg bg-blue-500/15 flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-blue-400" />
               </div>
               <h1 className="text-base font-semibold text-white">Tribe AI</h1>
             </div>
@@ -571,61 +587,55 @@ export function TribeAI() {
         >
           {!hasMessages ? (
             /* Empty State - Welcome Cards */
-            <div className="h-full flex flex-col items-center justify-center p-6">
+            <div className="h-full max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-start pt-12 md:pt-20">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-center mb-8"
+                className="mb-10 text-left"
               >
-                <motion.div
-                  className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-purple-500/15 flex items-center justify-center"
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                >
-                  <Sparkles className="w-10 h-10 text-purple-400" />
-                </motion.div>
-                <h2 className="text-3xl font-bold text-white mb-2">
-                  Hey there! 👋
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
+                  Welcome to Tribe AI
                 </h2>
-                <p className="text-zinc-400 max-w-md">
-                  I&apos;m TribeAI, your campus assistant. I can help you find
-                  people, study groups, events, and answers from the Tribe
-                  community.
+                <p className="text-zinc-400 text-lg max-w-2xl leading-relaxed">
+                  Your intelligent campus assistant. Ask questions, find
+                  resources, or explore the community.
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl w-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
                 {welcomeCards.map((card, i) => (
                   <motion.div
                     key={card.title}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + i * 0.05 }}
-                    whileHover={{ scale: 1.02, y: -5 }}
                     onClick={() => handleSendMessage(card.query)}
-                    className="bg-zinc-900/50 border border-white/5 rounded-xl p-5 cursor-pointer hover:border-purple-500/30 transition-all group"
+                    className="bg-zinc-900/40 border border-white/5 hover:bg-zinc-900 hover:border-zinc-700 rounded-2xl p-5 cursor-pointer transition-all group flex flex-col h-full"
                   >
-                    <div
-                      className={cn(
-                        'w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform',
-                        card.gradient
-                      )}
-                    >
-                      <card.icon className="w-5 h-5" />
+                    <div className="flex items-start justify-between mb-4">
+                      <div
+                        className={cn(
+                          'w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110',
+                          card.gradient.replace('bg-', 'bg-opacity-10 bg-')
+                        )}
+                      >
+                        <card.icon className="w-5 h-5" />
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors" />
                     </div>
-                    <h3 className="font-semibold text-white mb-1">
+
+                    <h3 className="font-semibold text-white mb-1.5 text-base">
                       {card.title}
                     </h3>
-                    <p className="text-sm text-zinc-500 mb-3">
+                    <p className="text-sm text-zinc-500 mb-4 flex-1 leading-relaxed">
                       {card.description}
                     </p>
-                    <p className="text-xs text-purple-400 italic">
-                      &ldquo;{card.query}&rdquo;
-                    </p>
+
+                    <div className="pt-3 border-t border-white/5">
+                      <p className="text-xs text-zinc-400 font-medium group-hover:text-blue-400 transition-colors truncate">
+                        &ldquo;{card.query}&rdquo;
+                      </p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -647,8 +657,8 @@ export function TribeAI() {
                     >
                       {/* TribeAI Header */}
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-6 h-6 rounded-lg bg-purple-500/15 flex items-center justify-center animate-pulse">
-                          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                        <div className="w-6 h-6 rounded-lg bg-blue-500/15 flex items-center justify-center animate-pulse">
+                          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
                         </div>
                         <span className="text-sm font-medium text-zinc-400">
                           TribeAI
@@ -683,7 +693,7 @@ export function TribeAI() {
                         <button
                           key={suggestion}
                           onClick={() => handleSendMessage(suggestion)}
-                          className="px-3 py-1.5 text-xs bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 rounded-full border border-purple-500/20 transition-colors"
+                          className="px-3 py-1.5 text-xs bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-full border border-blue-500/20 transition-colors"
                         >
                           {suggestion}
                         </button>
@@ -713,7 +723,7 @@ export function TribeAI() {
       <div className="hidden xl:flex xl:flex-col w-80 bg-black/50 backdrop-blur-xl h-full border-l border-white/5">
         <div className="p-4 border-b border-white/5">
           <div className="flex items-center gap-2 mb-1">
-            <Sparkles className="w-4 h-4 text-purple-400" />
+            <Sparkles className="w-4 h-4 text-blue-400" />
             <h2 className="font-semibold text-white">Events & Opportunities</h2>
           </div>
           <p className="text-xs text-zinc-500">Curated for students</p>
@@ -762,8 +772,8 @@ export function TribeAI() {
             >
               <div className="p-4 border-b border-white/5">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-purple-400" />
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/15 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-blue-400" />
                   </div>
                   <div>
                     <h1 className="font-bold text-white">Tribe AI</h1>
@@ -774,7 +784,7 @@ export function TribeAI() {
               <ScrollArea className="flex-1 p-3">
                 <Button
                   onClick={startNewConversation}
-                  className="w-full bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 mb-3"
+                  className="w-full bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 mb-3"
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
                   New Chat
@@ -792,7 +802,7 @@ export function TribeAI() {
                         handleSendMessage(category.questions[0])
                       }}
                     >
-                      <category.icon className="h-5 w-5 text-purple-400" />
+                      <category.icon className="h-5 w-5 text-blue-400" />
                       <span className="text-sm">{category.title}</span>
                     </Button>
                   ))}
@@ -865,14 +875,14 @@ function EventCard({ event }: { event: EventItem }) {
       href={event.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="block p-3 rounded-lg bg-zinc-900/40 border border-white/5 hover:bg-zinc-800/40 hover:border-purple-500/30 transition-all group"
+      className="block p-3 rounded-lg bg-zinc-900/40 border border-white/5 hover:bg-zinc-800/40 hover:border-blue-500/30 transition-all group"
     >
       <div className="flex items-start justify-between gap-2 mb-1">
         <span
           className={cn(
             'text-[10px] px-1.5 py-0.5 rounded font-medium uppercase tracking-wide',
             event.source === 'internal'
-              ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
+              ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
               : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
           )}
         >
