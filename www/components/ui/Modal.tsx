@@ -63,14 +63,14 @@ export default function Modal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl"
+            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-blue-500/10"
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 flex items-center justify-between p-6 bg-zinc-900/95 backdrop-blur-sm border-b border-zinc-800">
+            <div className="sticky top-0 z-10 flex items-center justify-between p-6 border-b border-white/10 bg-black/50 backdrop-blur-md">
               <h2 className="text-xl font-bold text-white">{title}</h2>
               <button
                 onClick={onClose}
-                className="p-2 rounded-full hover:bg-zinc-800 transition-colors"
+                className="p-2 rounded-full hover:bg-white/10 transition-colors"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5 text-zinc-400" />

@@ -190,7 +190,7 @@ const FAQS = [
 ]
 
 const HeroSection = () => (
-  <section className="relative min-h-[70vh] flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
+  <section className="relative flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -204,7 +204,7 @@ const HeroSection = () => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
+      className="text-5xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
     >
       Institutional
       <br />
@@ -226,7 +226,7 @@ const HeroSection = () => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
-      className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
+      className="flex flex-col sm:flex-row items-center justify-center gap-4"
     >
       <a href={siteConfig.urls.ai} target="_blank" rel="noopener noreferrer">
         <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2 shadow-lg shadow-blue-500/25">
@@ -299,7 +299,7 @@ const FeaturesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className="bg-card/50 border border-border rounded-2xl p-6 hover:border-blue-500/50 transition-all group"
+            className="bg-card/30 border border-white/5 rounded-2xl p-6 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
             <div
               className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
@@ -392,9 +392,9 @@ const UseCasesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className="bg-card/50 border border-border rounded-xl p-5 hover:border-blue-500/30 transition-all"
+            className="bg-card/30 border border-white/5 rounded-xl p-5 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <useCase.icon className="w-6 h-6 text-blue-400" />
             </div>
             <p className="text-foreground font-medium mb-2">{useCase.query}</p>
@@ -433,29 +433,26 @@ const FAQSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
-                  isOpen
-                    ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
-                    : 'bg-card/30 border-white/5 hover:border-white/10'
-                }`}
+                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen
+                  ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
+                  : 'bg-card/30 border-white/5 hover:border-white/10'
+                  }`}
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full p-6 flex items-start justify-between text-left gap-4"
                 >
                   <span
-                    className={`font-semibold text-lg transition-colors ${
-                      isOpen ? 'text-blue-400' : 'text-foreground'
-                    }`}
+                    className={`font-semibold text-lg transition-colors ${isOpen ? 'text-blue-400' : 'text-foreground'
+                      }`}
                   >
                     {faq.question}
                   </span>
                   <div
-                    className={`mt-1 p-1 rounded-full border transition-colors ${
-                      isOpen
-                        ? 'bg-blue-500 text-white border-blue-500'
-                        : 'border-white/10 text-muted-foreground'
-                    }`}
+                    className={`mt-1 p-1 rounded-full border transition-colors ${isOpen
+                      ? 'bg-blue-500 text-white border-blue-500'
+                      : 'border-white/10 text-muted-foreground'
+                      }`}
                   >
                     {isOpen ? (
                       <Minus className="w-4 h-4" />

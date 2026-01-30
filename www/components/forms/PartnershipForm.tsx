@@ -112,10 +112,10 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
       {/* Name */}
       <div>
         <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          Your Name <span className="text-primary">*</span>
+          Your Name <span className="text-blue-500">*</span>
         </label>
-        <div className="relative">
-          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <div className="relative group">
+          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
           <input
             type="text"
             name="name"
@@ -123,7 +123,7 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
             value={formData.name}
             onChange={handleChange}
             placeholder="Jane Doe"
-            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
           />
         </div>
       </div>
@@ -131,10 +131,10 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
       {/* Email */}
       <div>
         <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          Work Email <span className="text-primary">*</span>
+          Work Email <span className="text-blue-500">*</span>
         </label>
-        <div className="relative">
-          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <div className="relative group">
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
           <input
             type="email"
             name="email"
@@ -142,7 +142,7 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
             value={formData.email}
             onChange={handleChange}
             placeholder="jane@company.com"
-            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
           />
         </div>
       </div>
@@ -150,10 +150,10 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
       {/* Company Website */}
       <div>
         <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          Company Website <span className="text-primary">*</span>
+          Company Website <span className="text-blue-500">*</span>
         </label>
-        <div className="relative">
-          <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <div className="relative group">
+          <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
           <input
             type="url"
             name="companyWebsite"
@@ -161,7 +161,7 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
             value={formData.companyWebsite}
             onChange={handleChange}
             placeholder="https://yourcompany.com"
-            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all"
+            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/10"
           />
         </div>
       </div>
@@ -169,50 +169,54 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
       {/* Role */}
       <div>
         <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          Your Role <span className="text-primary">*</span>
+          Your Role <span className="text-blue-500">*</span>
         </label>
-        <div className="relative">
-          <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <div className="relative group">
+          <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
           <select
             name="role"
             required
             value={formData.role}
             onChange={handleChange}
-            className="w-full pl-10 pr-10 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all appearance-none cursor-pointer"
+            className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/10"
           >
-            <option value="">Select your role</option>
+            <option value="" className="bg-zinc-900">
+              Select your role
+            </option>
             {ROLES.map((role) => (
-              <option key={role} value={role}>
+              <option key={role} value={role} className="bg-zinc-900">
                 {role}
               </option>
             ))}
           </select>
-          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none group-focus-within:text-blue-400 transition-colors" />
         </div>
       </div>
 
       {/* Budget */}
       <div>
         <label className="text-sm font-medium text-muted-foreground mb-2 block">
-          Campaign Budget <span className="text-primary">*</span>
+          Campaign Budget <span className="text-blue-500">*</span>
         </label>
-        <div className="relative">
-          <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <div className="relative group">
+          <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
           <select
             name="budgetRange"
             required
             value={formData.budgetRange}
             onChange={handleChange}
-            className="w-full pl-10 pr-10 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all appearance-none cursor-pointer"
+            className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/10"
           >
-            <option value="">Select budget range</option>
+            <option value="" className="bg-zinc-900">
+              Select budget range
+            </option>
             {BUDGETS.map((budget) => (
-              <option key={budget} value={budget}>
+              <option key={budget} value={budget} className="bg-zinc-900">
                 {budget}
               </option>
             ))}
           </select>
-          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none group-focus-within:text-blue-400 transition-colors" />
         </div>
       </div>
 
@@ -221,22 +225,22 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
         <label className="text-sm font-medium text-muted-foreground mb-2 block">
           How can we help your brand?
         </label>
-        <div className="relative">
-          <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-muted-foreground" />
+        <div className="relative group">
+          <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-muted-foreground group-focus-within:text-blue-400 transition-colors" />
           <textarea
             name="message"
             value={formData.message}
             onChange={handleChange}
             rows={3}
             placeholder="Tell us about your goals..."
-            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50 transition-all resize-none"
+            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all resize-none hover:bg-white/10"
           />
         </div>
       </div>
 
       {/* Error */}
       {error && (
-        <p className="text-destructive text-sm bg-destructive/10 px-4 py-2 rounded-lg">
+        <p className="text-destructive text-sm bg-destructive/10 px-4 py-2 rounded-lg border border-destructive/20">
           {error}
         </p>
       )}
@@ -247,7 +251,7 @@ export default function PartnershipForm({ onSuccess }: PartnershipFormProps) {
         disabled={isSubmitting}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="w-full py-4 bg-white hover:bg-zinc-200 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 border border-white/10"
       >
         {isSubmitting ? (
           <>

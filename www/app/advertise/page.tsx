@@ -4,38 +4,27 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
-  BarChart3,
   Building2,
   Clock,
-  Globe,
-  Lock,
   Mail,
   Megaphone,
   MessageSquare,
   Phone,
-  Play,
   Target,
   TrendingUp,
   Users,
-  X,
   Zap,
+  BarChart,
+  Building,
+  PieChart,
+  Plus,
+  Minus,
 } from 'lucide-react'
 import Navbar from '@/components/landing/Navbar'
 import Footer from '@/components/landing/Footer'
 import Grain from '@/components/ui/Grain'
 import PartnershipForm from '@/components/forms/PartnershipForm'
-
-/**
- * @file page.tsx
- * @description Comprehensive Advertise page combining capabilities, dashboard preview, and CTA.
- */
-
-interface Capability {
-  icon: React.ElementType
-  title: string
-  desc: string
-  gradient: string
-}
+import Modal from '@/components/ui/Modal'
 
 interface Channel {
   name: string
@@ -59,42 +48,48 @@ const STATS = [
   { value: '<5min', label: 'To Launch', icon: Clock },
 ]
 
-const CAPABILITIES: Capability[] = [
+const NEW_CAPABILITIES = [
   {
-    icon: Users,
-    title: 'Verified Network',
-    desc: "India's largest verified student database",
-    gradient: 'bg-primary/10 text-primary',
+    title: 'Hyper-Local Feed Ads',
+    description:
+      'Place your brand directly in the university discussion stream. Target by campus, major, or academic year.',
+    icon: Megaphone,
+    color: 'bg-blue-500/10 text-blue-400',
   },
   {
+    title: 'Strategic Push Notifications',
+    description:
+      'Deliver time-sensitive announcements for recruitment drives, hackathons, or campus events directly to student devices.',
     icon: Target,
-    title: 'Precision Targeting',
-    desc: 'Target by college, year, interests & more',
-    gradient: 'bg-blue-500/10 text-blue-400',
+    color: 'bg-indigo-500/10 text-indigo-400',
   },
   {
-    icon: MessageSquare,
-    title: 'Multi-Channel',
-    desc: 'WhatsApp, Email & SMS from one platform',
-    gradient: 'bg-emerald-500/10 text-emerald-400',
+    title: 'Brand Ambassadorship',
+    description:
+      'Leverage improved credibility by partnering with verified student leaders and campus organizations.',
+    icon: Users,
+    color: 'bg-violet-500/10 text-violet-400',
   },
   {
-    icon: BarChart3,
-    title: 'Real-Time Analytics',
-    desc: 'Track reach, engagement & ROI live',
-    gradient: 'bg-amber-500/10 text-amber-400',
+    title: 'Event Sponsorship',
+    description:
+      'Gain physical and digital visibility at high-traffic university fests, orientations, and competitions.',
+    icon: Building,
+    color: 'bg-sky-500/10 text-sky-400',
   },
   {
-    icon: Zap,
-    title: 'Fast Launch',
-    desc: 'Go live in under 5 minutes',
-    gradient: 'bg-pink-500/10 text-pink-400',
+    title: 'Performance Analytics',
+    description:
+      'Track impressions, click-through rates, and conversions with our granular, privacy-compliant dashboard.',
+    icon: BarChart,
+    color: 'bg-blue-500/10 text-blue-400',
   },
   {
-    icon: Lock,
-    title: 'Verified Delivery',
-    desc: 'Guaranteed reach to real students',
-    gradient: 'bg-indigo-500/10 text-indigo-400',
+    title: 'Demographic Insights',
+    description:
+      'Understand student sentiment and trends to refine your messaging and product positioning.',
+    icon: PieChart,
+    color: 'bg-indigo-500/10 text-indigo-400',
   },
 ]
 
@@ -117,13 +112,6 @@ const CHANNELS: Channel[] = [
     color: 'text-purple-400 bg-purple-400/10',
     stats: '99% delivery',
   },
-]
-
-const WORKFLOW = [
-  { step: '01', title: 'Select Campuses', desc: 'Choose from 18+ colleges' },
-  { step: '02', title: 'Set Targeting', desc: 'Define your audience' },
-  { step: '03', title: 'Upload Creative', desc: 'Add message & media' },
-  { step: '04', title: 'Launch & Track', desc: 'Go live instantly' },
 ]
 
 const SAMPLE_CAMPAIGNS: CampaignPreview[] = [
@@ -158,7 +146,7 @@ const CHANNEL_COLORS = {
 }
 
 const HeroSection = ({ onOpenForm }: { onOpenForm: () => void }) => (
-  <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
+  <section className="relative flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -177,9 +165,9 @@ const HeroSection = ({ onOpenForm }: { onOpenForm: () => void }) => (
       transition={{ delay: 0.1 }}
       className="text-5xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
     >
-      Reach <span className="text-primary">Students</span>
+      Strategic
       <br />
-      Effortlessly
+      <span className="text-blue-500">Campus Engagement</span>
     </motion.h1>
 
     <motion.p
@@ -188,8 +176,8 @@ const HeroSection = ({ onOpenForm }: { onOpenForm: () => void }) => (
       transition={{ delay: 0.2 }}
       className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10"
     >
-      Run verified campus campaigns on WhatsApp, email and SMS. Pick colleges,
-      set interests and budget, and launch in minutes.
+      Connect authentically with the next generation of leaders. Precision
+      targeting across verified university networks.
     </motion.p>
 
     <motion.div
@@ -200,44 +188,52 @@ const HeroSection = ({ onOpenForm }: { onOpenForm: () => void }) => (
     >
       <button
         onClick={onOpenForm}
-        className="px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2"
+        className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2 shadow-lg shadow-blue-500/25"
       >
-        <Megaphone className="w-5 h-5" />
         Start Campaign
-        <ArrowRight className="w-4 h-4" />
+        <ArrowRight className="w-5 h-5" />
       </button>
-      <a href="#dashboard-preview">
-        <button className="px-8 py-4 border border-border text-foreground font-semibold rounded-full hover:bg-muted transition-all">
-          See How It Works
-        </button>
-      </a>
+      <button
+        onClick={() => {
+          document
+            .getElementById('channels')
+            ?.scrollIntoView({ behavior: 'smooth' })
+        }}
+        className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white text-lg font-bold rounded-full border border-white/10 hover:border-white/20 backdrop-blur-sm transition-all flex items-center gap-2"
+      >
+        <BarChart className="w-5 h-5 text-blue-400" />
+        View Media Kit
+      </button>
     </motion.div>
 
-    {/* Stats Row */}
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4 }}
-      className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl"
-    >
-      {STATS.map((stat) => (
-        <div
+  </section>
+)
+
+const StatsSection = () => (
+  <section className="py-16 px-6 border-y border-border">
+    <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+      {STATS.map((stat, i) => (
+        <motion.div
           key={stat.label}
-          className="bg-card/50 border border-border rounded-2xl p-6 text-center shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.1 }}
+          className="text-center"
         >
-          <stat.icon className="w-6 h-6 text-primary mx-auto mb-3" />
-          <p className="text-3xl font-bold text-foreground mb-1">
+          <stat.icon className="w-8 h-8 text-blue-400 mx-auto mb-3" />
+          <p className="text-4xl font-bold text-foreground mb-1">
             {stat.value}
           </p>
           <p className="text-muted-foreground text-sm">{stat.label}</p>
-        </div>
+        </motion.div>
       ))}
-    </motion.div>
+    </div>
   </section>
 )
 
 const ChannelsSection = () => (
-  <section className="py-20 px-6 border-y border-border">
+  <section id="channels" className="py-20 px-6 bg-black border-y border-border">
     <div className="max-w-6xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -246,10 +242,11 @@ const ChannelsSection = () => (
         className="text-center mb-12"
       >
         <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          Multi-Channel <span className="text-primary">Delivery</span>
+          Omnichannel <span className="text-blue-400">Inventory</span>
         </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Reach students where they are. One platform, three channels.
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          Diverse formats to suit your campaign objectives - from awareness to
+          conversion.
         </p>
       </motion.div>
 
@@ -261,10 +258,10 @@ const ChannelsSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="bg-card/50 border border-border rounded-2xl p-8 text-center hover:border-primary/50 transition-all"
+            className="bg-card/30 border border-white/5 p-8 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group text-center"
           >
             <div
-              className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${channel.color}`}
+              className={`w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center ${channel.color} group-hover:scale-110 transition-transform`}
             >
               <channel.icon className="w-8 h-8" />
             </div>
@@ -289,74 +286,32 @@ const CapabilitiesSection = () => (
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          Platform <span className="text-primary">Capabilities</span>
+          Platform <span className="text-blue-400">Capabilities</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Everything you need to run successful student campaigns.
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {CAPABILITIES.map((item, i) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {NEW_CAPABILITIES.map((capability, i) => (
           <motion.div
-            key={item.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.05 }}
-            className="bg-card/50 border border-border rounded-2xl p-6 hover:border-primary/50 transition-all group"
-          >
-            <div
-              className={`w-12 h-12 rounded-xl ${item.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-            >
-              <item.icon className="w-6 h-6" />
-            </div>
-            <h3 className="text-lg font-bold text-foreground mb-1">
-              {item.title}
-            </h3>
-            <p className="text-muted-foreground text-sm">{item.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </section>
-)
-
-const WorkflowSection = () => (
-  <section className="py-20 px-6 relative">
-    <div className="absolute inset-0 -z-10 bg-primary/5" />
-    <div className="max-w-6xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          How It <span className="text-pink-400">Works</span>
-        </h2>
-        <p className="text-muted-foreground">
-          Launch campaigns in four simple steps.
-        </p>
-      </motion.div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {WORKFLOW.map((item, i) => (
-          <motion.div
-            key={item.step}
+            key={i}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="text-center"
+            className="bg-card/30 border border-white/5 p-6 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
-            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-              {item.step}
+            <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <capability.icon className="w-6 h-6 text-blue-400" />
             </div>
-            <h3 className="text-base font-bold text-foreground mb-1">
-              {item.title}
+            <h3 className="text-xl font-bold text-foreground mb-4">
+              {capability.title}
             </h3>
-            <p className="text-muted-foreground text-sm">{item.desc}</p>
+            <p className="text-muted-foreground text-sm">
+              {capability.description}
+            </p>
           </motion.div>
         ))}
       </div>
@@ -364,138 +319,259 @@ const WorkflowSection = () => (
   </section>
 )
 
-const DashboardPreview = () => (
-  <section id="dashboard-preview" className="py-20 px-6">
-    <div className="max-w-6xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          Dashboard <span className="text-green-400">Preview</span>
-        </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Track all your campaigns in one powerful dashboard.
-        </p>
-      </motion.div>
+const WorkflowSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="bg-card/80 border border-border rounded-3xl overflow-hidden shadow-2xl"
-      >
-        {/* Dashboard Header */}
-        <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
-          </div>
-          <span className="text-muted-foreground text-sm font-mono">
-            tribe.advertise/dashboard
-          </span>
-          <div />
-        </div>
+  const FAQS = [
+    {
+      question: 'How do you verify student accounts?',
+      answer:
+        'We partner directly with universities to integrate with their student information systems, ensuring every account is tied to an active student ID. This guarantees authenticity and prevents fraud.',
+    },
+    {
+      question: 'What kind of targeting options are available?',
+      answer:
+        'You can target students by university, academic year, major, interests (e.g., tech, arts, sports), and even specific campus organizations. Our granular filters ensure your message reaches the most relevant audience.',
+    },
+    {
+      question: 'Can I track campaign performance in real-time?',
+      answer:
+        "Yes, our dashboard provides real-time analytics on impressions, click-through rates, conversions, and engagement metrics. You can monitor your campaign's progress and make data-driven adjustments on the fly.",
+    },
+    {
+      question: 'What is the minimum budget for a campaign?',
+      answer:
+        'We offer flexible pricing models to accommodate various budgets. Campaigns can start from as low as $100, making it accessible for both small businesses and large enterprises. Contact us for a custom quote.',
+    },
+  ]
 
-        {/* Dashboard Content */}
-        <div className="p-6 space-y-6">
-          {/* Metrics Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { label: 'Active Campaigns', value: '12', icon: Play },
-              { label: 'Total Reach', value: '1.2M', icon: Users },
-              { label: 'Engagements', value: '184K', icon: TrendingUp },
-              { label: 'Avg CTR', value: '4.8%', icon: BarChart3 },
-            ].map((m) => (
-              <div key={m.label} className="bg-secondary/50 rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <m.icon className="w-4 h-4 text-primary" />
-                  <span className="text-muted-foreground text-xs">
-                    {m.label}
+  return (
+    <section className="py-20 px-6 relative">
+      <div className="absolute inset-0 -z-10 bg-primary/5" />
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+            How It <span className="text-blue-400">Works</span>
+          </h2>
+          <p className="text-muted-foreground">
+            Launch campaigns in four simple steps.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+          {FAQS.map((faq, i) => {
+            const isOpen = openIndex === i
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen
+                  ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
+                  : 'bg-card/30 border-white/5 hover:border-white/10'
+                  }`}
+              >
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full p-6 flex items-start justify-between text-left gap-4"
+                >
+                  <span
+                    className={`font-semibold text-lg transition-colors ${isOpen ? 'text-blue-400' : 'text-foreground'
+                      }`}
+                  >
+                    {faq.question}
                   </span>
-                </div>
-                <p className="text-2xl font-bold text-foreground">{m.value}</p>
-              </div>
-            ))}
+                  <div
+                    className={`mt-1 p-1 rounded-full border transition-colors ${isOpen
+                      ? 'bg-blue-500 text-white border-blue-500'
+                      : 'border-white/10 text-muted-foreground'
+                      }`}
+                  >
+                    {isOpen ? (
+                      <Minus className="w-4 h-4" />
+                    ) : (
+                      <Plus className="w-4 h-4" />
+                    )}
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const DashboardPreview = () => {
+  const CAMPAIGN_STATS = [
+    { label: 'Student Reach', value: '50k+', icon: Users },
+    { label: 'Engagement Rate', value: '12%', icon: TrendingUp },
+    { label: 'Campus Presence', value: '15+', icon: Building },
+    { label: 'Conversion Lift', value: '3.5x', icon: Zap },
+  ]
+  return (
+    <section id="dashboard-preview" className="py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
+            Dashboard <span className="text-blue-400">Preview</span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Track all your campaigns in one powerful dashboard.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-blue-500/10"
+        >
+          {/* Dashboard Header */}
+          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-white/5">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500/80" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+              <div className="w-3 h-3 rounded-full bg-green-500/80" />
+            </div>
+            <div className="bg-black/50 px-4 py-1.5 rounded-full border border-white/5 flex items-center gap-2">
+              <span className="text-muted-foreground text-xs font-mono">
+                tribe.advertise/dashboard
+              </span>
+            </div>
+            <div className="w-16" />
           </div>
 
-          {/* Campaigns Table */}
-          <div className="bg-secondary/30 rounded-xl overflow-hidden">
-            <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-              <span className="text-foreground font-medium">
-                Recent Campaigns
-              </span>
-              <span className="text-primary text-sm">View All →</span>
+          {/* Dashboard Content */}
+          <div className="p-8 space-y-8">
+            {/* Metrics Row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {CAMPAIGN_STATS.map((m) => (
+                <div
+                  key={m.label}
+                  className="bg-white/5 border border-white/5 rounded-2xl p-5 hover:bg-white/10 transition-colors"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400">
+                      <m.icon className="w-4 h-4" />
+                    </div>
+                    <span className="text-gray-400 text-xs font-medium uppercase tracking-wide">
+                      {m.label}
+                    </span>
+                  </div>
+                  <p className="text-3xl font-bold text-white tracking-tight">
+                    {m.value}
+                  </p>
+                </div>
+              ))}
             </div>
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-white/5">
-                  <th className="text-left px-4 py-3 text-muted-foreground text-xs font-medium">
-                    Campaign
-                  </th>
-                  <th className="text-left px-4 py-3 text-muted-foreground text-xs font-medium">
-                    Channel
-                  </th>
-                  <th className="text-left px-4 py-3 text-muted-foreground text-xs font-medium">
-                    Status
-                  </th>
-                  <th className="text-left px-4 py-3 text-muted-foreground text-xs font-medium">
-                    Reach
-                  </th>
-                  <th className="text-left px-4 py-3 text-muted-foreground text-xs font-medium">
-                    CTR
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {SAMPLE_CAMPAIGNS.map((c) => {
-                  const Icon = CHANNEL_ICONS[c.channel]
-                  return (
-                    <tr
-                      key={c.name}
-                      className="border-b border-white/5 hover:bg-white/5 transition-colors"
-                    >
-                      <td className="px-4 py-3 text-foreground text-sm">
-                        {c.name}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span
-                          className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs ${CHANNEL_COLORS[c.channel]}`}
-                        >
-                          <Icon className="w-3 h-3" />
-                          {c.channel}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span
-                          className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${c.status === 'Active' ? 'text-green-400 bg-green-400/10' : 'text-zinc-400 bg-zinc-400/10'}`}
-                        >
-                          {c.status === 'Active' && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                          )}
-                          {c.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-foreground text-sm">
-                        {c.reach}
-                      </td>
-                      <td className="px-4 py-3 text-green-400 text-sm font-medium">
-                        {c.ctr}
-                      </td>
+
+            {/* Campaigns Table */}
+            <div className="border border-white/10 rounded-2xl overflow-hidden bg-white/5">
+              <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+                <h3 className="text-white font-bold text-lg">
+                  Recent Campaigns
+                </h3>
+                <button className="text-blue-400 text-sm font-medium hover:text-blue-300 transition-colors">
+                  View All →
+                </button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-white/5 bg-white/5">
+                      <th className="text-left px-6 py-4 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+                        Campaign
+                      </th>
+                      <th className="text-left px-6 py-4 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+                        Channel
+                      </th>
+                      <th className="text-left px-6 py-4 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+                        Status
+                      </th>
+                      <th className="text-left px-6 py-4 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+                        Reach
+                      </th>
+                      <th className="text-left px-6 py-4 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+                        CTR
+                      </th>
                     </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {SAMPLE_CAMPAIGNS.map((c) => {
+                      const Icon = CHANNEL_ICONS[c.channel]
+                      return (
+                        <tr
+                          key={c.name}
+                          className="border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors"
+                        >
+                          <td className="px-6 py-4 text-white font-medium text-sm">
+                            {c.name}
+                          </td>
+                          <td className="px-6 py-4">
+                            <span
+                              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border border-white/5 ${CHANNEL_COLORS[c.channel].replace('bg-', 'bg-opacity-10 bg-')}`}
+                            >
+                              <Icon className="w-3.5 h-3.5" />
+                              {c.channel}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span
+                              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border border-white/5 ${c.status === 'Active' ? 'text-green-400 bg-green-400/10' : 'text-zinc-400 bg-zinc-400/10'}`}
+                            >
+                              {c.status === 'Active' && (
+                                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
+                              )}
+                              {c.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-gray-300 text-sm font-mono">
+                            {c.reach}
+                          </td>
+                          <td className="px-6 py-4 text-green-400 text-sm font-mono font-bold">
+                            {c.ctr}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-        </div>
-      </motion.div>
-    </div>
-  </section>
-)
+        </motion.div>
+      </div>
+    </section>
+  )
+}
 
 const CTASection = ({ onOpenForm }: { onOpenForm: () => void }) => (
   <section className="py-32 px-6">
@@ -503,79 +579,32 @@ const CTASection = ({ onOpenForm }: { onOpenForm: () => void }) => (
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      className="max-w-4xl mx-auto bg-primary/20 border border-primary/20 rounded-3xl p-12 text-center relative overflow-hidden"
+      className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-12 text-center relative overflow-hidden group"
     >
-      <div className="absolute inset-0 bg-primary/5" />
-      <Globe className="w-16 h-16 text-primary mx-auto mb-6 relative z-10" />
+      <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-[100px]" />
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/20 rounded-full blur-[100px]" />
+
+      <Megaphone className="w-16 h-16 text-blue-400 mx-auto mb-6 relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
       <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4 relative z-10">
         Ready to Launch?
       </h2>
-      <p className="text-muted-foreground max-w-lg mx-auto mb-8 relative z-10">
-        Join brands reaching thousands of verified students across India&apos;s
-        largest college network.
+      <p className="text-muted-foreground max-w-lg mx-auto mb-10 relative z-10 text-lg">
+        Partner with the most influential campus network in the region.
       </p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-        <button
-          onClick={onOpenForm}
-          className="px-8 py-4 bg-foreground text-background font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2"
-        >
-          <Megaphone className="w-5 h-5" />
-          Get Started
-        </button>
-      </div>
-      <p className="text-muted-foreground text-sm mt-6 relative z-10">
-        No credit card required • Launch in minutes
-      </p>
+
+      <button
+        onClick={onOpenForm}
+        className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto shadow-lg shadow-blue-500/25 border border-white/10 relative z-10"
+      >
+        <Megaphone className="w-5 h-5" />
+        Start Campaign
+      </button>
     </motion.div>
   </section>
 )
 
-const PartnerFormModal = ({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean
-  onClose: () => void
-}) => {
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
-          />
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-card border border-border w-full max-w-lg rounded-2xl overflow-hidden pointer-events-auto"
-            >
-              <div className="flex items-center justify-between p-6 border-b border-border">
-                <h2 className="text-xl font-bold text-foreground">
-                  Start Your Campaign
-                </h2>
-                <button
-                  onClick={onClose}
-                  className="p-2 hover:bg-secondary rounded-full transition-colors"
-                >
-                  <X className="w-5 h-5 text-muted-foreground" />
-                </button>
-              </div>
-              <div className="p-6">
-                <PartnershipForm onSuccess={() => {}} />
-              </div>
-            </motion.div>
-          </div>
-        </>
-      )}
-    </AnimatePresence>
-  )
-}
+
 
 /**
  * Main Advertise Page.
@@ -589,6 +618,7 @@ export default function AdvertisePage() {
       <Grain />
 
       <HeroSection onOpenForm={() => setIsFormOpen(true)} />
+      <StatsSection />
       <ChannelsSection />
       <CapabilitiesSection />
       <WorkflowSection />
@@ -597,10 +627,13 @@ export default function AdvertisePage() {
 
       <Footer />
 
-      <PartnerFormModal
+      <Modal
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
-      />
+        title="Start Your Campaign"
+      >
+        <PartnershipForm onSuccess={() => { }} />
+      </Modal>
     </main>
   )
 }

@@ -1,19 +1,20 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
   Users,
   MessageSquare,
   Shield,
-  Heart,
-  BookOpen,
+  Bell,
   Calendar,
-  Globe,
-  ChevronDown,
-  TrendingUp,
-  Award,
+  GraduationCap,
+  BookOpen,
+  Vote,
+  Layout,
+  Plus,
+  Minus,
 } from 'lucide-react'
 import Navbar from '@/components/landing/Navbar'
 import Footer from '@/components/landing/Footer'
@@ -26,54 +27,54 @@ import { siteConfig } from '@/lib/site-config'
  */
 
 const STATS = [
-  { value: '50k+', label: 'Students', icon: Users },
-  { value: '18+', label: 'Campuses', icon: Globe },
-  { value: '10k+', label: 'Discussions', icon: MessageSquare },
-  { value: '100%', label: 'Anonymous', icon: Shield },
+  { value: '500+', label: 'Universities', icon: GraduationCap },
+  { value: '1M+', label: 'Verified Students', icon: Users },
+  { value: '50k+', label: 'Academic Circles', icon: BookOpen },
+  { value: '24/7', label: 'Campus Discourse', icon: MessageSquare },
 ]
 
 const FEATURES = [
   {
-    icon: Shield,
-    title: 'Anonymous by Default',
+    icon: GraduationCap,
+    title: 'Academic Circles',
     description:
-      'Share freely without revealing your identity. Your privacy is protected with end-to-end anonymity.',
-    color: 'bg-indigo-500/10 text-indigo-400',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Real-Time Discussions',
-    description:
-      'Engage in live conversations with fellow students. Get instant replies and notifications.',
+      'Dedicated spaces for course-specific discussions, resource sharing, and peer learning.',
     color: 'bg-blue-500/10 text-blue-400',
   },
   {
-    icon: BookOpen,
-    title: 'Study Resources',
+    icon: Vote,
+    title: 'Student Governance',
     description:
-      'Share notes, past papers, and study materials. Find help for any subject or exam.',
-    color: 'bg-emerald-500/10 text-emerald-400',
+      'Digital town halls for student council updates, polls, and transparent campus decision making.',
+    color: 'bg-indigo-500/10 text-indigo-400',
+  },
+  {
+    icon: Bell,
+    title: 'Official Announcements',
+    description:
+      'Verified channels for university administration to broadcast important notifications and deadlines.',
+    color: 'bg-blue-500/10 text-blue-400',
   },
   {
     icon: Calendar,
-    title: 'Events & Meetups',
+    title: 'University Events Board',
     description:
-      'Plan trips, organize study groups, and coordinate campus events with your peers.',
-    color: 'bg-amber-500/10 text-amber-400',
+      'A centralized calendar for hackathons, cultural fests, workshops, and inter-college competitions.',
+    color: 'bg-indigo-500/10 text-indigo-400',
   },
   {
-    icon: Heart,
-    title: 'Confessions Wall',
+    icon: Layout,
+    title: 'Club Management',
     description:
-      'A safe space to share thoughts, feelings, and campus confessions without judgment.',
-    color: 'bg-red-500/10 text-red-400',
+      'Tools for student organizations to manage membership, coordinate events, and secure funding.',
+    color: 'bg-blue-500/10 text-blue-400',
   },
   {
-    icon: TrendingUp,
-    title: 'Career & Placements',
+    icon: Shield,
+    title: 'Verified Access',
     description:
-      'Discuss internships, job openings, interview experiences, and career advice.',
-    color: 'bg-cyan-500/10 text-cyan-400',
+      'A secure environment where every user is authenticated via university credentials (`.edu` / ID card).',
+    color: 'bg-indigo-500/10 text-indigo-400',
   },
 ]
 
@@ -118,39 +119,39 @@ const CATEGORIES = [
 
 const FAQS = [
   {
-    question: 'Is the forum really anonymous?',
+    question: 'How do I join my university community?',
     answer:
-      "Yes! All posts are anonymous by default. We don't show your real name or email to other users. You can choose a username that doesn't identify you. Even moderators cannot see your personal details for regular posts.",
+      'Simply sign up with your university email address. Our system automatically verifies your domain and places you into your official campus network.',
   },
   {
-    question: 'Who can join the community?',
+    question: 'Can alumni join the network?',
     answer:
-      'Currently, Tribe Community is open to JAIN University students across all campuses. We verify student status through university email addresses to ensure a safe, student-only space.',
+      'Yes, we have dedicated alumni networks that foster mentorship and professional networking opportunities for graduating students.',
   },
   {
-    question: 'How do I create my first post?',
+    question: 'Is my data visible to administration?',
     answer:
-      'Simply sign in with your university credentials, click the "New Discussion" button, choose a category, and start writing! You can add images, links, and format your text with markdown.',
+      'While we host official channels, student-to-student discourse in private circles remains confidential and is not shared with university administration.',
   },
   {
-    question: 'Are there any rules or guidelines?',
+    question: 'How can I start a new club?',
     answer:
-      'Yes, we have community guidelines to ensure respectful discussions. No harassment, hate speech, or doxxing is allowed. Posts violating guidelines are removed, and repeat offenders may be banned.',
+      'Any verified student can propose a new club. Once it receives the required number of initial signatures, it gets an official space on the platform.',
   },
   {
-    question: 'Can I delete my posts?',
+    question: 'Are inter-university connections possible?',
     answer:
-      'Yes, you can delete or edit your own posts at any time. Once deleted, the content is permanently removed from our servers.',
+      'Yes. While your primary experience is centered on your campus, you can join "National Circles" for broader interests like Competitive Programming or Research.',
   },
   {
-    question: 'How is this different from WhatsApp groups?',
+    question: 'Is the platform free for students?',
     answer:
-      'Unlike WhatsApp groups, Tribe offers true anonymity, organized categories, searchable discussions, and a permanent archive. Your posts reach all campus students, not just group members.',
+      'Absolutely. Tribe Network is and will always be free for students to use for communication, networking, and event discovery.',
   },
 ]
 
 const HeroSection = () => (
-  <section className="relative min-h-[70vh] flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
+  <section className="relative flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -164,11 +165,11 @@ const HeroSection = () => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
+      className="text-5xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.9] mb-6"
     >
-      Your Campus,
+      The Digital
       <br />
-      <span className="text-blue-400">Connected.</span>
+      <span className="text-blue-500">Campus Hub</span>
     </motion.h1>
 
     <motion.p
@@ -177,32 +178,37 @@ const HeroSection = () => (
       transition={{ delay: 0.2 }}
       className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10"
     >
-      An anonymous forum built for University students. Share confessions, find
-      study groups, plan meetups, and connect with your campus community.
+      A unified platform for student governance, academic collaboration, and
+      vibrant campus life.
     </motion.p>
 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
-      className="flex flex-col sm:flex-row gap-4"
+      className="flex flex-col sm:flex-row items-center justify-center gap-4"
     >
       <a
         href={siteConfig.urls.community}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <button className="px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2">
-          <MessageSquare className="w-5 h-5" />
-          Join the Forum
-          <ArrowRight className="w-4 h-4" />
+        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2 shadow-lg shadow-blue-500/25">
+          Join Network
+          <ArrowRight className="w-5 h-5" />
         </button>
       </a>
-      <a href="#features">
-        <button className="px-8 py-4 border border-border text-foreground font-semibold rounded-full hover:bg-muted transition-all">
-          Learn More
-        </button>
-      </a>
+      <button
+        onClick={() => {
+          document
+            .getElementById('features')
+            ?.scrollIntoView({ behavior: 'smooth' })
+        }}
+        className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white text-lg font-bold rounded-full border border-white/10 hover:border-white/20 backdrop-blur-sm transition-all flex items-center gap-2"
+      >
+        <BookOpen className="w-5 h-5 text-blue-400" />
+        Explore Features
+      </button>
     </motion.div>
   </section>
 )
@@ -240,11 +246,10 @@ const FeaturesSection = () => (
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          Everything You <span className="text-blue-400">Need</span>
+          Everything <span className="text-blue-400">Campus</span>
         </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Built specifically for university students. Every feature designed to
-          make campus life better.
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          Built to support the diverse needs of a modern university ecosystem.
         </p>
       </motion.div>
 
@@ -256,14 +261,14 @@ const FeaturesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className="bg-card/50 border border-border rounded-2xl p-6 hover:border-blue-500/50 transition-all group"
+            className="bg-card/30 border border-white/5 p-6 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
             <div
               className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
             >
               <feature.icon className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-foreground mb-2">
+            <h3 className="text-xl font-bold text-foreground mb-2">
               {feature.title}
             </h3>
             <p className="text-muted-foreground text-sm">
@@ -287,7 +292,7 @@ const CategoriesSection = () => (
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-          Discussion <span className="text-indigo-400">Categories</span>
+          Discussion <span className="text-blue-400">Categories</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Find exactly what you&apos;re looking for. Every topic has its place.
@@ -302,9 +307,11 @@ const CategoriesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className="bg-card/50 border border-border rounded-xl p-5 hover:border-blue-500/50 transition-all"
+            className="bg-card/30 border border-white/5 rounded-xl p-5 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
-            <div className="text-3xl mb-3">{cat.emoji}</div>
+            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform origin-left">
+              {cat.emoji}
+            </div>
             <h3 className="text-foreground font-bold mb-1">{cat.name}</h3>
             <p className="text-muted-foreground text-sm mb-2">
               {cat.description}
@@ -324,7 +331,7 @@ const FAQSection = () => {
 
   return (
     <section className="py-20 px-6">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -332,38 +339,65 @@ const FAQSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
-            Frequently Asked <span className="text-emerald-400">Questions</span>
+            Frequently Asked <span className="text-blue-400">Questions</span>
           </h2>
         </motion.div>
 
-        <div className="space-y-4">
-          {FAQS.map((faq, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="bg-card/50 border border-border rounded-xl overflow-hidden"
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full p-5 flex items-center justify-between text-left"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+          {FAQS.map((faq, i) => {
+            const isOpen = openIndex === i
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen
+                  ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
+                  : 'bg-card/30 border-white/5 hover:border-white/10'
+                  }`}
               >
-                <span className="font-medium text-foreground">
-                  {faq.question}
-                </span>
-                <ChevronDown
-                  className={`w-5 h-5 text-muted-foreground transition-transform ${openIndex === i ? 'rotate-180' : ''}`}
-                />
-              </button>
-              {openIndex === i && (
-                <div className="px-5 pb-5 text-muted-foreground text-sm">
-                  {faq.answer}
-                </div>
-              )}
-            </motion.div>
-          ))}
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full p-6 flex items-start justify-between text-left gap-4"
+                >
+                  <span
+                    className={`font-semibold text-lg transition-colors ${isOpen ? 'text-blue-400' : 'text-foreground'
+                      }`}
+                  >
+                    {faq.question}
+                  </span>
+                  <div
+                    className={`mt-1 p-1 rounded-full border transition-colors ${isOpen
+                      ? 'bg-blue-500 text-white border-blue-500'
+                      : 'border-white/10 text-muted-foreground'
+                      }`}
+                  >
+                    {isOpen ? (
+                      <Minus className="w-4 h-4" />
+                    ) : (
+                      <Plus className="w-4 h-4" />
+                    )}
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -376,26 +410,29 @@ const CTASection = () => (
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      className="max-w-4xl mx-auto bg-blue-900/30 border border-blue-500/20 rounded-3xl p-12 text-center relative overflow-hidden"
+      className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-12 text-center relative overflow-hidden group"
     >
-      <div className="absolute inset-0 bg-blue-500/5" />
-      <Award className="w-16 h-16 text-blue-400 mx-auto mb-6 relative z-10" />
+      <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-[100px]" />
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/20 rounded-full blur-[100px]" />
+
+      <GraduationCap className="w-16 h-16 text-blue-400 mx-auto mb-6 relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
       <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4 relative z-10">
         Ready to Join?
       </h2>
-      <p className="text-muted-foreground max-w-lg mx-auto mb-8 relative z-10">
-        Connect with thousands of students from your university. Start your
-        first discussion today.
+      <p className="text-muted-foreground max-w-lg mx-auto mb-10 relative z-10 text-lg">
+        Claim your digital campus identity today.
       </p>
+
       <a
         href={siteConfig.urls.community}
         target="_blank"
         rel="noopener noreferrer"
-        className="relative z-10"
+        className="relative z-10 inline-block"
       >
-        <button className="px-8 py-4 bg-foreground text-background font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto">
+        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto shadow-lg shadow-blue-500/25 border border-white/10">
           <Users className="w-5 h-5" />
-          Join Tribe Community
+          Get Started
         </button>
       </a>
     </motion.div>

@@ -28,13 +28,19 @@ class TribeCorsMiddleware implements MiddlewareInterface
     private function getAllowedOrigins(): array
     {
         $envOrigins = getenv('ALLOWED_ORIGINS');
-        return $envOrigins
+        $origins = $envOrigins
             ? array_map('trim', explode(',', $envOrigins))
             : [
             'http://localhost:3000',
             'http://localhost:5173',
             'http://localhost:8080',
         ];
+
+        return array_merge($origins, [
+            'http://127.0.0.1:3000',
+            'http://localhost:8000',
+            'http://127.0.0.1:8000',
+        ]);
     }
 
     private function isOriginAllowed(string $origin): bool
@@ -42,6 +48,13 @@ class TribeCorsMiddleware implements MiddlewareInterface
         if (empty($origin)) {
             return true;
         }
+
+        if (getenv('FLARUM_DEBUG') === 'true' || getenv('FLARUM_DEBUG') === '1') {
+            if (strpos($origin, 'http://localhost') === 0 || strpos($origin, 'http://127.0.0.1') === 0) {
+                return true;
+            }
+        }
+
         return in_array($origin, $this->getAllowedOrigins());
     }
 
