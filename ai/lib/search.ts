@@ -24,7 +24,7 @@ export interface SearchOptions {
  * Flarum URL for generating post links.
  */
 const FLARUM_URL =
-  process.env.FLARUM_URL || 'https://flarum-production-5d69.up.railway.app'
+  process.env.FLARUM_URL || 'https://tribe-community.vercel.app'
 
 /**
  * Perform a comprehensive FULLTEXT search across all forum posts.
@@ -70,7 +70,7 @@ async function fulltextSearch(
     const searchTerms = searchQuery
       .toLowerCase()
       .split(/\s+/)
-      .filter((t) => t.length > 2)
+      .filter((t) => t.length >= 2)
       .slice(0, 10)
 
     const fulltextQuery = searchTerms.join(' ')
@@ -153,20 +153,33 @@ async function fallbackSearch(
       is_private: number
     }
 
+    // Allow 2-char terms like "AI", "JS"
     const searchTerms = searchQuery
       .toLowerCase()
       .split(/\s+/)
-      .filter((t) => t.length > 2)
+      .filter((t) => t.length >= 2)
       .slice(0, 5)
 
     if (searchTerms.length === 0) {
       return getRecentPosts(limit)
     }
 
-    const likeConditions = searchTerms
+    // Search both Content and Title
+    const contentConditions = searchTerms
       .map(() => 'LOWER(p.content) LIKE ?')
       .join(' OR ')
-    const likeParams = searchTerms.map((t) => `%${t}%`)
+    const titleConditions = searchTerms
+      .map(() => 'LOWER(d.title) LIKE ?')
+      .join(' OR ') // Check title match
+
+    // Combine conditions
+    const whereClause = `(${contentConditions} OR ${titleConditions})`
+
+    // Params: Content params first, then Title params
+    const likeParams = [
+      ...searchTerms.map((t) => `%${t}%`),
+      ...searchTerms.map((t) => `%${t}%`),
+    ]
 
     const rows = await query<PostRow[]>(
       `SELECT 
@@ -183,7 +196,7 @@ async function fallbackSearch(
       FROM flarum_posts p
       JOIN flarum_discussions d ON p.discussion_id = d.id
       LEFT JOIN flarum_users u ON p.user_id = u.id
-      WHERE (${likeConditions})
+      WHERE ${whereClause}
         AND p.hidden_at IS NULL
         AND d.hidden_at IS NULL
         AND p.is_approved = 1
@@ -209,7 +222,8 @@ async function fallbackSearch(
       isPrivate: Boolean(row.is_private),
       score: 0.5,
     }))
-  } catch {
+  } catch (error) {
+    console.error('Fallback search error:', error)
     return []
   }
 }
@@ -310,7 +324,13 @@ export function generatePostLink(
   slug: string,
   postNumber: number
 ): string {
-  return `${FLARUM_URL}/d/${discussionId}-${slug}${postNumber > 1 ? `/${postNumber}` : ''}`
+  const baseUrl = `${FLARUM_URL}/discussions/${discussionId}`
+
+  if (postNumber > 1) {
+    return `${baseUrl}#post-${postNumber}`
+  }
+
+  return baseUrl
 }
 
 /**

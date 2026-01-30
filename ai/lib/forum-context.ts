@@ -146,8 +146,7 @@ ${cleanQuery}
 Would love to hear from you if you have any experience or thoughts on this! 🙏`
 
   const tag = suggestTag(query)
-  const link =
-    process.env.FLARUM_URL || 'https://flarum-production-5d69.up.railway.app'
+  const link = process.env.FLARUM_URL || 'https://tribe-community.vercel.app'
 
   return { title, content, tag, link }
 }
@@ -201,7 +200,7 @@ function suggestTag(content: string): string {
  */
 export function buildSystemPromptWithContext(context: ForumContext): string {
   const forumUrl =
-    process.env.FLARUM_URL || 'https://flarum-production-5d69.up.railway.app'
+    process.env.FLARUM_URL || 'https://tribe-community.vercel.app'
 
   const baseIdentity = `You are TribeAI, the friendly AI assistant for the JAIN University student community forum called Tribe.
 
@@ -245,7 +244,7 @@ GUIDELINES:
 1. **Prioritize Community**: If there are relevant Forum discussions, ALWAYS mention them first. Say something like "I found some great discussions on Tribe about this...".
 2. **Seamless Web Integration**: If the forum is quiet or lacks specific details (e.g., dates for a generic hackathon), use the Web results to fill in the gaps without making a big deal out of it.
 3. **Be Helpful**: If the user asks for opportunities, combine the internal referral posts with external job listings you found on the web.
-4. **Links**: Always link to the referenced Forum posts. For web results, you can mention "I also saw online that..." but focus on driving traffic to the community where possible.
+4. **Links**: You MUST cite forum discussions using the exact format "[Discussion Title](Link)". This is CRITICAL for the UI to display them correctly. For example: "Calculus notes are available in [B.Tech Data Science Notes](https://...). For web results, you can mention "I also saw online that..." but focus on driving traffic to the community where possible."
 5. **If No Forum Data**: If the Community Discussions section is empty, simply answer using the Web results and suggest: "I couldn't find a specific thread on Tribe about this yet, so you should definitely start one! Here is what I found online..."
 
 Start your response directly (no "Here is what I found"). Be helpful immediately.`

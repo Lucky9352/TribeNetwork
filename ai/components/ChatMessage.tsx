@@ -318,7 +318,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
               asChild
             >
               <a
-                href="https://flarum-production-5d69.up.railway.app"
+                href="https://tribe-community.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
               >
