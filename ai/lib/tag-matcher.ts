@@ -20,7 +20,6 @@ export async function matchTags(
   const apiKey = process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY
 
   if (!apiKey) {
-    console.warn('No AI API key found, skipping smart tag matching')
     return []
   }
 
@@ -85,8 +84,7 @@ Rules:
         : []
 
     return availableTags.filter((t) => matchedSlugs.includes(t.slug))
-  } catch (error) {
-    console.error('Tag matching failed:', error)
+  } catch {
     return []
   }
 }

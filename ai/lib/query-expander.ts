@@ -62,8 +62,7 @@ export async function expandQuery(query: string): Promise<string[]> {
         : []
 
     return Array.from(new Set([query, ...expansions])).slice(0, 4)
-  } catch (error) {
-    console.warn('Query expansion failed, using original query', error)
+  } catch {
     return [query]
   }
 }

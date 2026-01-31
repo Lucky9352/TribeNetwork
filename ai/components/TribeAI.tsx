@@ -776,9 +776,25 @@ export function TribeAI() {
             <div className="px-4 py-6">
               <div className="max-w-2xl mx-auto">
                 <div className="flex flex-col gap-6">
-                  {messages.map((message) => (
-                    <ChatMessage key={message.id} message={message} />
-                  ))}
+                  {messages.map((message, index) => {
+                    const isLastAIMessage =
+                      message.type === MessageType.AI &&
+                      index === messages.length - 1
+                    return (
+                      <ChatMessage
+                        key={message.id}
+                        message={message}
+                        followUpSuggestions={
+                          isLastAIMessage && !isLoading
+                            ? followUpSuggestions
+                            : []
+                        }
+                        onFollowUpClick={
+                          isLastAIMessage ? handleSendMessage : undefined
+                        }
+                      />
+                    )
+                  })}
 
                   {isLoading &&
                     messages[messages.length - 1]?.type !== MessageType.AI && (
@@ -813,31 +829,6 @@ export function TribeAI() {
                         </div>
                       </motion.div>
                     )}
-
-                  {/* Follow-up Suggestions */}
-                  {!isLoading && followUpSuggestions.length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="flex flex-wrap gap-2 pl-14"
-                    >
-                      {followUpSuggestions.map((suggestion, index) => (
-                        <motion.button
-                          key={suggestion}
-                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ delay: index * 0.1, duration: 0.3 }}
-                          onClick={() => handleSendMessage(suggestion)}
-                          className="group flex items-center gap-1.5 px-3 py-2 text-sm bg-linear-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 text-blue-300 rounded-xl border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(59,130,246,0.4)]"
-                        >
-                          <Sparkles className="w-3.5 h-3.5 text-blue-400 group-hover:text-blue-300 transition-colors" />
-                          <span className="group-hover:text-blue-200 transition-colors">
-                            {suggestion}
-                          </span>
-                        </motion.button>
-                      ))}
-                    </motion.div>
-                  )}
 
                   <div ref={messagesEndRef} />
                 </div>

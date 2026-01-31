@@ -75,9 +75,7 @@ export async function getChatResponse(
           try {
             const metadata = JSON.parse(jsonStr)
             callbacks?.onMetadata(metadata)
-          } catch (e) {
-            console.error('Failed to parse metadata', e)
-          }
+          } catch {}
 
           const rest = buffer.slice(delimiterIndex + '\n__JSON_END__\n'.length)
           buffer = ''

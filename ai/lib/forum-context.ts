@@ -158,9 +158,6 @@ export async function buildForumContext(
   }
 
   if (matchedTags.length > 0) {
-    console.log(
-      `[ForumContext] Matched tags: ${matchedTags.map((t) => t.slug).join(', ')}`
-    )
     for (const tag of matchedTags) {
       searchPromises.push(searchByTag(tag.slug, 5))
     }
@@ -191,9 +188,6 @@ export async function buildForumContext(
   const formattedContext = formatResultsForContext(finalResults)
 
   const suggestion = await generatePostSuggestion(message, matchedTags)
-  console.log(
-    `[ForumContext] Generated suggestion: ${suggestion ? 'YES' : 'NO'}, tag: ${suggestion.tag}`
-  )
 
   return {
     intent,
@@ -287,8 +281,7 @@ Respond in JSON format: {"title": "...", "content": "..."}`
       tag,
       link,
     }
-  } catch (error) {
-    console.error('AI post suggestion failed:', error)
+  } catch {
     const cleanQuery = query.replace(/[?!.,]+$/, '').trim()
     let title = cleanQuery
     if (title.length > 100) title = title.slice(0, 97) + '...'

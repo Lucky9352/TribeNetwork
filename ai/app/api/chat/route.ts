@@ -258,8 +258,7 @@ export async function POST(req: Request): Promise<Response> {
               }
             }
           }
-        } catch (e) {
-          console.error('Streaming error', e)
+        } catch {
         } finally {
           controller.close()
         }

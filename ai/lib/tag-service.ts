@@ -43,8 +43,7 @@ export async function getAllTags(): Promise<TagInfo[]> {
 
     lastFetchTime = now
     return cachedTags
-  } catch (error) {
-    console.error('Failed to fetch tags:', error)
+  } catch {
     return []
   }
 }

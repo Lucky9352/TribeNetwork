@@ -77,8 +77,7 @@ ${contextItems.map((item) => `[${item.id}] ${item.content}`).join('\n\n')}`
     }
 
     return reranked
-  } catch (error) {
-    console.warn('Reranking failed, using original sort', error)
+  } catch {
     return results.slice(0, topK)
   }
 }
