@@ -29,32 +29,43 @@ interface ChatMessageProps {
   onFollowUpClick?: (suggestion: string) => void
 }
 
-interface ForumResult {
-  title: string
-  author: string
-  snippet: string
-  url: string
-  createdAt?: string
-  score?: number
+/** Get display name with privacy protection */
+function getDisplayUsername(username?: string): string {
+  if (!username || username.trim() === '') return 'Community Member'
+  const lower = username.toLowerCase().trim()
+  const anonymousPatterns = [
+    'guest',
+    'anonymous',
+    'ghost',
+    'deleted',
+    'system',
+    'bot',
+    'voting',
+  ]
+  if (anonymousPatterns.some((pattern) => lower.includes(pattern))) {
+    return 'Community Member'
+  }
+  return username
 }
 
-/** Extract forum results from AI response */
-function extractForumResults(content: string): ForumResult[] {
-  const results: ForumResult[] = []
-  const linkPattern = /\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g
-  const matches = content.matchAll(linkPattern)
+/** Format date for display */
+function formatDate(dateString?: string): string {
+  if (!dateString) return ''
+  try {
+    const date = new Date(dateString)
+    const now = new Date()
+    const diffMs = now.getTime() - date.getTime()
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
 
-  for (const match of matches) {
-    if (match[2].includes('flarum') || match[2].includes('tribe')) {
-      results.push({
-        title: match[1],
-        author: 'Tribe User',
-        snippet: 'Click to view the discussion',
-        url: match[2],
-      })
-    }
+    if (diffDays === 0) return 'Today'
+    if (diffDays === 1) return 'Yesterday'
+    if (diffDays < 7) return `${diffDays}d ago`
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`
+    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+  } catch {
+    return ''
   }
-  return results.slice(0, 3)
 }
 
 /** Streaming text animation */
@@ -154,17 +165,22 @@ export function ChatMessage({
   const parsedContent = useMemo(() => {
     if (isAI && streamComplete) {
       marked.setOptions({ breaks: true, gfm: true })
-      return marked(message.content, { async: false }) as string
+      let html = marked(message.content, { async: false }) as string
+      html = html.replace(
+        /(@\w+)/g,
+        '<span class="text-blue-400 font-medium">$1</span>'
+      )
+      return html
     }
     return ''
   }, [message.content, isAI, streamComplete])
 
   const forumResults = useMemo(() => {
-    if (isAI && streamComplete) {
-      return extractForumResults(message.content)
+    if (isAI && streamComplete && message.forumResults) {
+      return message.forumResults.slice(0, 5)
     }
     return []
-  }, [message.content, isAI, streamComplete])
+  }, [message.forumResults, isAI, streamComplete])
 
   const handleCopy = async () => {
     try {
@@ -233,18 +249,24 @@ export function ChatMessage({
             {forumResults.map((result, i) => (
               <motion.a
                 key={i}
-                href={result.url}
+                href={result.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.1 }}
-                className="inline-flex items-center gap-2 px-3 py-2 bg-black/40 hover:bg-black/60 border border-white/10 hover:border-white/20 rounded-lg transition-all group/card"
+                transition={{ delay: i * 0.05 }}
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-black/40 border border-white/10 transition-all hover:bg-blue-500/10 hover:border-blue-500/40 [&:hover_span]:text-zinc-100 [&:hover_svg]:text-blue-400"
               >
-                <span className="font-medium text-white text-sm group-hover/card:text-zinc-200 transition-colors">
-                  {result.title}
-                </span>
-                <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover/card:text-zinc-300 transition-colors shrink-0" />
+                <div className="flex flex-col">
+                  <span className="font-medium text-white text-sm transition-colors">
+                    {result.title}
+                  </span>
+                  <span className="text-xs text-zinc-500">
+                    {getDisplayUsername(result.username)}
+                    {result.createdAt && ` • ${formatDate(result.createdAt)}`}
+                  </span>
+                </div>
+                <ExternalLink className="w-3.5 h-3.5 text-zinc-500 shrink-0 transition-colors" />
               </motion.a>
             ))}
           </div>
@@ -257,12 +279,12 @@ export function ChatMessage({
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, height: 0 }}
-          className="mt-4 inline-flex items-center gap-3 px-3 py-2 rounded-lg border border-white/20 bg-black/40 cursor-pointer transition-all group hover:bg-blue-500/10 hover:border-blue-500/40"
+          className="mt-4 inline-flex items-center gap-3 px-3 py-2 rounded-lg border border-white/20 bg-black/40 cursor-pointer transition-all hover:bg-blue-500/10 hover:border-blue-500/40 [&:hover_.post-arrow]:text-blue-400 group/suggest"
           onClick={() => {
             const params = new URLSearchParams({
               title: message.suggestion?.title || '',
               content: message.suggestion?.content || '',
-              tags: message.suggestion?.tag || '',
+              tags: message.suggestion?.tag || 'general',
             })
             const flarumUrl =
               process.env.NEXT_PUBLIC_FLARUM_URL || 'http://localhost:3000'
@@ -273,10 +295,18 @@ export function ChatMessage({
           }}
         >
           <PenLine className="w-4 h-4 text-blue-400 shrink-0" />
-          <span className="text-sm text-zinc-200 font-medium">
-            {message.suggestion?.title || 'Start A Discussion'}
-          </span>
-          <span className="text-xs text-zinc-500 group-hover:text-blue-400 transition-colors shrink-0">
+          <div className="flex flex-col">
+            <span className="text-sm text-zinc-200 font-medium line-clamp-1">
+              {message.suggestion?.title || 'Start A Discussion'}
+            </span>
+            <span className="text-[10px] text-zinc-500 uppercase tracking-tight">
+              Will post in:{' '}
+              {message.suggestion?.tagName ||
+                message.suggestion?.tag ||
+                'General'}
+            </span>
+          </div>
+          <span className="post-arrow text-xs text-zinc-500 transition-colors shrink-0 ml-auto pl-2">
             Post →
           </span>
           <button
@@ -284,7 +314,7 @@ export function ChatMessage({
               e.stopPropagation()
               setSuggestionDismissed(true)
             }}
-            className="p-1 rounded text-zinc-600 hover:text-red-400 hover:bg-red-500/10 transition-all shrink-0"
+            className="p-1 rounded text-zinc-600 hover:text-red-400 hover:bg-red-500/10 transition-all shrink-0 ml-1"
           >
             <X className="w-3.5 h-3.5" />
           </button>

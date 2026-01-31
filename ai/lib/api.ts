@@ -11,6 +11,8 @@ export interface ForumResult {
   link: string
   snippet: string
   username: string
+  createdAt?: string
+  score?: number
 }
 
 export interface ChatMetadata {

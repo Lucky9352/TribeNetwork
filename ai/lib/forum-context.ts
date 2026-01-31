@@ -16,6 +16,7 @@ import { getAllTags } from './tag-service'
 import { matchTags } from './tag-matcher'
 import { expandQuery } from './query-expander'
 import { rerankResults } from './reranker'
+import { PostSuggestion } from '@/types'
 
 /**
  * Classification of user intent.
@@ -32,16 +33,6 @@ export interface ForumContext {
   suggestion?: PostSuggestion
   user: AuthenticatedUser | null
   webResults?: { title: string; url: string; snippet: string }[]
-}
-
-/**
- * Post creation suggestion.
- */
-export interface PostSuggestion {
-  title: string
-  content: string
-  tag: string
-  link: string
 }
 
 /**
@@ -107,13 +98,12 @@ export async function buildForumContext(
 
   if (intent === 'general_question') {
     const availableTags = await getAllTags()
-    const matchedTags = await matchTags(message, availableTags)
     return {
       intent,
       searchResults: [],
       formattedContext: '',
       user,
-      suggestion: await generatePostSuggestion(message, matchedTags),
+      suggestion: await generatePostSuggestion(message, availableTags, []),
     }
   }
 
@@ -187,7 +177,11 @@ export async function buildForumContext(
 
   const formattedContext = formatResultsForContext(finalResults)
 
-  const suggestion = await generatePostSuggestion(message, matchedTags)
+  const suggestion = await generatePostSuggestion(
+    message,
+    availableTags,
+    finalResults
+  )
 
   return {
     intent,
@@ -203,21 +197,16 @@ export async function buildForumContext(
  */
 export async function generatePostSuggestion(
   query: string,
-  matchedTags: TagInfo[] = []
+  availableTags: TagInfo[] = [],
+  existingResults: FlarumSearchResult[] = []
 ): Promise<PostSuggestion> {
   const apiKey = process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY
-
-  let tag = 'general'
-  if (matchedTags.length > 0) {
-    tag = matchedTags[0].slug
-  } else {
-    tag = suggestTag(query)
-  }
 
   const link =
     process.env.NEXT_PUBLIC_FLARUM_URL || 'https://tribe-community.vercel.app'
 
   if (!apiKey) {
+    const tag = 'general'
     const cleanQuery = query.replace(/[?!.,]+$/, '').trim()
     let title = cleanQuery
     if (title.length > 100) title = title.slice(0, 97) + '...'
@@ -228,7 +217,8 @@ export async function generatePostSuggestion(
         .join(' ')
     }
     const content = `Hey everyone! 👋\n\n${cleanQuery}\n\nWould love to hear from you if you have any experience or thoughts on this! 🙏`
-    return { title, content, tag, link }
+    const tagName = 'General'
+    return { title, content, tag, tagName, link }
   }
 
   const apiUrl = process.env.DEEPSEEK_API_KEY
@@ -237,17 +227,33 @@ export async function generatePostSuggestion(
 
   const model = process.env.DEEPSEEK_API_KEY ? 'deepseek-chat' : 'gpt-4o-mini'
 
+  const tagContext = availableTags
+    .map((t) => `- ${t.name} (Slug: ${t.slug}): ${t.description || ''}`)
+    .join('\n')
+
+  const existingContext =
+    existingResults.length > 0
+      ? existingResults.map((r) => `- ${r.discussionTitle}`).join('\n')
+      : 'No existing discussions found.'
+
   const systemPrompt = `You are helping a college student create a forum discussion post.
-Given their query, generate an engaging title and content for a community forum post.
+Given their query, generate an engaging title, content, and pick the most relevant forum tag.
+
+Available Tags:
+${tagContext}
+
+Existing Discussions on this topic:
+${existingContext}
+
+Your goal is to create a draft that either asks a fresh question (if no discussions exist) or deepens the conversation (if some discussions exist but may not fully answer the user).
 
 Rules:
-- Title: Clear, specific, and inviting (max 80 chars). Don't just repeat the query.
-- Content: Friendly, conversational tone. Include context, specific questions, and invite responses.
-- Keep content concise (3-5 sentences max).
+- Title: Clear, specific, and inviting (max 80 chars).
+- Content: Friendly, conversational tone. Include context, specific questions, and invite responses. Keep concise (3-5 sentences max).
+- Tag: Pick the single most relevant SLUG from the list above. If none match well, use "general".
 - Use 1-2 relevant emojis naturally.
-- Don't be overly formal or corporate.
 
-Respond in JSON format: {"title": "...", "content": "..."}`
+Respond in JSON format: {"title": "...", "content": "...", "tag": "...", "tagName": "..."}`
 
   try {
     const response = await fetch(apiUrl, {
@@ -278,7 +284,8 @@ Respond in JSON format: {"title": "...", "content": "..."}`
     return {
       title: result.title || query.slice(0, 80),
       content: result.content || query,
-      tag,
+      tag: result.tag || 'general',
+      tagName: result.tagName || result.tag || 'General',
       link,
     }
   } catch {
@@ -292,51 +299,10 @@ Respond in JSON format: {"title": "...", "content": "..."}`
         .join(' ')
     }
     const content = `Hey everyone! 👋\n\n${cleanQuery}\n\nWould love to hear from you if you have any experience or thoughts on this! 🙏`
-    return { title, content, tag, link }
+    const tag = 'general'
+    const tagName = 'General'
+    return { title, content, tag, tagName, link }
   }
-}
-
-/**
- * Suggest a tag based on content analysis.
- */
-function suggestTag(content: string): string {
-  const lowerContent = content.toLowerCase()
-
-  if (
-    /job|career|intern|work|freelance|hire|hiring|placement|company/i.test(
-      lowerContent
-    )
-  ) {
-    return 'professional'
-  }
-  if (
-    /study|exam|course|subject|semester|notes|resource|cgpa|marks/i.test(
-      lowerContent
-    )
-  ) {
-    return 'notes-links'
-  }
-  if (
-    /confession|feeling|sad|happy|emotion|love|crush|vent|rant/i.test(
-      lowerContent
-    )
-  ) {
-    return 'confession'
-  }
-  if (/meet|trip|travel|plan|weekend|event|hangout|party/i.test(lowerContent)) {
-    return 'plan-meet'
-  }
-  if (/stock|invest|market|trading|crypto|money|finance/i.test(lowerContent)) {
-    return 'stock-market'
-  }
-  if (/game|gaming|play|esports|valorant|bgmi|pubg|cod/i.test(lowerContent)) {
-    return 'gaming'
-  }
-  if (/music|song|artist|concert|band|spotify/i.test(lowerContent)) {
-    return 'music'
-  }
-
-  return 'general'
 }
 
 /**
@@ -391,10 +357,12 @@ GUIDELINES:
 3. **Be Helpful**: If the user asks for opportunities, combine the internal referral posts with external job listings you found on the web.
 4. **Links**: You MUST cite forum discussions using the exact format "[Discussion Title](Link)". This is CRITICAL for the UI to display them correctly. For example: "Calculus notes are available in [B.Tech Data Science Notes](https://...). For web results, you can mention "I also saw online that..." but focus on driving traffic to the community where possible."
 5. **If No Forum Data**: If the Community Discussions section is empty, simply answer using the Web results and suggest: "I couldn't find a specific thread on Tribe about this yet, so you should definitely start one! Here is what I found online..."
+6. **PRIVACY - CRITICAL**: When mentioning users, NEVER expose usernames that look like system accounts, bots, or anonymous users (e.g., "Ghost_Voting_System", "deleted_user", "system", "bot_*", "anonymous"). Instead, say "a community member" or "someone". For real student usernames, you can mention them with @ (e.g., "@Joseph" or "@StudentName") to highlight them.
+7. **Draft Post Feature**: You have a feature that creates a 'Start a Discussion' draft card for the user. Mention it naturally in your response when it's helpful (e.g., 'I've prepared a draft for you below if you want to ask the community for more perspectives!').
 
 Start your response directly (no "Here is what I found"). Be helpful immediately.
 
-6. **Follow-up Questions**: At the very end of your response, generate 3 relevant, short follow-up questions that the user might want to ask next. Format them strictly as a JSON array inside a specific delimiter like this:
+8. **Follow-up Questions**: At the very end of your response, generate 3 relevant, short follow-up questions that the user might want to ask next. Format them strictly as a JSON array inside a specific delimiter like this:
 <<<FOLLOWUPS: ["Question 1?", "Question 2?", "Question 3?"]>>>`
 
   if (

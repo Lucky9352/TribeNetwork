@@ -29,6 +29,7 @@ export interface PostSuggestion {
   title: string
   content: string
   tag: string
+  tagName?: string
   link: string
 }
 
