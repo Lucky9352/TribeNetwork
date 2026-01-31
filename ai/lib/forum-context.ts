@@ -11,6 +11,7 @@ import {
   AuthenticatedUser,
 } from './flarum-auth'
 import type { FlarumSearchResult } from './flarum-types'
+import type { TagInfo } from './tag-service'
 import { getAllTags } from './tag-service'
 import { matchTags } from './tag-matcher'
 import { expandQuery } from './query-expander'
@@ -105,12 +106,14 @@ export async function buildForumContext(
   }
 
   if (intent === 'general_question') {
+    const availableTags = await getAllTags()
+    const matchedTags = await matchTags(message, availableTags)
     return {
       intent,
       searchResults: [],
       formattedContext: '',
       user,
-      suggestion: generatePostSuggestion(message),
+      suggestion: await generatePostSuggestion(message, matchedTags),
     }
   }
 
@@ -187,9 +190,9 @@ export async function buildForumContext(
 
   const formattedContext = formatResultsForContext(finalResults)
 
-  const suggestion = generatePostSuggestion(message)
+  const suggestion = await generatePostSuggestion(message, matchedTags)
   console.log(
-    `[ForumContext] Generated suggestion: ${suggestion ? 'YES' : 'NO'}`
+    `[ForumContext] Generated suggestion: ${suggestion ? 'YES' : 'NO'}, tag: ${suggestion.tag}`
   )
 
   return {
@@ -204,32 +207,100 @@ export async function buildForumContext(
 /**
  * Generate a suggestion for creating a new forum post.
  */
-export function generatePostSuggestion(query: string): PostSuggestion {
-  const cleanQuery = query.replace(/[?!.,]+$/, '').trim()
+export async function generatePostSuggestion(
+  query: string,
+  matchedTags: TagInfo[] = []
+): Promise<PostSuggestion> {
+  const apiKey = process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY
 
-  let title = cleanQuery
-  if (title.length > 100) {
-    title = title.slice(0, 97) + '...'
+  let tag = 'general'
+  if (matchedTags.length > 0) {
+    tag = matchedTags[0].slug
+  } else {
+    tag = suggestTag(query)
   }
 
-  if (title === title.toLowerCase()) {
-    title = title
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ')
-  }
-
-  const content = `Hey everyone! 👋
-
-${cleanQuery}
-
-Would love to hear from you if you have any experience or thoughts on this! 🙏`
-
-  const tag = suggestTag(query)
   const link =
     process.env.NEXT_PUBLIC_FLARUM_URL || 'https://tribe-community.vercel.app'
 
-  return { title, content, tag, link }
+  if (!apiKey) {
+    const cleanQuery = query.replace(/[?!.,]+$/, '').trim()
+    let title = cleanQuery
+    if (title.length > 100) title = title.slice(0, 97) + '...'
+    if (title === title.toLowerCase()) {
+      title = title
+        .split(' ')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ')
+    }
+    const content = `Hey everyone! 👋\n\n${cleanQuery}\n\nWould love to hear from you if you have any experience or thoughts on this! 🙏`
+    return { title, content, tag, link }
+  }
+
+  const apiUrl = process.env.DEEPSEEK_API_KEY
+    ? 'https://api.deepseek.com/chat/completions'
+    : 'https://api.openai.com/v1/chat/completions'
+
+  const model = process.env.DEEPSEEK_API_KEY ? 'deepseek-chat' : 'gpt-4o-mini'
+
+  const systemPrompt = `You are helping a college student create a forum discussion post.
+Given their query, generate an engaging title and content for a community forum post.
+
+Rules:
+- Title: Clear, specific, and inviting (max 80 chars). Don't just repeat the query.
+- Content: Friendly, conversational tone. Include context, specific questions, and invite responses.
+- Keep content concise (3-5 sentences max).
+- Use 1-2 relevant emojis naturally.
+- Don't be overly formal or corporate.
+
+Respond in JSON format: {"title": "...", "content": "..."}`
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: query },
+        ],
+        temperature: 0.7,
+        response_format: { type: 'json_object' },
+      }),
+      signal: AbortSignal.timeout(8000),
+    })
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`)
+    }
+
+    const data = await response.json()
+    const result = JSON.parse(data.choices[0]?.message?.content || '{}')
+
+    return {
+      title: result.title || query.slice(0, 80),
+      content: result.content || query,
+      tag,
+      link,
+    }
+  } catch (error) {
+    console.error('AI post suggestion failed:', error)
+    const cleanQuery = query.replace(/[?!.,]+$/, '').trim()
+    let title = cleanQuery
+    if (title.length > 100) title = title.slice(0, 97) + '...'
+    if (title === title.toLowerCase()) {
+      title = title
+        .split(' ')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ')
+    }
+    const content = `Hey everyone! 👋\n\n${cleanQuery}\n\nWould love to hear from you if you have any experience or thoughts on this! 🙏`
+    return { title, content, tag, link }
+  }
 }
 
 /**

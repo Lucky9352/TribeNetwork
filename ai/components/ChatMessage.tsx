@@ -272,19 +272,28 @@ export function ChatMessage({ message }: ChatMessageProps) {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-4 overflow-hidden rounded-xl border border-blue-500/30 bg-blue-500/10"
+          className="mt-5 rounded-xl border border-white/10 bg-zinc-900/50 overflow-hidden"
         >
+          <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
+            <div className="w-6 h-6 rounded-lg bg-blue-500/10 flex items-center justify-center">
+              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+            </div>
+            <span className="text-sm font-medium text-zinc-300">
+              Start a Discussion
+            </span>
+          </div>
+
           <div className="p-4">
-            <h4 className="flex items-center gap-2 text-sm font-semibold text-blue-400 mb-2">
-              <Sparkles className="w-4 h-4" />
-              Draft Created for You
-            </h4>
-            <p className="text-sm text-zinc-300 mb-4">
-              We&apos;ve prepared a discussion draft for you. Click below to
-              edit and post it to the community.
+            <p className="text-sm text-zinc-200 font-medium mb-1 line-clamp-2">
+              {message.suggestion?.title || 'Your New Discussion'}
             </p>
+            <p className="text-xs text-zinc-500 mb-4">
+              Draft ready • Click to edit and post
+            </p>
+
             <Button
-              className="w-full bg-blue-600 hover:bg-blue-500 text-white gap-2"
+              size="sm"
+              className="w-full bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/10 hover:border-white/20 gap-2 transition-all"
               onClick={() => {
                 const params = new URLSearchParams({
                   title: message.suggestion?.title || '',
@@ -299,8 +308,8 @@ export function ChatMessage({ message }: ChatMessageProps) {
                 )
               }}
             >
-              <MessageSquare className="w-4 h-4" />
-              Open Draft in Composer
+              <MessageSquare className="w-3.5 h-3.5" />
+              Open in Composer
             </Button>
           </div>
         </motion.div>
