@@ -105,7 +105,13 @@ export async function buildForumContext(
   }
 
   if (intent === 'general_question') {
-    return { intent, searchResults: [], formattedContext: '', user }
+    return {
+      intent,
+      searchResults: [],
+      formattedContext: '',
+      user,
+      suggestion: generatePostSuggestion(message),
+    }
   }
 
   /*
@@ -181,10 +187,10 @@ export async function buildForumContext(
 
   const formattedContext = formatResultsForContext(finalResults)
 
-  let suggestion: PostSuggestion | undefined
-  if (finalResults.length === 0) {
-    suggestion = generatePostSuggestion(message)
-  }
+  const suggestion = generatePostSuggestion(message)
+  console.log(
+    `[ForumContext] Generated suggestion: ${suggestion ? 'YES' : 'NO'}`
+  )
 
   return {
     intent,

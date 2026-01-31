@@ -317,6 +317,20 @@ export function TribeAI() {
     try {
       let accumulatedContent = ''
       let dynamicFollowUps: string[] = []
+      let pendingMetadata: {
+        suggestion?: {
+          title: string
+          content: string
+          tag: string
+          link: string
+        }
+        forumResults?: {
+          title: string
+          link: string
+          snippet: string
+          username: string
+        }[]
+      } | null = null
 
       await getChatResponse(newMessages, {
         onChunk: (chunk) => {
@@ -359,11 +373,17 @@ export function TribeAI() {
                 type: MessageType.AI,
                 content: displayContent,
                 timestamp: new Date(),
+                suggestion: pendingMetadata?.suggestion,
+                forumResults: pendingMetadata?.forumResults,
               },
             ]
           })
         },
         onMetadata: (metadata) => {
+          pendingMetadata = {
+            suggestion: metadata.suggestion,
+            forumResults: metadata.forumResults,
+          }
           if (metadata.suggestion || metadata.forumResults) {
             setMessages((prev) => {
               const aiMsg = prev.find((m) => m.id === aiMessageId)

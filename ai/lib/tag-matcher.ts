@@ -1,9 +1,6 @@
-import OpenAI from 'openai'
 import type { TagInfo } from './tag-service'
 
-const OPENAI_MODEL = 'gpt-4o-mini'
-const DEEPSEEK_MODEL = 'deepseek-chat'
-const DEEPSEEK_API_URL = 'https://api.deepseek.com'
+const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions'
 
 /**
  * Uses an LLM to identify the most relevant tags for a given user query.
@@ -20,19 +17,18 @@ export async function matchTags(
     return []
   }
 
-  const deepseekKey = process.env.DEEPSEEK_API_KEY
-  const openaiKey = process.env.OPENAI_API_KEY
+  const apiKey = process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY
 
-  if (!deepseekKey && !openaiKey) {
+  if (!apiKey) {
     console.warn('No AI API key found, skipping smart tag matching')
     return []
   }
 
-  const apiKey = deepseekKey || openaiKey
-  const baseURL = deepseekKey ? DEEPSEEK_API_URL : undefined
-  const model = deepseekKey ? DEEPSEEK_MODEL : OPENAI_MODEL
+  const apiUrl = process.env.DEEPSEEK_API_KEY
+    ? DEEPSEEK_API_URL
+    : 'https://api.openai.com/v1/chat/completions'
 
-  const openai = new OpenAI({ apiKey, baseURL })
+  const model = process.env.DEEPSEEK_API_KEY ? 'deepseek-chat' : 'gpt-4o-mini'
 
   const tagContext = availableTags
     .map(
@@ -54,17 +50,31 @@ Rules:
 4. Max 3 tags. Only choose if highly relevant. Example: "python error" -> "programming"`
 
   try {
-    const response = await openai.chat.completions.create({
-      model: model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: query },
-      ],
-      temperature: 0,
-      response_format: { type: 'json_object' },
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: query },
+        ],
+        temperature: 0,
+        response_format: { type: 'json_object' },
+      }),
+      signal: AbortSignal.timeout(50000),
     })
 
-    const content = response.choices[0].message.content
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`)
+    }
+
+    const data = await response.json()
+    const content = data.choices?.[0]?.message?.content
+
     if (!content) return []
 
     const parsed = JSON.parse(content)
