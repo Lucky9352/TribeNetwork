@@ -139,7 +139,7 @@ export default function AdminLoginPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full h-12 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/25 border border-white/10 transition-all hover:scale-[1.01] active:scale-[0.99]"
+              className="w-full h-12 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/25 border border-white/10 transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99]"
             >
               {loading ? (
                 <>

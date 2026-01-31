@@ -267,7 +267,7 @@ export default function AdminDashboard() {
       <main className="relative max-w-[1600px] mx-auto px-4 sm:px-6 py-4 sm:py-8 z-10">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 mb-6 sm:mb-8">
-          <div className="bg-card/30 border border-white/5 p-4 sm:p-6 rounded-2xl hover:border-cyan-500/30 transition-all hover:bg-cyan-500/5 group">
+          <div className="bg-card/30 border border-white/5 p-4 sm:p-6 rounded-2xl hover:border-cyan-500/30 transition-colors duration-300 hover:bg-cyan-500/5 group">
             <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <Users className="w-6 h-6 text-cyan-400" />
             </div>
@@ -287,7 +287,7 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          <div className="bg-card/30 border border-white/5 p-4 sm:p-6 rounded-2xl hover:border-cyan-500/30 transition-all hover:bg-cyan-500/5 group">
+          <div className="bg-card/30 border border-white/5 p-4 sm:p-6 rounded-2xl hover:border-cyan-500/30 transition-colors duration-300 hover:bg-cyan-500/5 group">
             <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <Building2 className="w-6 h-6 text-cyan-400" />
             </div>
@@ -307,7 +307,7 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          <div className="bg-card/30 border border-white/5 p-4 sm:p-6 rounded-2xl hover:border-cyan-500/30 transition-all hover:bg-cyan-500/5 group">
+          <div className="bg-card/30 border border-white/5 p-4 sm:p-6 rounded-2xl hover:border-cyan-500/30 transition-colors duration-300 hover:bg-cyan-500/5 group">
             <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <Mail className="w-6 h-6 text-cyan-400" />
             </div>
@@ -335,7 +335,7 @@ export default function AdminDashboard() {
                 <button
                   key={tab.value}
                   onClick={() => setActiveTab(tab.value)}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all border whitespace-nowrap ${
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors border whitespace-nowrap ${
                     activeTab === tab.value
                       ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/20'
                       : 'border-transparent text-muted-foreground hover:text-white hover:bg-white/5'
@@ -367,7 +367,7 @@ export default function AdminDashboard() {
                   placeholder={`Search ${activeTab === 'partnerships' ? 'Partnership' : 'University'}`}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-black/20 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500/50 transition-all hover:bg-black/40"
+                  className="w-full bg-black/20 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500/50 transition-colors duration-200 hover:bg-black/40"
                 />
               </div>
               <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -377,7 +377,7 @@ export default function AdminDashboard() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="w-full sm:w-44 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all hover:bg-black/60 cursor-pointer appearance-none"
+                  className="w-full sm:w-44 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-colors duration-200 hover:bg-black/60 cursor-pointer appearance-none"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
                     backgroundRepeat: 'no-repeat',
@@ -1059,7 +1059,7 @@ export default function AdminDashboard() {
                                 setNewUniversityName(e.target.value)
                               }
                               placeholder="Enter University Name"
-                              className="flex h-12 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-2 text-sm text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all hover:bg-black/60"
+                              className="flex h-12 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-2 text-sm text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-colors hover:bg-black/60"
                             />
                           </div>
                           <Button
@@ -1182,7 +1182,7 @@ export default function AdminDashboard() {
                                         }
                                       }}
                                       disabled={updating === uni.id}
-                                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                                         uni.isActive
                                           ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20'
                                           : 'bg-white/5 text-muted-foreground border border-white/10 hover:bg-white/[0.01]0'
@@ -1227,7 +1227,7 @@ export default function AdminDashboard() {
                                             setUpdating(null)
                                           }
                                         }}
-                                        className="p-2 text-muted-foreground hover:text-red-400 hover:bg-red-500/10 rounded-full transition-all"
+                                        className="p-2 text-muted-foreground hover:text-red-400 hover:bg-red-500/10 rounded-full transition-colors"
                                         title="Remove"
                                       >
                                         <LogOut className="w-4 h-4" />
@@ -1308,7 +1308,7 @@ export default function AdminDashboard() {
                                       }
                                     }}
                                     disabled={updating === uni.id}
-                                    className={`px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${
+                                    className={`px-3 py-1.5 rounded-full text-[10px] font-bold transition-colors border ${
                                       uni.isActive
                                         ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
                                         : 'bg-white/5 text-muted-foreground border border-white/10 hover:bg-white/[0.01]0'
@@ -1348,7 +1348,7 @@ export default function AdminDashboard() {
                                         setUpdating(null)
                                       }
                                     }}
-                                    className="p-2 text-muted-foreground hover:text-red-400 hover:bg-red-500/10 rounded-full transition-all"
+                                    className="p-2 text-muted-foreground hover:text-red-400 hover:bg-red-500/10 rounded-full transition-colors"
                                   >
                                     <LogOut className="w-4 h-4" />
                                   </button>

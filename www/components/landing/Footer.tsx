@@ -133,12 +133,12 @@ const NewsletterForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your work email"
           disabled={isSubmitting}
-          className="w-full bg-white/3 border border-white/10 rounded-full py-4 pl-6 pr-14 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all disabled:opacity-50 text-foreground placeholder:text-muted-foreground hover:bg-white/5"
+          className="w-full bg-white/3 border border-white/10 rounded-full py-4 pl-6 pr-14 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-colors disabled:opacity-50 text-foreground placeholder:text-muted-foreground hover:bg-white/5"
         />
         <button
           type="submit"
           disabled={isSubmitting || !email}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-blue-600 rounded-full hover:bg-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/20"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-blue-600 rounded-full hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/20"
         >
           {isSubmitting ? (
             <Loader2 className="w-4 h-4 text-white animate-spin" />
@@ -173,7 +173,7 @@ const FooterColumn = ({ section }: { section: FooterSection }) => (
             className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center group"
           >
             {link.label}
-            <ArrowRight className="w-3 h-3 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+            <ArrowRight className="w-3 h-3 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform duration-300" />
           </Link>
         </li>
       ))}

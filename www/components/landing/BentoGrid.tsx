@@ -138,7 +138,7 @@ export const BentoCard = ({ item }: { item: BentoItem }) => {
     <div className={`${className} perspective-1000`}>
       <TiltCard className="h-full w-full">
         <Link href={href} className="block h-full group">
-          <Spotlight className="h-full flex flex-col p-6 transition-all duration-500 hover:border-white/30 bg-zinc-900/30 backdrop-blur-sm border border-white/10 rounded-3xl">
+          <Spotlight className="h-full flex flex-col p-6 transition-colors duration-500 hover:border-white/30 bg-zinc-900/30 backdrop-blur-sm border border-white/10 rounded-3xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

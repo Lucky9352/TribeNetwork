@@ -114,7 +114,7 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '100px' }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ delay: 0.3 }}
           className="text-muted-foreground text-base sm:text-lg md:text-xl mb-12 max-w-2xl mx-auto px-4 leading-relaxed"
         >
@@ -126,7 +126,7 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '100px' }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={buttonVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center max-w-[320px] sm:max-w-none mx-auto w-full group"
         >
@@ -134,7 +134,7 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
           <Button
             onClick={onOpenPartnership}
             size="lg"
-            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-all bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/20 border border-white/10"
+            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-transform duration-300 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/20 border border-white/10"
           >
             <Building2 className="w-5 h-5" />
             Institutional Partnerships
@@ -145,7 +145,7 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
             onClick={onOpenUniversity}
             variant="secondary"
             size="lg"
-            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-all bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20 border border-white/10"
+            className="group gap-3 text-lg font-bold rounded-full hover:scale-105 transition-transform duration-300 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20 border border-white/10"
           >
             <GraduationCap className="w-5 h-5" />
             Deploy At Your Campus
@@ -168,9 +168,8 @@ const StatsSection = () => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '100px' }}
-          transition={{ delay: i * 0.05 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
           className="text-center"
         >
           <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 mx-auto mb-3" />
@@ -217,7 +216,7 @@ const HomeFAQs = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '100px' }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tighter mb-4">
@@ -231,7 +230,11 @@ const HomeFAQs = () => {
             return (
               <motion.div
                 key={i}
-                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ delay: i * 0.05 }}
+                className={`border rounded-2xl overflow-hidden transition-colors duration-300 ${
                   isOpen
                     ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
                     : 'bg-card/30 border-white/5 hover:border-white/10'

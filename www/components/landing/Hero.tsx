@@ -75,7 +75,7 @@ const HeroContent = ({
   <motion.div
     initial="hidden"
     whileInView="visible"
-    viewport={{ once: true, margin: '100px' }}
+    viewport={{ once: true, amount: 0.2 }}
     variants={{
       hidden: { opacity: 0 },
       visible: {
@@ -130,7 +130,7 @@ const HeroContent = ({
         {onOpenPartnership && (
           <Button
             onClick={onOpenPartnership}
-            className="group gap-2 rounded-full hover:scale-105 transition-all text-sm font-bold h-auto py-3 px-6 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/20 border border-white/10"
+            className="group gap-2 rounded-full hover:scale-105 transition-transform duration-300 text-sm font-bold h-auto py-3 px-6 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/20 border border-white/10"
           >
             <Building2 className="w-4 h-4" />
             Institutional Partnerships
@@ -140,7 +140,7 @@ const HeroContent = ({
           <Button
             onClick={onOpenUniversity}
             variant="secondary"
-            className="group gap-2 rounded-full hover:scale-105 transition-all text-sm font-bold h-auto py-3 px-6 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20 border border-white/10"
+            className="group gap-2 rounded-full hover:scale-105 transition-transform duration-300 text-sm font-bold h-auto py-3 px-6 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20 border border-white/10"
           >
             <GraduationCap className="w-4 h-4" />
             Deploy At Your Campus
@@ -156,7 +156,7 @@ const HeroVisual = () => (
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.8, type: 'spring', delay: 0.2 }}
-    className="relative transform scale-[0.8] xs:scale-90 sm:scale-100 lg:scale-100 origin-top lg:origin-center transition-all duration-700"
+    className="relative transform scale-[0.8] xs:scale-90 sm:scale-100 lg:scale-100 origin-top lg:origin-center"
   >
     <PhoneMockup hideHeader={true} isStatic={true} noScroll={true}>
       <AppNavigation />

@@ -127,48 +127,23 @@ const MarqueeRow = ({
   direction: 'left' | 'right'
   duration: number
 }) => {
+  const loopedItems = [...items, ...items]
+
   return (
     <div className="flex overflow-hidden relative w-full select-none">
       <motion.div
-        className="flex shrink-0 items-center justify-around whitespace-nowrap gap-12 min-w-full"
-        initial={{ x: direction === 'left' ? 0 : '-100%' }}
-        animate={{ x: direction === 'left' ? '-100%' : 0 }}
+        className="flex shrink-0 items-center justify-around whitespace-nowrap gap-12 pr-12 will-change-transform"
+        initial={{ x: direction === 'left' ? '0%' : '-50%' }}
+        animate={{ x: direction === 'left' ? '-50%' : '0%' }}
         transition={{
           repeat: Infinity,
           ease: 'linear',
           duration: duration,
         }}
-        style={{ paddingRight: '3rem' }}
+        style={{ width: 'fit-content' }}
       >
-        {items.map((item, i) => (
-          <div key={`original-${i}`} className="shrink-0 flex items-center">
-            {item.type === 'text' ? (
-              <MarqueeText content={item.content} />
-            ) : (
-              <MarqueePill
-                content={item.content}
-                color={item.color}
-                textColor={item.textColor}
-              />
-            )}
-          </div>
-        ))}
-      </motion.div>
-
-      {/* Duplicate for seamless loop */}
-      <motion.div
-        className="flex shrink-0 items-center justify-around whitespace-nowrap gap-12 min-w-full"
-        initial={{ x: direction === 'left' ? 0 : '-100%' }}
-        animate={{ x: direction === 'left' ? '-100%' : 0 }}
-        transition={{
-          repeat: Infinity,
-          ease: 'linear',
-          duration: duration,
-        }}
-        style={{ paddingRight: '3rem' }}
-      >
-        {items.map((item, i) => (
-          <div key={`duplicate-${i}`} className="shrink-0 flex items-center">
+        {loopedItems.map((item, i) => (
+          <div key={`${direction}-${i}`} className="shrink-0 flex items-center">
             {item.type === 'text' ? (
               <MarqueeText content={item.content} />
             ) : (

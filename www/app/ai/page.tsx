@@ -228,7 +228,7 @@ const HeroSection = () => (
       className="flex flex-col sm:flex-row items-center justify-center gap-4"
     >
       <a href={siteConfig.urls.ai} target="_blank" rel="noopener noreferrer">
-        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2 shadow-lg shadow-blue-500/25">
+        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-transform duration-300 flex items-center gap-2 shadow-lg shadow-blue-500/25">
           <Bot className="w-5 h-5" />
           Try TribeAI
           <ArrowRight className="w-5 h-5" />
@@ -240,7 +240,7 @@ const HeroSection = () => (
             .getElementById('how-it-works')
             ?.scrollIntoView({ behavior: 'smooth' })
         }}
-        className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white text-lg font-bold rounded-full border border-white/10 hover:border-white/20 backdrop-blur-sm transition-all flex items-center gap-2"
+        className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white text-lg font-bold rounded-full border border-white/10 hover:border-white/20 backdrop-blur-sm transition-colors duration-300 flex items-center gap-2"
       >
         <Zap className="w-5 h-5 text-blue-400" />
         See How It Works
@@ -256,9 +256,8 @@ const StatsSection = () => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '100px' }}
-          transition={{ delay: i * 0.1 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
           className="text-center"
         >
           <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 mx-auto mb-3" />
@@ -280,7 +279,7 @@ const FeaturesSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '100px' }}
+        viewport={{ once: true, amount: 0.2 }}
         className="text-center mb-10 sm:mb-16"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -298,9 +297,9 @@ const FeaturesSection = () => (
             key={feature.title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '100px' }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-card/30 border border-white/5 rounded-2xl p-6 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
+            className="bg-card/30 border border-white/5 rounded-2xl p-6 hover:border-blue-500/30 transition-colors duration-300 hover:bg-blue-500/5 group"
           >
             <div
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
@@ -327,7 +326,7 @@ const HowItWorksSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '100px' }}
+        viewport={{ once: true, amount: 0.2 }}
         className="text-center mb-12 sm:mb-16"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -344,7 +343,7 @@ const HowItWorksSection = () => (
             key={item.step}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '100px' }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ delay: i * 0.1 }}
             className="text-center relative"
           >
@@ -376,7 +375,7 @@ const UseCasesSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '100px' }}
+        viewport={{ once: true, amount: 0.2 }}
         className="text-center mb-10 sm:mb-16"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -393,9 +392,9 @@ const UseCasesSection = () => (
             key={i}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '100px' }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-card/30 border border-white/5 rounded-xl p-5 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
+            className="bg-card/30 border border-white/5 rounded-xl p-5 hover:border-blue-500/30 transition-colors duration-300 hover:bg-blue-500/5 group"
           >
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <useCase.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
@@ -422,7 +421,7 @@ const FAQSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '100px' }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -438,9 +437,9 @@ const FAQSection = () => {
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '100px' }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: i * 0.05 }}
-                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
+                className={`border rounded-2xl overflow-hidden transition-colors duration-300 ${
                   isOpen
                     ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
                     : 'bg-card/30 border-white/5 hover:border-white/10'
@@ -499,7 +498,7 @@ const CTASection = () => (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: '100px' }}
+      viewport={{ once: true, amount: 0.2 }}
       className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 text-center relative overflow-hidden group"
     >
       <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
@@ -520,7 +519,7 @@ const CTASection = () => (
         rel="noopener noreferrer"
         className="relative z-10 inline-block"
       >
-        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto shadow-lg shadow-blue-500/25 border border-white/10">
+        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-2 mx-auto shadow-lg shadow-blue-500/25 border border-white/10">
           <Sparkles className="w-5 h-5" />
           Start Chatting
         </button>

@@ -40,7 +40,7 @@ const MarqueeContent = memo(function MarqueeContent({
   return (
     <div className="flex overflow-hidden select-none">
       <motion.div
-        className="flex shrink-0 items-center gap-8 sm:gap-16 pr-8 sm:pr-16"
+        className="flex shrink-0 items-center gap-8 sm:gap-16 pr-8 sm:pr-16 will-change-transform"
         animate={{ x: '-50%' }}
         transition={{
           duration: 30,

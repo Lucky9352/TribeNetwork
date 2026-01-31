@@ -118,7 +118,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.name}
             onChange={handleChange}
             placeholder="Your Full Name"
-            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-colors duration-200 hover:bg-white/5"
           />
         </div>
       </div>
@@ -137,7 +137,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.email}
             onChange={handleChange}
             placeholder="you@university.edu"
-            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-colors duration-200 hover:bg-white/5"
           />
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             value={formData.school}
             onChange={handleChange}
             placeholder="Your University"
-            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-colors duration-200 hover:bg-white/5"
           />
         </div>
       </div>
@@ -173,7 +173,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             required
             value={formData.classYear}
             onChange={handleChange}
-            className="w-full pl-10 pr-10 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer hover:bg-white/5"
+            className="w-full pl-10 pr-10 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-colors duration-200 appearance-none cursor-pointer hover:bg-white/5"
           >
             <option value="" className="bg-zinc-900">
               Select class year
@@ -203,7 +203,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
               value={formData.phone}
               onChange={handleChange}
               placeholder="+91 98765 43210"
-              className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
+              className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-colors duration-200 hover:bg-white/5"
             />
           </div>
         </div>
@@ -220,7 +220,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
               value={formData.instagram}
               onChange={handleChange}
               placeholder="@yourhandle"
-              className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
+              className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-colors duration-200 hover:bg-white/5"
             />
           </div>
         </div>
@@ -239,7 +239,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             onChange={handleChange}
             rows={3}
             placeholder="Tell us about your campus community..."
-            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all resize-none hover:bg-white/5"
+            className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-colors duration-200 resize-none hover:bg-white/5"
           />
         </div>
       </div>
@@ -261,7 +261,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
         disabled={isSubmitting}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
-        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 border border-white/10"
+        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-xl flex items-center justify-center gap-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 border border-white/10"
       >
         {isSubmitting ? (
           <>

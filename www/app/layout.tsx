@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import React from 'react'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import ScrollToTop from '@/components/ScrollToTop'
 
 /**
  * @file layout.tsx
@@ -66,7 +67,7 @@ interface RootLayoutProps {
  */
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           inter.variable,
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           'min-h-screen bg-background font-sans antialiased text-foreground selection:bg-primary/20 selection:text-primary'
         )}
       >
+        <ScrollToTop />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

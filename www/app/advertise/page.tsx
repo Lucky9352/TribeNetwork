@@ -187,7 +187,7 @@ const HeroSection = ({ onOpenForm }: { onOpenForm: () => void }) => (
     >
       <button
         onClick={onOpenForm}
-        className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25"
+        className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-full hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25"
       >
         Start Campaign
         <ArrowRight className="w-5 h-5" />
@@ -198,7 +198,7 @@ const HeroSection = ({ onOpenForm }: { onOpenForm: () => void }) => (
             .getElementById('channels')
             ?.scrollIntoView({ behavior: 'smooth' })
         }}
-        className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white text-lg font-bold rounded-full border border-white/10 hover:border-white/20 backdrop-blur-sm transition-all flex items-center justify-center gap-2"
+        className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white text-lg font-bold rounded-full border border-white/10 hover:border-white/20 backdrop-blur-sm transition-colors duration-300 flex items-center justify-center gap-2"
       >
         <BarChart className="w-5 h-5 text-blue-400" />
         View Media Kit
@@ -214,9 +214,8 @@ const StatsSection = () => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '100px' }}
-          transition={{ delay: i * 0.1 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
           className="text-center"
         >
           <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -243,7 +242,7 @@ const ChannelsSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '100px' }}
+        viewport={{ once: true, amount: 0.2 }}
         className="text-center mb-10 sm:mb-12"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -261,9 +260,9 @@ const ChannelsSection = () => (
             key={channel.name}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '100px' }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ delay: i * 0.1 }}
-            className="bg-card/30 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group text-center"
+            className="bg-card/30 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-blue-500/30 transition-colors duration-300 hover:bg-blue-500/5 group text-center"
           >
             <div
               className={`w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 rounded-xl flex items-center justify-center ${channel.color} group-hover:scale-110 transition-transform`}
@@ -289,7 +288,7 @@ const CapabilitiesSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '100px' }}
+        viewport={{ once: true, amount: 0.2 }}
         className="text-center mb-12 sm:mb-16"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -306,9 +305,9 @@ const CapabilitiesSection = () => (
             key={i}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '100px' }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ delay: i * 0.1 }}
-            className="bg-card/30 border border-white/5 p-6 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
+            className="bg-card/30 border border-white/5 p-6 rounded-2xl hover:border-blue-500/30 transition-colors duration-300 hover:bg-blue-500/5 group"
           >
             <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <capability.icon className="w-6 h-6 text-blue-400" />
@@ -359,7 +358,7 @@ const WorkflowSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '100px' }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -378,9 +377,9 @@ const WorkflowSection = () => {
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '100px' }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: i * 0.05 }}
-                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
+                className={`border rounded-2xl overflow-hidden transition-colors duration-300 ${
                   isOpen
                     ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
                     : 'bg-card/30 border-white/5 hover:border-white/10'
@@ -447,7 +446,7 @@ const DashboardPreview = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '100px' }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-10 sm:mb-12"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -461,7 +460,7 @@ const DashboardPreview = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '100px' }}
+          viewport={{ once: true, amount: 0.2 }}
           className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-blue-500/10"
         >
           {/* Dashboard Header */}
@@ -489,10 +488,10 @@ const DashboardPreview = () => {
               {CAMPAIGN_STATS.map((m) => (
                 <div
                   key={m.label}
-                  className="bg-black/40 border border-white/10 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 hover:bg-white/5 transition-all duration-300 group shadow-lg shadow-black/20"
+                  className="bg-black/40 border border-white/10 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 hover:bg-white/5 transition-colors duration-300 group shadow-lg shadow-black/20"
                 >
                   <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                    <div className="p-1.5 rounded-lg bg-white/5 text-blue-400 group-hover:bg-blue-500/20 transition-all duration-300">
+                    <div className="p-1.5 rounded-lg bg-white/5 text-blue-400 group-hover:bg-blue-500/20 transition-colors duration-300">
                       <m.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
                     <span className="text-gray-400 text-[9px] sm:text-xs font-bold uppercase tracking-widest whitespace-nowrap overflow-hidden text-ellipsis">
@@ -644,7 +643,7 @@ const CTASection = ({ onOpenForm }: { onOpenForm: () => void }) => (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: '100px' }}
+      viewport={{ once: true, amount: 0.2 }}
       className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-4xl sm:rounded-[2.5rem] p-8 sm:p-12 text-center relative overflow-hidden group"
     >
       <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
@@ -661,7 +660,7 @@ const CTASection = ({ onOpenForm }: { onOpenForm: () => void }) => (
 
       <button
         onClick={onOpenForm}
-        className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto shadow-lg shadow-blue-500/25 border border-white/10 relative z-10"
+        className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-2 mx-auto shadow-lg shadow-blue-500/25 border border-white/10 relative z-10"
       >
         <Megaphone className="w-5 h-5" />
         Start Campaign

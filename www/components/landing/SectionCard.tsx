@@ -59,9 +59,9 @@ export default function SectionCard({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '100px' }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5, delay }}
-        className="relative h-full p-8 rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300"
+        className="relative h-full p-8 rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-colors duration-300"
       >
         {/* Background Color Overlay */}
         <div className="absolute inset-0 bg-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

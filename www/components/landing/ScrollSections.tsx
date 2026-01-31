@@ -122,7 +122,7 @@ const SCROLL_SECTIONS: ScrollSectionData[] = [
 const StickyPhone = ({ activeSection }: { activeSection: number }) => {
   return (
     <div className="w-1/2 sticky top-0 h-screen flex items-center justify-center p-10 z-0">
-      <div className="relative w-[320px] h-[650px] transition-all duration-700">
+      <div className="relative w-[320px] h-[650px] transition-transform duration-700">
         <PhoneMockup isStatic={true} hideHeader={true} noScroll={true}>
           <div className="relative w-full h-full bg-black">
             {SCROLL_SECTIONS.map((section, index) => (
@@ -273,7 +273,7 @@ function SectionText({
         >
           <Link href={section.internalHref}>
             <span
-              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-${section.color}-500/30 text-${section.color}-400 text-sm font-medium hover:bg-${section.color}-500/10 transition-all cursor-pointer`}
+              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-${section.color}-500/30 text-${section.color}-400 text-sm font-medium hover:bg-${section.color}-500/10 transition-colors cursor-pointer`}
             >
               {section.cta}
               <svg
@@ -345,7 +345,7 @@ const MobileLayout = () => (
           <div className="pt-4">
             <Link
               href={section.internalHref}
-              className={`inline-flex items-center px-6 py-3 rounded-full border border-${section.color}-500/30 text-${section.color}-400 text-sm font-black uppercase tracking-widest hover:bg-${section.color}-500/10 transition-all`}
+              className={`inline-flex items-center px-6 py-3 rounded-full border border-${section.color}-500/30 text-${section.color}-400 text-sm font-black uppercase tracking-widest hover:bg-${section.color}-500/10 transition-colors`}
             >
               Explore {section.subtitle} <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
