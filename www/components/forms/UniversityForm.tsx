@@ -117,7 +117,7 @@ export default function UniversityForm({ onSuccess }: UniversityFormProps) {
             required
             value={formData.name}
             onChange={handleChange}
-            placeholder="Your full name"
+            placeholder="Your Full Name"
             className="w-full pl-10 pr-4 py-3 bg-white/3 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all hover:bg-white/5"
           />
         </div>

@@ -36,7 +36,7 @@ function ParallaxTextLayer({ text, velocity = 5 }: ParallaxLayerProps) {
   return (
     <motion.div
       style={{ x, WebkitTextStroke: '2px rgba(255,255,255,0.05)' }}
-      className="text-[8rem] sm:text-[12rem] md:text-[20rem] font-black uppercase tracking-tighter text-transparent stroke-white/5 stroke-2 flex whitespace-nowrap leading-none select-none"
+      className="text-[4rem] sm:text-[10rem] md:text-[20rem] font-black uppercase tracking-tighter text-transparent stroke-white/5 stroke-2 flex whitespace-nowrap leading-none select-none"
     >
       <span className="mx-4">{text}</span>
       <span className="mx-4">{text}</span>
@@ -50,7 +50,7 @@ function ParallaxTextLayer({ text, velocity = 5 }: ParallaxLayerProps) {
  */
 export default function ParallaxBackground() {
   return (
-    <div className="fixed inset-0 z-0 flex flex-col justify-center pointer-events-none overflow-hidden space-y-[-50px]">
+    <div className="fixed inset-0 z-0 hidden sm:flex flex-col justify-center pointer-events-none overflow-hidden space-y-[-20px] sm:space-y-[-50px]">
       {BACKGROUND_LAYERS.map((layer, index) => (
         <ParallaxTextLayer
           key={`${layer.text}-${index}`}

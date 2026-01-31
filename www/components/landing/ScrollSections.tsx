@@ -351,8 +351,10 @@ const MobileLayout = () => (
             </Link>
           </div>
         </div>
-        <div className="aspect-9/16 w-full max-w-[280px] mx-auto overflow-hidden rounded-[2.5rem] border border-transparent shadow-2xl relative bg-black">
-          <section.Screen />
+        <div className="flex justify-center transform scale-[0.8] xs:scale-90 sm:scale-100 origin-top -mt-4 -mb-20">
+          <PhoneMockup isStatic={true} hideHeader={true} noScroll={true}>
+            <section.Screen />
+          </PhoneMockup>
         </div>
       </div>
     ))}
