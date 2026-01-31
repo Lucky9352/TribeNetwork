@@ -305,39 +305,40 @@ export function TribeAI() {
       timestamp: new Date(),
     }
 
-    const initialAiMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      type: MessageType.AI,
-      content: '',
-      timestamp: new Date(),
-    }
-
-    const newMessages = [...messages, userMessage, initialAiMessage]
+    const newMessages = [...messages, userMessage]
     setMessages(newMessages)
     setIsLoading(true)
     setIsNavOpen(false)
     setFollowUpSuggestions([])
 
-    const historyToSend = [...messages, userMessage]
+    const aiMessageId = (Date.now() + 1).toString()
+    let aiMessageAdded = false
 
     try {
       let accumulatedContent = ''
 
-      await getChatResponse(historyToSend, {
+      await getChatResponse(newMessages, {
         onChunk: (chunk) => {
           accumulatedContent += chunk
           setMessages((prev) => {
-            const last = prev[prev.length - 1]
-            if (
-              last.type === MessageType.AI &&
-              last.id === initialAiMessage.id
-            ) {
+            if (!aiMessageAdded) {
+              aiMessageAdded = true
               return [
-                ...prev.slice(0, -1),
-                { ...last, content: accumulatedContent },
+                ...prev,
+                {
+                  id: aiMessageId,
+                  type: MessageType.AI,
+                  content: accumulatedContent,
+                  timestamp: new Date(),
+                },
               ]
             }
-            return prev
+
+            return prev.map((msg) =>
+              msg.id === aiMessageId
+                ? { ...msg, content: accumulatedContent }
+                : msg
+            )
           })
         },
         onMetadata: (metadata) => {
@@ -352,11 +353,28 @@ export function TribeAI() {
       const title = content.slice(0, 30) + (content.length > 30 ? '...' : '')
       const existingConv = conversations.find((c) => c.id === convId)
 
-      const finalMessages = [
-        ...messages,
-        userMessage,
-        { ...initialAiMessage, content: accumulatedContent },
-      ]
+      setMessages((prev) => {
+        if (!aiMessageAdded) {
+          return [
+            ...prev,
+            {
+              id: aiMessageId,
+              type: MessageType.AI,
+              content: accumulatedContent,
+              timestamp: new Date(),
+            },
+          ]
+        }
+        return prev
+      })
+
+      const finalAiMsg = {
+        id: aiMessageId,
+        type: MessageType.AI,
+        content: accumulatedContent,
+        timestamp: new Date(),
+      }
+      const finalMessages = [...newMessages, finalAiMsg]
 
       let updatedConversations: Conversation[]
       if (existingConv) {
@@ -378,15 +396,27 @@ export function TribeAI() {
       saveConversations(updatedConversations)
     } catch (error) {
       const reason = error instanceof Error ? error.message : 'Unknown error'
-      setMessages((prev) => [
-        ...prev.slice(0, -1),
-        {
-          ...initialAiMessage,
-          content: `⚠️ Couldn't reach the AI: ${reason}. Please try again.`,
-        },
-      ])
+      setMessages((prev) => {
+        if (!aiMessageAdded) {
+          return [
+            ...prev,
+            {
+              id: aiMessageId,
+              type: MessageType.AI,
+              content: `⚠️ Couldn't reach the AI: ${reason}. Please try again.`,
+              timestamp: new Date(),
+            },
+          ]
+        }
+        return prev.map((msg) =>
+          msg.id === aiMessageId
+            ? { ...msg, content: msg.content + `\n\n⚠️ Error: ${reason}` }
+            : msg
+        )
+      })
     } finally {
       setIsLoading(false)
+      aiMessageAdded = false
     }
   }
 
@@ -679,38 +709,39 @@ export function TribeAI() {
                     <ChatMessage key={message.id} message={message} />
                   ))}
 
-                  {isLoading && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="w-full"
-                    >
-                      {/* TribeAI Header */}
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-6 h-6 rounded-lg bg-blue-500/15 flex items-center justify-center animate-pulse">
-                          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                  {isLoading &&
+                    messages[messages.length - 1]?.type !== MessageType.AI && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="w-full"
+                      >
+                        {/* TribeAI Header */}
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="w-6 h-6 rounded-lg bg-blue-500/15 flex items-center justify-center animate-pulse">
+                            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                          </div>
+                          <span className="text-sm font-medium text-zinc-400">
+                            TribeAI
+                          </span>
+                          <span className="text-xs text-zinc-600">
+                            is thinking...
+                          </span>
                         </div>
-                        <span className="text-sm font-medium text-zinc-400">
-                          TribeAI
-                        </span>
-                        <span className="text-xs text-zinc-600">
-                          is thinking...
-                        </span>
-                      </div>
-                      {/* Skeleton lines */}
-                      <div className="space-y-2">
-                        <div className="h-4 bg-zinc-800 rounded-lg w-3/4 animate-pulse" />
-                        <div
-                          className="h-4 bg-zinc-800 rounded-lg w-1/2 animate-pulse"
-                          style={{ animationDelay: '0.1s' }}
-                        />
-                        <div
-                          className="h-4 bg-zinc-800 rounded-lg w-2/3 animate-pulse"
-                          style={{ animationDelay: '0.2s' }}
-                        />
-                      </div>
-                    </motion.div>
-                  )}
+                        {/* Skeleton lines */}
+                        <div className="space-y-2">
+                          <div className="h-4 bg-zinc-800 rounded-lg w-3/4 animate-pulse" />
+                          <div
+                            className="h-4 bg-zinc-800 rounded-lg w-1/2 animate-pulse"
+                            style={{ animationDelay: '0.1s' }}
+                          />
+                          <div
+                            className="h-4 bg-zinc-800 rounded-lg w-2/3 animate-pulse"
+                            style={{ animationDelay: '0.2s' }}
+                          />
+                        </div>
+                      </motion.div>
+                    )}
 
                   {/* Follow-up Suggestions */}
                   {!isLoading && followUpSuggestions.length > 0 && (
