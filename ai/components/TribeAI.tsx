@@ -321,24 +321,25 @@ export function TribeAI() {
         onChunk: (chunk) => {
           accumulatedContent += chunk
           setMessages((prev) => {
-            if (!aiMessageAdded) {
-              aiMessageAdded = true
-              return [
-                ...prev,
-                {
-                  id: aiMessageId,
-                  type: MessageType.AI,
-                  content: accumulatedContent,
-                  timestamp: new Date(),
-                },
-              ]
+            const exists = prev.some((msg) => msg.id === aiMessageId)
+
+            if (exists) {
+              return prev.map((msg) =>
+                msg.id === aiMessageId
+                  ? { ...msg, content: accumulatedContent }
+                  : msg
+              )
             }
 
-            return prev.map((msg) =>
-              msg.id === aiMessageId
-                ? { ...msg, content: accumulatedContent }
-                : msg
-            )
+            return [
+              ...prev,
+              {
+                id: aiMessageId,
+                type: MessageType.AI,
+                content: accumulatedContent,
+                timestamp: new Date(),
+              },
+            ]
           })
         },
         onMetadata: (metadata) => {
@@ -354,7 +355,8 @@ export function TribeAI() {
       const existingConv = conversations.find((c) => c.id === convId)
 
       setMessages((prev) => {
-        if (!aiMessageAdded) {
+        const exists = prev.some((msg) => msg.id === aiMessageId)
+        if (!exists) {
           return [
             ...prev,
             {
@@ -397,7 +399,8 @@ export function TribeAI() {
     } catch (error) {
       const reason = error instanceof Error ? error.message : 'Unknown error'
       setMessages((prev) => {
-        if (!aiMessageAdded) {
+        const exists = prev.some((msg) => msg.id === aiMessageId)
+        if (!exists) {
           return [
             ...prev,
             {
