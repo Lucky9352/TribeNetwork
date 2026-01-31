@@ -1,14 +1,15 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState, useCallback, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { flarumAPI, FlarumTag } from '@/lib/flarum-api'
 import Header from '@/components/Header'
 import { useAuthStore } from '@/store/auth-store'
 
-export default function NewDiscussionPage() {
+function NewDiscussionForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { isAuthenticated, isLoading: authLoading, checkAuth } = useAuthStore()
 
   const [title, setTitle] = useState('')
@@ -17,6 +18,38 @@ export default function NewDiscussionPage() {
   const [tags, setTags] = useState<FlarumTag[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const titleParam = searchParams.get('title')
+    const contentParam = searchParams.get('content')
+
+    if (titleParam) setTitle(decodeURIComponent(titleParam))
+    if (contentParam) setContent(decodeURIComponent(contentParam))
+  }, [searchParams])
+
+  useEffect(() => {
+    const tagsParam = searchParams.get('tags')
+    if (tagsParam && tags.length > 0) {
+      const urlTags = decodeURIComponent(tagsParam)
+        .split(',')
+        .map((t) => t.trim().toLowerCase())
+
+      const matchedTagIds = tags
+        .filter(
+          (t) =>
+            urlTags.includes(t.attributes.slug.toLowerCase()) ||
+            urlTags.includes(t.attributes.name.toLowerCase())
+        )
+        .map((t) => t.id)
+
+      if (matchedTagIds.length > 0) {
+        setSelectedTags((prev) => {
+          const newTags = new Set([...prev, ...matchedTagIds])
+          return Array.from(newTags)
+        })
+      }
+    }
+  }, [searchParams, tags])
 
   useEffect(() => {
     checkAuth()
@@ -275,5 +308,13 @@ export default function NewDiscussionPage() {
         </form>
       </main>
     </div>
+  )
+}
+
+export default function NewDiscussionPage() {
+  return (
+    <Suspense>
+      <NewDiscussionForm />
+    </Suspense>
   )
 }

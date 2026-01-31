@@ -16,6 +16,22 @@ export enum MessageType {
 /**
  * Represents a chat message in the conversation.
  */
+export interface ForumResult {
+  title: string
+  link: string
+  snippet: string
+  username: string
+  createdAt?: string
+  score?: number
+}
+
+export interface PostSuggestion {
+  title: string
+  content: string
+  tag: string
+  link: string
+}
+
 export interface Message {
   /** Unique identifier for the message */
   id: string
@@ -25,4 +41,8 @@ export interface Message {
   content: string
   /** When the message was created */
   timestamp: Date
+  /** Optional post suggestion */
+  suggestion?: PostSuggestion
+  /** Optional forum results from RAG */
+  forumResults?: ForumResult[]
 }

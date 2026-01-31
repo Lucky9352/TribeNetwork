@@ -316,17 +316,38 @@ export function TribeAI() {
 
     try {
       let accumulatedContent = ''
+      let dynamicFollowUps: string[] = []
 
       await getChatResponse(newMessages, {
         onChunk: (chunk) => {
           accumulatedContent += chunk
+
+          const followUpMatch = accumulatedContent.match(
+            /<<<FOLLOWUPS: (.*?)>>>/
+          )
+          let displayContent = accumulatedContent
+
+          if (followUpMatch) {
+            try {
+              const parsed = JSON.parse(followUpMatch[1])
+              if (Array.isArray(parsed)) {
+                dynamicFollowUps = parsed
+                setFollowUpSuggestions(parsed)
+                displayContent = accumulatedContent.replace(
+                  followUpMatch[0],
+                  ''
+                )
+              }
+            } catch {}
+          }
+
           setMessages((prev) => {
             const exists = prev.some((msg) => msg.id === aiMessageId)
 
             if (exists) {
               return prev.map((msg) =>
                 msg.id === aiMessageId
-                  ? { ...msg, content: accumulatedContent }
+                  ? { ...msg, content: displayContent }
                   : msg
               )
             }
@@ -336,19 +357,43 @@ export function TribeAI() {
               {
                 id: aiMessageId,
                 type: MessageType.AI,
-                content: accumulatedContent,
+                content: displayContent,
                 timestamp: new Date(),
               },
             ]
           })
         },
         onMetadata: (metadata) => {
-          if (metadata.suggestion) {
+          if (metadata.suggestion || metadata.forumResults) {
+            setMessages((prev) => {
+              const aiMsg = prev.find((m) => m.id === aiMessageId)
+              if (aiMsg) {
+                return prev.map((m) =>
+                  m.id === aiMessageId
+                    ? {
+                        ...m,
+                        suggestion: metadata.suggestion || m.suggestion,
+                        forumResults: metadata.forumResults || m.forumResults,
+                      }
+                    : m
+                )
+              }
+              return prev
+            })
           }
         },
       })
 
-      setFollowUpSuggestions(getFollowUpSuggestions(accumulatedContent))
+      if (dynamicFollowUps.length > 0) {
+        setFollowUpSuggestions(dynamicFollowUps)
+      } else {
+        setFollowUpSuggestions(getFollowUpSuggestions(accumulatedContent))
+      }
+
+      const followUpMatch = accumulatedContent.match(/<<<FOLLOWUPS: (.*?)>>>/)
+      const finalContent = followUpMatch
+        ? accumulatedContent.replace(followUpMatch[0], '')
+        : accumulatedContent
 
       const convId = currentConversationId || Date.now().toString()
       const title = content.slice(0, 30) + (content.length > 30 ? '...' : '')
@@ -362,18 +407,20 @@ export function TribeAI() {
             {
               id: aiMessageId,
               type: MessageType.AI,
-              content: accumulatedContent,
+              content: finalContent,
               timestamp: new Date(),
             },
           ]
         }
-        return prev
+        return prev.map((msg) =>
+          msg.id === aiMessageId ? { ...msg, content: finalContent } : msg
+        )
       })
 
       const finalAiMsg = {
         id: aiMessageId,
         type: MessageType.AI,
-        content: accumulatedContent,
+        content: finalContent,
         timestamp: new Date(),
       }
       const finalMessages = [...newMessages, finalAiMsg]
@@ -419,6 +466,7 @@ export function TribeAI() {
       })
     } finally {
       setIsLoading(false)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       aiMessageAdded = false
     }
   }

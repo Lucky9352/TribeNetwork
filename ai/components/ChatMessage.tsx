@@ -31,6 +31,8 @@ interface ForumResult {
   author: string
   snippet: string
   url: string
+  createdAt?: string
+  score?: number
 }
 
 /** Extract forum results from AI response */
@@ -238,13 +240,70 @@ export function ChatMessage({ message }: ChatMessageProps) {
                   <p className="font-medium text-white text-sm truncate group-hover/card:text-blue-400 transition-colors">
                     {result.title}
                   </p>
-                  <p className="text-xs text-zinc-500">by {result.author}</p>
+                  <div className="flex items-center gap-2 text-xs text-zinc-500 mt-1">
+                    <span>by {result.author}</span>
+                    {result.createdAt && (
+                      <>
+                        <span>•</span>
+                        <span>
+                          {new Date(result.createdAt).toLocaleDateString()}
+                        </span>
+                      </>
+                    )}
+                    {result.score !== undefined && (
+                      <>
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                          <ThumbsUp className="w-3 h-3" /> {result.score}
+                        </span>
+                      </>
+                    )}
+                  </div>
                 </div>
                 <ExternalLink className="w-4 h-4 text-zinc-500 group-hover/card:text-blue-400 transition-colors shrink-0" />
               </div>
             </motion.a>
           ))}
         </div>
+      )}
+
+      {/* Draft Post Suggestion */}
+      {streamComplete && message.suggestion && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-4 overflow-hidden rounded-xl border border-blue-500/30 bg-blue-500/10"
+        >
+          <div className="p-4">
+            <h4 className="flex items-center gap-2 text-sm font-semibold text-blue-400 mb-2">
+              <Sparkles className="w-4 h-4" />
+              Draft Created for You
+            </h4>
+            <p className="text-sm text-zinc-300 mb-4">
+              We&apos;ve prepared a discussion draft for you. Click below to
+              edit and post it to the community.
+            </p>
+            <Button
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white gap-2"
+              onClick={() => {
+                const params = new URLSearchParams({
+                  title: message.suggestion?.title || '',
+                  content: message.suggestion?.content || '',
+                  tags: message.suggestion?.tag || '',
+                })
+                const flarumUrl =
+                  process.env.NEXT_PUBLIC_FLARUM_URL || 'http://localhost:3000'
+                window.open(
+                  `${flarumUrl}/discussions/new?${params.toString()}`,
+                  '_blank'
+                )
+              }}
+            >
+              <MessageSquare className="w-4 h-4" />
+              Open Draft in Composer
+            </Button>
+          </div>
+        </motion.div>
       )}
 
       {/* Action Buttons */}

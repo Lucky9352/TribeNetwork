@@ -322,7 +322,10 @@ GUIDELINES:
 4. **Links**: You MUST cite forum discussions using the exact format "[Discussion Title](Link)". This is CRITICAL for the UI to display them correctly. For example: "Calculus notes are available in [B.Tech Data Science Notes](https://...). For web results, you can mention "I also saw online that..." but focus on driving traffic to the community where possible."
 5. **If No Forum Data**: If the Community Discussions section is empty, simply answer using the Web results and suggest: "I couldn't find a specific thread on Tribe about this yet, so you should definitely start one! Here is what I found online..."
 
-Start your response directly (no "Here is what I found"). Be helpful immediately.`
+Start your response directly (no "Here is what I found"). Be helpful immediately.
+
+6. **Follow-up Questions**: At the very end of your response, generate 3 relevant, short follow-up questions that the user might want to ask next. Format them strictly as a JSON array inside a specific delimiter like this:
+<<<FOLLOWUPS: ["Question 1?", "Question 2?", "Question 3?"]>>>`
 
   if (
     context.intent === 'general_question' &&

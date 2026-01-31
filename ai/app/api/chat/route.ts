@@ -58,6 +58,8 @@ interface ForumResult {
   link: string
   snippet: string
   username: string
+  createdAt?: string
+  score?: number
 }
 
 interface PostSuggestionResponse {
@@ -215,6 +217,10 @@ export async function POST(req: Request): Promise<Response> {
             snippet:
               r.content.slice(0, 150) + (r.content.length > 150 ? '...' : ''),
             username: r.username,
+            createdAt: r.createdAt
+              ? new Date(r.createdAt).toISOString()
+              : undefined,
+            score: r.score,
           })),
           suggestion: forumContext?.suggestion
             ? forumContext.suggestion
