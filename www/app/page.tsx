@@ -24,7 +24,6 @@ import Footer from '@/components/landing/Footer'
 import Marquee from '@/components/landing/Marquee'
 import ScrollSections from '@/components/landing/ScrollSections'
 import Navbar from '@/components/landing/Navbar'
-import Grain from '@/components/ui/Grain'
 import Modal from '@/components/ui/Modal'
 import PartnershipForm from '@/components/forms/PartnershipForm'
 import UniversityForm from '@/components/forms/UniversityForm'
@@ -77,7 +76,7 @@ const AnimatedTitle = ({ text }: { text: string }) => {
     <motion.h2
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-100px' }}
+      viewport={{ once: true, amount: 0.1, margin: '-50px' }}
       variants={containerVariants}
       className="text-2xl xs:text-3xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[1.1] md:leading-[0.9]"
     >
@@ -115,7 +114,7 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '100px' }}
           transition={{ delay: 0.3 }}
           className="text-muted-foreground text-base sm:text-lg md:text-xl mb-12 max-w-2xl mx-auto px-4 leading-relaxed"
         >
@@ -127,7 +126,7 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '100px' }}
           variants={buttonVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center max-w-[320px] sm:max-w-none mx-auto w-full group"
         >
@@ -158,7 +157,7 @@ const FinalCTA = ({ onOpenPartnership, onOpenUniversity }: FinalCTAProps) => {
 }
 
 const StatsSection = () => (
-  <section className="pt-12 sm:pt-20 pb-0 px-6 relative z-10 border-y border-transparent bg-transparent">
+  <section className="pt-16 sm:pt-0 pb-12 sm:pb-20 px-6 relative z-10 border-y border-transparent bg-transparent">
     <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8">
       {[
         { value: '500+', label: 'Universities', icon: GraduationCap },
@@ -170,8 +169,8 @@ const StatsSection = () => (
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: i * 0.1 }}
+          viewport={{ once: true, margin: '100px' }}
+          transition={{ delay: i * 0.05 }}
           className="text-center"
         >
           <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 mx-auto mb-3" />
@@ -211,15 +210,15 @@ const HOME_FAQS = [
 ]
 
 const HomeFAQs = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
   return (
     <section className="pt-16 sm:pt-24 pb-0 px-6 bg-transparent relative z-10">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+          viewport={{ once: true, margin: '100px' }}
+          className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tighter mb-4">
             Frequently Asked <span className="text-blue-500">Questions</span>
@@ -232,14 +231,10 @@ const HomeFAQs = () => {
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className={`border border-transparent rounded-2xl overflow-hidden transition-all duration-300 ${
+                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
                   isOpen
-                    ? 'bg-blue-500/5'
-                    : 'bg-zinc-900/20 hover:bg-zinc-900/40'
+                    ? 'bg-blue-500/5 border-blue-500/30 shadow-lg shadow-blue-500/10'
+                    : 'bg-card/30 border-white/5 hover:border-white/10'
                 }`}
               >
                 <button
@@ -300,7 +295,6 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen relative">
       <Navbar />
-      <Grain />
 
       {/* Global Brand Identity */}
       <ParallaxBackground />

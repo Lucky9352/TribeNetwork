@@ -118,8 +118,7 @@ const PostCard = ({ post, index }: { post: PostData; index: number }) => (
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
-      whileHover={{ scale: 1.02 }}
-      className="bg-transparent rounded-2xl p-4 transition-all cursor-pointer"
+      className="bg-transparent hover:bg-white/5 rounded-2xl p-4 transition-colors duration-200 cursor-pointer"
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
@@ -206,7 +205,7 @@ const BottomNav = ({
 )
 
 const FeedList = () => (
-  <div className="p-0 space-y-4 pt-16 pb-20 overflow-y-auto no-scrollbar h-full">
+  <div className="p-0 space-y-4 pt-16 pb-8 overflow-y-auto no-scrollbar h-full">
     {FEED_ITEMS.map((post, index) => (
       <PostCard key={post.id} post={post} index={index} />
     ))}

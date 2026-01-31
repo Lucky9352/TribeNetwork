@@ -193,6 +193,30 @@ export default function AdvertiseScreen() {
                   <span>Registrations: 300</span>
                 </div>
               </div>
+              <div className="bg-transparent border border-white/5 p-4 rounded-xl opacity-60">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-bold text-sm">Exam Prep Bundle</span>
+                  <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
+                    Ended
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs text-zinc-500">
+                  <span>Reach: 60k</span>
+                  <span>Conversions: 4.5%</span>
+                </div>
+              </div>
+              <div className="bg-transparent border border-white/5 p-4 rounded-xl opacity-60">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-bold text-sm">Summer Coding Camp</span>
+                  <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400">
+                    Ended
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs text-zinc-500">
+                  <span>Reach: 25k</span>
+                  <span>Enrollments: 150</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

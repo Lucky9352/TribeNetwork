@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { ShieldCheck, Loader2, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import Grain from '@/components/ui/Grain'
 import { motion } from 'framer-motion'
 
 /**
@@ -50,8 +49,6 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
-      <Grain />
-
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}

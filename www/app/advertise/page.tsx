@@ -22,7 +22,6 @@ import {
 } from 'lucide-react'
 import Navbar from '@/components/landing/Navbar'
 import Footer from '@/components/landing/Footer'
-import Grain from '@/components/ui/Grain'
 import PartnershipForm from '@/components/forms/PartnershipForm'
 import Modal from '@/components/ui/Modal'
 
@@ -216,7 +215,7 @@ const StatsSection = () => (
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '100px' }}
           transition={{ delay: i * 0.1 }}
           className="text-center"
         >
@@ -244,7 +243,7 @@ const ChannelsSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: '100px' }}
         className="text-center mb-10 sm:mb-12"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -262,7 +261,7 @@ const ChannelsSection = () => (
             key={channel.name}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '100px' }}
             transition={{ delay: i * 0.1 }}
             className="bg-card/30 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group text-center"
           >
@@ -290,7 +289,7 @@ const CapabilitiesSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: '100px' }}
         className="text-center mb-12 sm:mb-16"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -307,7 +306,7 @@ const CapabilitiesSection = () => (
             key={i}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '100px' }}
             transition={{ delay: i * 0.1 }}
             className="bg-card/30 border border-white/5 p-6 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
@@ -328,7 +327,7 @@ const CapabilitiesSection = () => (
 )
 
 const WorkflowSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const FAQS = [
     {
@@ -360,7 +359,7 @@ const WorkflowSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '100px' }}
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -379,7 +378,7 @@ const WorkflowSection = () => {
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: '100px' }}
                 transition={{ delay: i * 0.05 }}
                 className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
                   isOpen
@@ -448,7 +447,7 @@ const DashboardPreview = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '100px' }}
           className="text-center mb-10 sm:mb-12"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -462,7 +461,7 @@ const DashboardPreview = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '100px' }}
           className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-blue-500/10"
         >
           {/* Dashboard Header */}
@@ -616,7 +615,7 @@ const DashboardPreview = () => {
                             Reach
                           </span>
                           <span className="text-gray-300 text-xs font-mono">
-                            {c.reach}
+                            g{c.reach}
                           </span>
                         </div>
                         <div className="space-y-1">
@@ -645,7 +644,7 @@ const CTASection = ({ onOpenForm }: { onOpenForm: () => void }) => (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: '100px' }}
       className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-4xl sm:rounded-[2.5rem] p-8 sm:p-12 text-center relative overflow-hidden group"
     >
       <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
@@ -680,7 +679,6 @@ export default function AdvertisePage() {
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/30">
       <Navbar />
-      <Grain />
 
       <HeroSection onOpenForm={() => setIsFormOpen(true)} />
       <StatsSection />

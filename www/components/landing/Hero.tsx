@@ -75,7 +75,7 @@ const HeroContent = ({
   <motion.div
     initial="hidden"
     whileInView="visible"
-    viewport={{ once: true, amount: 0.1 }}
+    viewport={{ once: true, margin: '100px' }}
     variants={{
       hidden: { opacity: 0 },
       visible: {
@@ -153,12 +153,12 @@ const HeroContent = ({
 
 const HeroVisual = () => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
-    animate={{ opacity: 1, scale: 1, rotate: -6 }}
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.8, type: 'spring', delay: 0.2 }}
-    className="relative"
+    className="relative transform scale-[0.8] xs:scale-90 sm:scale-100 lg:scale-100 origin-top lg:origin-center transition-all duration-700"
   >
-    <PhoneMockup hideHeader={true}>
+    <PhoneMockup hideHeader={true} isStatic={true} noScroll={true}>
       <AppNavigation />
     </PhoneMockup>
   </motion.div>
@@ -191,7 +191,7 @@ export default function Hero({
         </div>
       </div>
 
-      <div className="absolute top-[101%] lg:top-[65%] left-0 right-0 -translate-y-1/2 z-0 opacity-100 pointer-events-none max-w-[100vw] overflow-visible">
+      <div className="absolute top-[97%] lg:top-[74%] left-0 right-0 -translate-y-1/2 z-0 opacity-100 pointer-events-none max-w-[100vw] overflow-visible">
         <TopicMarquee />
       </div>
     </section>

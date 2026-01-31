@@ -16,7 +16,7 @@ import React from 'react'
 export default function Grain() {
   return (
     <div
-      className="fixed inset-0 z-9999 pointer-events-none opacity-[0.03] animate-grain mix-blend-overlay"
+      className="fixed inset-0 z-9999 pointer-events-none opacity-[0.03] mix-blend-overlay will-change-transform"
       aria-hidden="true"
     >
       <svg className="w-full h-full" aria-hidden="true">
@@ -24,7 +24,7 @@ export default function Grain() {
           <feTurbulence
             type="fractalNoise"
             baseFrequency="0.6"
-            numOctaves={3}
+            numOctaves={1}
             stitchTiles="stitch"
           />
         </filter>

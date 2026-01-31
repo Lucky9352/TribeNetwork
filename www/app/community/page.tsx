@@ -18,7 +18,6 @@ import {
 } from 'lucide-react'
 import Navbar from '@/components/landing/Navbar'
 import Footer from '@/components/landing/Footer'
-import Grain from '@/components/ui/Grain'
 import { siteConfig } from '@/lib/site-config'
 
 /**
@@ -221,7 +220,7 @@ const StatsSection = () => (
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '100px' }}
           transition={{ delay: i * 0.1 }}
           className="text-center"
         >
@@ -244,7 +243,7 @@ const FeaturesSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: '100px' }}
         className="text-center mb-10 sm:mb-16"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -261,7 +260,7 @@ const FeaturesSection = () => (
             key={feature.title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '100px' }}
             transition={{ delay: i * 0.05 }}
             className="bg-card/30 border border-white/5 p-6 rounded-2xl hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
@@ -290,7 +289,7 @@ const CategoriesSection = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: '100px' }}
         className="text-center mb-12 sm:mb-16 px-4"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -307,7 +306,7 @@ const CategoriesSection = () => (
             key={cat.name}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '100px' }}
             transition={{ delay: i * 0.05 }}
             className="bg-card/30 border border-white/5 rounded-xl p-5 hover:border-blue-500/30 transition-all hover:bg-blue-500/5 group"
           >
@@ -339,7 +338,7 @@ const FAQSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '100px' }}
           className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground tracking-tighter mb-4">
@@ -355,7 +354,7 @@ const FAQSection = () => {
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: '100px' }}
                 transition={{ delay: i * 0.05 }}
                 className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
                   isOpen
@@ -416,7 +415,7 @@ const CTASection = () => (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: '100px' }}
       className="max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 text-center relative overflow-hidden group"
     >
       <div className="absolute inset-0 bg-linear-to-b from-blue-500/10 via-transparent to-blue-500/5 opacity-50" />
@@ -453,7 +452,6 @@ export default function CommunityPage() {
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-blue-500/30">
       <Navbar />
-      <Grain />
 
       <HeroSection />
       <StatsSection />

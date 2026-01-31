@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { StatusSelect } from '@/components/admin/StatusBadge'
 import { Button } from '@/components/ui/button'
-import Grain from '@/components/ui/Grain'
 import {
   Users,
   Building2,
@@ -236,8 +235,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-black text-foreground relative selection:bg-blue-500/30">
-      <Grain />
-
       {/* Header */}
       <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
