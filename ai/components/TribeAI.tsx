@@ -305,39 +305,69 @@ export function TribeAI() {
       timestamp: new Date(),
     }
 
-    const newMessages = [...messages, userMessage]
+    const initialAiMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      type: MessageType.AI,
+      content: '',
+      timestamp: new Date(),
+    }
+
+    const newMessages = [...messages, userMessage, initialAiMessage]
     setMessages(newMessages)
     setIsLoading(true)
     setIsNavOpen(false)
     setFollowUpSuggestions([])
 
-    try {
-      const aiResponse = await getChatResponse(newMessages)
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        type: MessageType.AI,
-        content: aiResponse,
-        timestamp: new Date(),
-      }
+    const historyToSend = [...messages, userMessage]
 
-      const updatedMessages = [...newMessages, aiMessage]
-      setMessages(updatedMessages)
-      setFollowUpSuggestions(getFollowUpSuggestions(aiResponse))
+    try {
+      let accumulatedContent = ''
+
+      await getChatResponse(historyToSend, {
+        onChunk: (chunk) => {
+          accumulatedContent += chunk
+          setMessages((prev) => {
+            const last = prev[prev.length - 1]
+            if (
+              last.type === MessageType.AI &&
+              last.id === initialAiMessage.id
+            ) {
+              return [
+                ...prev.slice(0, -1),
+                { ...last, content: accumulatedContent },
+              ]
+            }
+            return prev
+          })
+        },
+        onMetadata: (metadata) => {
+          if (metadata.suggestion) {
+          }
+        },
+      })
+
+      setFollowUpSuggestions(getFollowUpSuggestions(accumulatedContent))
 
       const convId = currentConversationId || Date.now().toString()
       const title = content.slice(0, 30) + (content.length > 30 ? '...' : '')
       const existingConv = conversations.find((c) => c.id === convId)
 
+      const finalMessages = [
+        ...messages,
+        userMessage,
+        { ...initialAiMessage, content: accumulatedContent },
+      ]
+
       let updatedConversations: Conversation[]
       if (existingConv) {
         updatedConversations = conversations.map((c) =>
-          c.id === convId ? { ...c, messages: updatedMessages } : c
+          c.id === convId ? { ...c, messages: finalMessages } : c
         )
       } else {
         const newConv: Conversation = {
           id: convId,
           title,
-          messages: updatedMessages,
+          messages: finalMessages,
           createdAt: new Date(),
         }
         updatedConversations = [newConv, ...conversations].slice(0, 20)
@@ -348,13 +378,13 @@ export function TribeAI() {
       saveConversations(updatedConversations)
     } catch (error) {
       const reason = error instanceof Error ? error.message : 'Unknown error'
-      const aiMessage: Message = {
-        id: (Date.now() + 2).toString(),
-        type: MessageType.AI,
-        content: `⚠️ Couldn't reach the AI: ${reason}. Please try again.`,
-        timestamp: new Date(),
-      }
-      setMessages((prev) => [...prev, aiMessage])
+      setMessages((prev) => [
+        ...prev.slice(0, -1),
+        {
+          ...initialAiMessage,
+          content: `⚠️ Couldn't reach the AI: ${reason}. Please try again.`,
+        },
+      ])
     } finally {
       setIsLoading(false)
     }

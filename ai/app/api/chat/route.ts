@@ -53,22 +53,6 @@ interface DeepSeekMessage {
   content: string
 }
 
-interface DeepSeekResponse {
-  id: string
-  choices: {
-    index: number
-    message: DeepSeekMessage
-    finish_reason: string
-  }[]
-  usage?: {
-    total_tokens: number
-  }
-  error?: {
-    message: string
-    code?: string
-  }
-}
-
 interface ForumResult {
   title: string
   link: string
@@ -109,7 +93,7 @@ interface ChatApiResponse {
  * @param {Request} req - The incoming HTTP request.
  * @returns {Promise<NextResponse>} JSON response containing the AI reply with forum context.
  */
-export async function POST(req: Request): Promise<NextResponse> {
+export async function POST(req: Request): Promise<Response> {
   if (!API_KEY) {
     return NextResponse.json(
       { error: 'Server configuration error: Missing API Key' },
@@ -199,7 +183,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         top_p: 0.9,
         presence_penalty: 0.4,
         frequency_penalty: 0.2,
-        stream: false,
+        stream: true,
       }),
     })
 
@@ -210,48 +194,77 @@ export async function POST(req: Request): Promise<NextResponse> {
       const errorMessage =
         errorData?.error?.message ||
         `Upstream API error: ${response.status} ${response.statusText}`
-
       const status = response.status === 429 ? 429 : 502
       return NextResponse.json({ error: errorMessage }, { status })
     }
 
-    const data = (await response.json()) as DeepSeekResponse
-    const content = data.choices?.[0]?.message?.content
+    const encoder = new TextEncoder()
+    const decoder = new TextDecoder()
 
-    if (!content) {
-      throw new Error('Received empty response from AI provider')
-    }
+    const stream = new ReadableStream({
+      async start(controller) {
+        const metadata: Partial<ChatApiResponse> = {
+          intent: forumContext?.intent,
+          forumResults: forumContext?.searchResults?.map((r) => ({
+            title: r.discussionTitle,
+            link: generatePostLink(
+              r.discussionId,
+              r.discussionSlug,
+              r.postNumber
+            ),
+            snippet:
+              r.content.slice(0, 150) + (r.content.length > 150 ? '...' : ''),
+            username: r.username,
+          })),
+          suggestion: forumContext?.suggestion
+            ? forumContext.suggestion
+            : undefined,
+          content: '',
+        }
+        controller.enqueue(
+          encoder.encode(JSON.stringify(metadata) + '\n__JSON_END__\n')
+        )
 
-    const apiResponse: ChatApiResponse = {
-      content,
-      intent: forumContext?.intent,
-    }
+        if (!response.body) {
+          controller.close()
+          return
+        }
+        const reader = response.body.getReader()
 
-    if (forumContext?.searchResults && forumContext.searchResults.length > 0) {
-      apiResponse.forumResults = forumContext.searchResults.map((r) => ({
-        title: r.discussionTitle,
-        link: generatePostLink(r.discussionId, r.discussionSlug, r.postNumber),
-        snippet:
-          r.content.slice(0, 150) + (r.content.length > 150 ? '...' : ''),
-        username: r.username,
-      }))
-    }
+        try {
+          while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
 
-    if (forumContext?.suggestion) {
-      apiResponse.suggestion = forumContext.suggestion
-    }
+            const chunk = decoder.decode(value)
+            const lines = chunk.split('\n').filter((l) => l.trim() !== '')
 
-    return NextResponse.json(apiResponse)
-  } catch (error) {
-    return NextResponse.json(
-      {
-        error:
-          error instanceof Error
-            ? error.message
-            : 'An unexpected error occurred',
+            for (const line of lines) {
+              if (line.includes('[DONE]')) continue
+              if (line.startsWith('data: ')) {
+                try {
+                  const data = JSON.parse(line.slice(6))
+                  const content = data.choices[0]?.delta?.content
+                  if (content) {
+                    controller.enqueue(encoder.encode(content))
+                  }
+                } catch {}
+              }
+            }
+          }
+        } catch (e) {
+          console.error('Streaming error', e)
+        } finally {
+          controller.close()
+        }
       },
-      { status: 500 }
-    )
+    })
+
+    return new Response(stream, {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    })
+  } catch {
+    return NextResponse.json({ error: 'Internal Error' }, { status: 500 })
   }
 }
 

@@ -23,7 +23,7 @@ const poolConfig = {
   keepAliveInitialDelay: 10000,
   ssl: {
     minVersion: 'TLSv1.2',
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
   },
 }
 

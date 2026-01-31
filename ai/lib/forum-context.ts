@@ -4,13 +4,17 @@
  * Prepares Flarum content as context for AI responses with improved prompts.
  */
 
-import { hybridSearch, formatResultsForContext } from './search'
+import { hybridSearch, formatResultsForContext, searchByTag } from './search'
 import {
   validateFlarumSession,
   extractFlarumToken,
   AuthenticatedUser,
 } from './flarum-auth'
 import type { FlarumSearchResult } from './flarum-types'
+import { getAllTags } from './tag-service'
+import { matchTags } from './tag-matcher'
+import { expandQuery } from './query-expander'
+import { rerankResults } from './reranker'
 
 /**
  * Classification of user intent.
@@ -104,21 +108,91 @@ export async function buildForumContext(
     return { intent, searchResults: [], formattedContext: '', user }
   }
 
-  const searchResults = await hybridSearch({
-    query: message,
-    userId: user?.id,
-    userGroups: user?.groupIds || [],
-    limit: 10,
-  })
+  /*
+   * 1. Smart Tag Matching
+   * Identify relevant tags based on user query to fetch highly specific content.
+   */
+  const availableTags = await getAllTags()
+  const matchedTags = await matchTags(message, availableTags)
 
-  const formattedContext = formatResultsForContext(searchResults)
+  /*
+   * 2. Query Expansion
+   * Generate variations of the query to catch synonyms.
+   */
+  const expandedQueries = await expandQuery(message)
+  const mainQuery = expandedQueries[0]
+  const alternativeQueries = expandedQueries.slice(1)
+
+  /*
+   * 3. Parallel Search Execution
+   * - Hybrid Search: Global keyword/embedding search for ALL expanded queries
+   * - Tag Search: Specific searches for each matched tag
+   */
+  const searchPromises = [
+    hybridSearch({
+      query: mainQuery,
+      userId: user?.id,
+      userGroups: user?.groupIds || [],
+      limit: 6,
+    }),
+  ]
+
+  if (alternativeQueries.length > 0) {
+    searchPromises.push(
+      hybridSearch({
+        query: alternativeQueries[0],
+        userId: user?.id,
+        userGroups: user?.groupIds || [],
+        limit: 4,
+      })
+    )
+  }
+
+  if (matchedTags.length > 0) {
+    console.log(
+      `[ForumContext] Matched tags: ${matchedTags.map((t) => t.slug).join(', ')}`
+    )
+    for (const tag of matchedTags) {
+      searchPromises.push(searchByTag(tag.slug, 5))
+    }
+  }
+
+  const results = await Promise.all(searchPromises)
+
+  const allResults = results.flat()
+  const seenPosts = new Set<number>()
+  const uniqueResults: FlarumSearchResult[] = []
+
+  for (const result of allResults) {
+    if (!seenPosts.has(result.postId)) {
+      seenPosts.add(result.postId)
+      uniqueResults.push(result)
+    }
+  }
+
+  uniqueResults.sort((a, b) => b.score - a.score)
+
+  /*
+   * 4. Reranking & Final Selection
+   * Use LLM to pick the absolute best results from the candidate pool.
+   */
+  const topCandidates = uniqueResults.slice(0, 20)
+  const finalResults = await rerankResults(message, topCandidates, 6)
+
+  const formattedContext = formatResultsForContext(finalResults)
 
   let suggestion: PostSuggestion | undefined
-  if (searchResults.length === 0) {
+  if (finalResults.length === 0) {
     suggestion = generatePostSuggestion(message)
   }
 
-  return { intent, searchResults, formattedContext, suggestion, user }
+  return {
+    intent,
+    searchResults: finalResults,
+    formattedContext,
+    suggestion,
+    user,
+  }
 }
 
 /**
